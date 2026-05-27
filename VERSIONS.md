@@ -18,7 +18,10 @@ Current versions of all skills. Agents can compare against local versions to che
 | content-strategy | 2.0.0 | 2026-05-05 |
 | copy-editing | 2.0.0 | 2026-05-05 |
 | copywriting | 2.0.0 | 2026-05-05 |
-| cro | 2.0.0 | 2026-05-05 |
+| cro | 3.0.0 | 2026-05-27 |
+| influencer-marketing | 1.0.0 | 2026-05-27 |
+| linkedin-marketing | 1.0.0 | 2026-05-27 |
+| product-led-growth | 1.0.0 | 2026-05-27 |
 | customer-research | 2.0.0 | 2026-05-05 |
 | directory-submissions | 2.0.0 | 2026-05-05 |
 | emails | 2.0.0 | 2026-05-05 |
@@ -48,6 +51,14 @@ Current versions of all skills. Agents can compare against local versions to che
 | video | 2.0.1 | 2026-05-18 |
 
 ## Recent Changes
+
+### 2.3.0 (2026-05-27)
+
+- Added `linkedin-marketing` skill — full LinkedIn strategy covering personal profile optimization, content strategy (3 post types, hook formulas, format guide), company page tactics, DM outreach framework, LinkedIn Ads setup, growth tactics, and 90-day growth plan.
+- Added `product-led-growth` skill — PLG strategy covering freemium model design, aha moment discovery, viral loop types (collaboration, sharing, referral, content, integration), viral coefficient calculation, free-to-paid conversion framework, PQL identification, PLG + sales motion, and full PLG audit checklist.
+- Added `influencer-marketing` skill — influencer and creator marketing covering tier selection, B2C vs. B2B strategy, finding influencers, outreach templates, creative briefs, compensation models (flat fee, gifting, affiliate, hybrid), ROI measurement, UGC-to-paid-ads multiplier, and three program playbooks (seeding, ambassador, performance/affiliate).
+- **cro** (2.0.0 → 3.0.0): Major upgrade. Added LIFT Model as primary analysis framework (Value Proposition, Relevance, Clarity, Anxiety, Distraction, Urgency), comprehensive psychological conversion triggers (social proof, authority, scarcity, loss aversion, commitment, reciprocity), copy formulas for headlines and CTAs, micro-copy examples, testimonial formula, objection handling matrix, prioritization matrix (impact vs. effort), and conversion rate benchmarks by page type.
+- Total skills: 45.
 
 ### 2.2.0 (2026-05-26)
 
