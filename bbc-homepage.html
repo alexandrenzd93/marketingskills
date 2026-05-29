@@ -1,0 +1,1709 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bleu Blanc Couture — L'Élégance Made in France</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --creme:     #FAF8F5;
+      --creme-dark:#F0EDE8;
+      --gold:      #C9A96E;
+      --gold-light:#D8BC8F;
+      --noir:      #1A1A1A;
+      --blanc:     #FFFFFF;
+      --gris:      #6B6B6B;
+      --font-display: 'Bodoni Moda', Georgia, serif;
+      --font-body:    'Raleway', sans-serif;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--creme);
+      color: var(--noir);
+      font-family: var(--font-body);
+      font-weight: 300;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    img { display: block; width: 100%; }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 20px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.4s ease, padding 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .nav.scrolled {
+      background: var(--creme);
+      padding: 14px 48px;
+      box-shadow: 0 1px 0 rgba(201,169,110,0.2);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--blanc);
+      transition: color 0.4s;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      white-space: nowrap;
+    }
+
+    .nav.scrolled .nav-logo {
+      color: var(--noir);
+    }
+
+    .nav-logo span {
+      color: var(--gold);
+    }
+
+    .nav-menu {
+      display: flex;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-menu a {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.3s;
+    }
+
+    .nav.scrolled .nav-menu a {
+      color: var(--noir);
+    }
+
+    .nav-menu a:hover {
+      color: var(--gold);
+    }
+
+    .nav-icons {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .nav-icon-btn {
+      background: none;
+      border: none;
+      cursor: pointer;
+      color: rgba(255,255,255,0.85);
+      transition: color 0.3s;
+      padding: 4px;
+    }
+
+    .nav.scrolled .nav-icon-btn {
+      color: var(--noir);
+    }
+
+    .nav-icon-btn:hover {
+      color: var(--gold);
+    }
+
+    .nav-icon-btn svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 1.5;
+    }
+
+    /* Mobile hamburger */
+    .nav-burger {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      padding: 4px;
+    }
+
+    .nav-burger span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background: rgba(255,255,255,0.85);
+      transition: background 0.4s;
+    }
+
+    .nav.scrolled .nav-burger span {
+      background: var(--noir);
+    }
+
+    /* =============================================
+       HERO
+    ============================================= */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        #0d0d0d 0%,
+        #1a1410 30%,
+        #221b12 55%,
+        #0d0d0d 100%
+      );
+    }
+
+    /* Texture overlay */
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(ellipse at 20% 50%, rgba(201,169,110,0.06) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(201,169,110,0.04) 0%, transparent 50%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 820px;
+      padding: 0 24px;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 28px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 0.3s;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(52px, 7vw, 96px);
+      font-weight: 400;
+      line-height: 1.05;
+      color: var(--blanc);
+      margin-bottom: 28px;
+      overflow: hidden;
+    }
+
+    .hero-title .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    .hero-title .word:nth-child(1) { animation: wordIn 0.7s cubic-bezier(0.22,1,0.36,1) forwards 0.6s; }
+    .hero-title .word:nth-child(2) { animation: wordIn 0.7s cubic-bezier(0.22,1,0.36,1) forwards 0.82s; }
+    .hero-title .word:nth-child(3) { animation: wordIn 0.7s cubic-bezier(0.22,1,0.36,1) forwards 1.04s; }
+    .hero-title .word:nth-child(4) { animation: wordIn 0.7s cubic-bezier(0.22,1,0.36,1) forwards 1.26s; }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 16px;
+      letter-spacing: 0.04em;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.65);
+      max-width: 560px;
+      margin: 0 auto 44px;
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.6s;
+    }
+
+    .hero-cta {
+      opacity: 0;
+      animation: fadeUp 0.8s ease forwards 1.9s;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--noir);
+      background: var(--gold);
+      padding: 16px 40px;
+      border: 1px solid var(--gold);
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+    }
+
+    .btn-primary:hover {
+      background: transparent;
+      color: var(--gold);
+      transform: translateY(-2px);
+    }
+
+    .btn-outline {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--noir);
+      background: transparent;
+      padding: 15px 40px;
+      border: 1px solid var(--noir);
+      transition: background 0.3s, color 0.3s, transform 0.3s;
+    }
+
+    .btn-outline:hover {
+      background: var(--noir);
+      color: var(--blanc);
+      transform: translateY(-2px);
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 2.4s;
+    }
+
+    .hero-scroll span {
+      font-family: var(--font-body);
+      font-size: 9px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+    }
+
+    .hero-scroll-line {
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(201,169,110,0.6), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* =============================================
+       SECTION UTILITIES
+    ============================================= */
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .gold-divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      margin: 0 auto;
+    }
+
+    .gold-divider-left {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    /* Fade-in on scroll */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* =============================================
+       MANIFESTE
+    ============================================= */
+    .manifeste {
+      background: var(--creme);
+      padding: 120px 48px;
+      text-align: center;
+    }
+
+    .manifeste-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(32px, 4.5vw, 58px);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--noir);
+      max-width: 860px;
+      margin: 0 auto 48px;
+      letter-spacing: -0.01em;
+    }
+
+    .manifeste-quote em {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .manifeste-body {
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    .manifeste-body p {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 2;
+      color: var(--gris);
+      margin-bottom: 12px;
+    }
+
+    .manifeste-body p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* =============================================
+       CRÉATRICES
+    ============================================= */
+    .creatrices {
+      background: var(--creme-dark);
+      padding: 100px 48px;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 64px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .section-sub {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 14px;
+      letter-spacing: 0.05em;
+      color: var(--gris);
+    }
+
+    .creatrices-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .creatrice-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--creme);
+      overflow: hidden;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .creatrice-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px rgba(26,26,26,0.1);
+    }
+
+    .creatrice-img {
+      height: 320px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .creatrice-img-bg {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s ease;
+    }
+
+    .creatrice-card:hover .creatrice-img-bg {
+      transform: scale(1.04);
+    }
+
+    /* Placeholder atelier My Tailor */
+    .creatrice-img-bg.mtj {
+      background: linear-gradient(135deg, #1a1208 0%, #2d2112 40%, #3d2e1a 70%, #1a1208 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .creatrice-img-bg.mtj::before {
+      content: '';
+      width: 60px;
+      height: 60px;
+      border: 1px solid rgba(201,169,110,0.4);
+      border-radius: 50%;
+      position: absolute;
+      top: 24px;
+      right: 24px;
+    }
+
+    .creatrice-img-bg.la8 {
+      background: linear-gradient(135deg, #0d1318 0%, #12202a 40%, #1a2e3a 70%, #0d1318 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .placeholder-monogram {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 72px;
+      font-weight: 400;
+      color: rgba(201,169,110,0.25);
+      letter-spacing: -0.02em;
+      user-select: none;
+    }
+
+    .creatrice-info {
+      padding: 36px 40px;
+    }
+
+    .creatrice-tag {
+      font-family: var(--font-body);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 12px;
+    }
+
+    .creatrice-name {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 400;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .creatrice-creator {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+
+    .creatrice-desc {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.9;
+      color: var(--gris);
+      margin-bottom: 32px;
+    }
+
+    .creatrice-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 32px;
+    }
+
+    .badge {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 9px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--noir);
+      border: 1px solid rgba(201,169,110,0.4);
+      padding: 6px 12px;
+    }
+
+    .creatrice-link {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--noir);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px solid var(--noir);
+      padding-bottom: 2px;
+      transition: color 0.3s, border-color 0.3s, gap 0.3s;
+    }
+
+    .creatrice-link:hover {
+      color: var(--gold);
+      border-color: var(--gold);
+      gap: 16px;
+    }
+
+    /* =============================================
+       PRODUITS
+    ============================================= */
+    .produits {
+      background: var(--creme);
+      padding: 100px 48px;
+    }
+
+    .produits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      max-width: 1200px;
+      margin: 0 auto 56px;
+    }
+
+    .product-card {
+      cursor: pointer;
+      transition: transform 0.4s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-8px);
+    }
+
+    .product-img {
+      height: 380px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .product-img-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 24px;
+      transition: transform 0.5s ease;
+    }
+
+    .product-card:hover .product-img-inner {
+      transform: scale(1.03);
+    }
+
+    .product-img-label {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 15px;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.02em;
+    }
+
+    /* Product placeholder colors */
+    .p-bg-1 { background: linear-gradient(160deg, #1a1a12 0%, #2a2618 100%); }
+    .p-bg-2 { background: linear-gradient(160deg, #161a14 0%, #222a1e 100%); }
+    .p-bg-3 { background: linear-gradient(160deg, #1a1812 0%, #2a2618 100%); }
+    .p-bg-4 { background: linear-gradient(160deg, #12161a 0%, #1e262e 100%); }
+    .p-bg-5 { background: linear-gradient(160deg, #181414 0%, #261e1e 100%); }
+    .p-bg-6 { background: linear-gradient(160deg, #141618 0%, #1e2226 100%); }
+
+    .product-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 0px solid var(--gold);
+      opacity: 0;
+      transition: opacity 0.3s, border-width 0.1s;
+      pointer-events: none;
+    }
+
+    .product-card:hover .product-img::after {
+      border-width: 1px;
+      opacity: 0.3;
+    }
+
+    .product-brand {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-style: italic;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+
+    .product-name {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--noir);
+      margin-bottom: 8px;
+    }
+
+    .product-price {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--noir);
+    }
+
+    .produits-cta {
+      text-align: center;
+    }
+
+    /* =============================================
+       VALEURS
+    ============================================= */
+    .valeurs {
+      background: var(--noir);
+      padding: 88px 48px;
+    }
+
+    .valeurs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 60px;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .valeur-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .valeur-icon {
+      width: 48px;
+      height: 48px;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    .valeur-title {
+      font-family: var(--font-display);
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--blanc);
+      letter-spacing: 0.03em;
+    }
+
+    .valeur-desc {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 13px;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.45);
+      letter-spacing: 0.03em;
+    }
+
+    /* =============================================
+       JOURNAL STRIP
+    ============================================= */
+    .journal-strip {
+      background: var(--creme);
+      padding: 80px 48px;
+      overflow: hidden;
+    }
+
+    .journal-marquee {
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+      animation: marquee 30s linear infinite;
+      margin-top: 48px;
+    }
+
+    .journal-marquee-inner {
+      display: flex;
+      gap: 0;
+    }
+
+    .journal-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 24px;
+      padding: 0 48px;
+      border-right: 1px solid rgba(201,169,110,0.2);
+    }
+
+    .journal-item-num {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 11px;
+      color: var(--gold);
+    }
+
+    .journal-item-text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--noir);
+    }
+
+    /* =============================================
+       NEWSLETTER
+    ============================================= */
+    .newsletter {
+      background: var(--creme-dark);
+      padding: 100px 48px;
+      text-align: center;
+    }
+
+    .newsletter-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 400;
+      margin-bottom: 16px;
+    }
+
+    .newsletter-sub {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 14px;
+      color: var(--gris);
+      margin-bottom: 40px;
+      letter-spacing: 0.04em;
+    }
+
+    .newsletter-form {
+      display: flex;
+      justify-content: center;
+      max-width: 480px;
+      margin: 0 auto;
+      border: 1px solid rgba(26,26,26,0.2);
+    }
+
+    .newsletter-input {
+      flex: 1;
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 16px 20px;
+      color: var(--noir);
+    }
+
+    .newsletter-input::placeholder {
+      color: rgba(26,26,26,0.4);
+    }
+
+    .newsletter-btn {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      background: var(--noir);
+      color: var(--blanc);
+      border: none;
+      padding: 16px 28px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .newsletter-btn:hover {
+      background: var(--gold);
+    }
+
+    .newsletter-note {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: rgba(26,26,26,0.35);
+      margin-top: 16px;
+      letter-spacing: 0.05em;
+    }
+
+    /* =============================================
+       FOOTER
+    ============================================= */
+    .footer {
+      background: var(--noir);
+      padding: 64px 48px 40px;
+    }
+
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 56px;
+      padding-bottom: 56px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      color: var(--blanc);
+      margin-bottom: 16px;
+    }
+
+    .footer-logo span {
+      color: var(--gold);
+    }
+
+    .footer-tagline {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.7;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-body);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-links a {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+      transition: color 0.3s;
+    }
+
+    .footer-links a:hover {
+      color: var(--gold);
+    }
+
+    .footer-socials {
+      display: flex;
+      gap: 16px;
+      margin-top: 8px;
+    }
+
+    .footer-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.5);
+      transition: border-color 0.3s, color 0.3s;
+    }
+
+    .footer-social:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .footer-social svg {
+      width: 15px;
+      height: 15px;
+    }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .footer-copy {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+    }
+
+    .footer-legal {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+
+    .footer-legal a {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+      transition: color 0.3s;
+    }
+
+    .footer-legal a:hover {
+      color: var(--gold);
+    }
+
+    /* =============================================
+       ANIMATIONS
+    ============================================= */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @keyframes wordIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.6; transform: scaleY(1); }
+      50%       { opacity: 1;   transform: scaleY(1.1); }
+    }
+
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* =============================================
+       RESPONSIVE — MOBILE (≤768px)
+    ============================================= */
+    @media (max-width: 768px) {
+      .nav {
+        padding: 16px 20px;
+      }
+
+      .nav.scrolled {
+        padding: 12px 20px;
+      }
+
+      .nav-menu {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: var(--creme);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 32px;
+        z-index: 99;
+      }
+
+      .nav-menu.open {
+        display: flex;
+      }
+
+      .nav-menu a {
+        color: var(--noir);
+        font-size: 14px;
+        letter-spacing: 0.12em;
+      }
+
+      .nav-burger {
+        display: flex;
+        z-index: 101;
+      }
+
+      .nav.scrolled .nav-burger span,
+      .nav-burger span {
+        background: var(--blanc);
+      }
+
+      .nav.scrolled .nav-burger span {
+        background: var(--noir);
+      }
+
+      .nav-logo {
+        font-size: 17px;
+      }
+
+      /* Hero */
+      .hero-title {
+        font-size: clamp(38px, 10vw, 56px);
+      }
+
+      .hero-subtitle {
+        font-size: 14px;
+      }
+
+      /* Manifeste */
+      .manifeste {
+        padding: 80px 24px;
+      }
+
+      /* Créatrices */
+      .creatrices {
+        padding: 72px 20px;
+      }
+
+      .creatrices-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+      }
+
+      .creatrice-img {
+        height: 260px;
+      }
+
+      .creatrice-info {
+        padding: 28px 24px;
+      }
+
+      /* Produits */
+      .produits {
+        padding: 72px 20px;
+      }
+
+      .produits-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+      }
+
+      .product-img {
+        height: 260px;
+      }
+
+      /* Valeurs */
+      .valeurs {
+        padding: 72px 24px;
+      }
+
+      .valeurs-grid {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      /* Newsletter */
+      .newsletter {
+        padding: 72px 20px;
+      }
+
+      .newsletter-form {
+        flex-direction: column;
+        border: none;
+        gap: 12px;
+      }
+
+      .newsletter-input {
+        border: 1px solid rgba(26,26,26,0.2);
+        padding: 14px 16px;
+      }
+
+      .newsletter-btn {
+        padding: 14px;
+      }
+
+      /* Footer */
+      .footer {
+        padding: 56px 20px 32px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .footer-legal {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+    }
+
+    /* =============================================
+       RESPONSIVE — TABLET (769–1024px)
+    ============================================= */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      .nav {
+        padding: 18px 32px;
+      }
+
+      .produits-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .creatrices-grid {
+        gap: 24px;
+      }
+
+      .footer-top {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       NAVIGATION
+  ============================================= -->
+  <nav class="nav" id="mainNav">
+    <!-- Left: menu -->
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#">Catalogue</a></li>
+      <li><a href="#">Nos Créateurs</a></li>
+      <li><a href="#">Journal BBC</a></li>
+      <li><a href="#">Notre Histoire</a></li>
+    </ul>
+
+    <!-- Center: logo -->
+    <a href="#" class="nav-logo">Bleu Blanc <span>Couture</span></a>
+
+    <!-- Right: icons -->
+    <div class="nav-icons">
+      <button class="nav-icon-btn" aria-label="Mon compte">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+      <button class="nav-icon-btn" aria-label="Panier">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+      </button>
+      <!-- Hamburger (mobile) -->
+      <button class="nav-burger" id="navBurger" aria-label="Menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- =============================================
+       HERO
+  ============================================= -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Collection Printemps — Été 2025</p>
+
+      <h1 class="hero-title">
+        <span class="word">L'Élégance</span>&nbsp;
+        <span class="word">Made</span>&nbsp;
+        <span class="word">in</span>&nbsp;
+        <span class="word">France</span>
+      </h1>
+
+      <p class="hero-subtitle">
+        Des créatrices françaises indépendantes. Des pièces fabriquées en France. Réunies en un seul endroit.
+      </p>
+
+      <div class="hero-cta">
+        <a href="#produits" class="btn-primary">Découvrir la sélection</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll">
+      <span>Défiler</span>
+      <div class="hero-scroll-line"></div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       MANIFESTE
+  ============================================= -->
+  <section class="manifeste">
+    <p class="section-label reveal">Le Manifeste</p>
+
+    <blockquote class="manifeste-quote reveal reveal-delay-1">
+      "Acheter <em>moins</em>. Acheter <em>mieux</em>. Acheter <em>français</em>."
+    </blockquote>
+
+    <div class="gold-divider reveal reveal-delay-2" style="margin-bottom: 40px;"></div>
+
+    <div class="manifeste-body reveal reveal-delay-3">
+      <p>La France est le pays de la mode. Du savoir-faire. Des ateliers. Des créateurs.</p>
+      <p>BBC est née d'un refus. Refus de la mode jetable. Refus de l'uniformisation. Refus de l'anonymat.</p>
+      <p>Nous réunissons des créatrices françaises indépendantes qui cousent, taillent et imaginent des pièces conçues pour durer — et pour vous ressembler.</p>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       NOS CRÉATRICES
+  ============================================= -->
+  <section class="creatrices">
+    <div class="section-header reveal">
+      <p class="section-label">Nos Partenaires</p>
+      <h2 class="section-title">Les Créatrices BBC</h2>
+      <p class="section-sub">Visitées, sélectionnées, certifiées Made in France</p>
+    </div>
+
+    <div class="creatrices-grid">
+
+      <!-- Card 1 : My Tailor is Joh -->
+      <article class="creatrice-card reveal">
+        <div class="creatrice-img">
+          <div class="creatrice-img-bg mtj">
+            <div class="placeholder-monogram">MTJ</div>
+          </div>
+        </div>
+        <div class="creatrice-info">
+          <p class="creatrice-tag">Paris · Marais</p>
+          <h3 class="creatrice-name">My Tailor is Joh</h3>
+          <p class="creatrice-creator">Johanna Richard — ex-Opéra de Paris</p>
+          <p class="creatrice-desc">
+            Johanna a quitté les coulisses de l'Opéra pour ouvrir son atelier dans le Marais. Elle taille des pièces femme haut de gamme dans des tissus deadstock issus de maisons de Haute Couture — une façon de faire vivre les matières les plus nobles à travers des silhouettes intemporelles.
+          </p>
+          <div class="creatrice-badges">
+            <span class="badge">Deadstock Haute Couture</span>
+            <span class="badge">Atelier Paris</span>
+            <span class="badge">Sur-mesure</span>
+          </div>
+          <a href="#" class="creatrice-link">
+            Découvrir la collection
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 5h14M10 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2 : La 8e Fois -->
+      <article class="creatrice-card reveal reveal-delay-2">
+        <div class="creatrice-img">
+          <div class="creatrice-img-bg la8">
+            <div class="placeholder-monogram">8</div>
+          </div>
+        </div>
+        <div class="creatrice-info">
+          <p class="creatrice-tag">Île-de-France</p>
+          <h3 class="creatrice-name">La 8e Fois</h3>
+          <p class="creatrice-creator">Florence Marceau</p>
+          <p class="creatrice-desc">
+            Florence crée des vêtements ajustables et upcyclés qui épousent votre corps à chaque étape de votre vie. Sa marque certifiée "Fabriqué à Paris 2024" incarne une mode responsable et sensible — des pièces qui racontent une histoire et refusent l'obsolescence.
+          </p>
+          <div class="creatrice-badges">
+            <span class="badge">Fabriqué à Paris 2024</span>
+            <span class="badge">Upcycling</span>
+            <span class="badge">Ajustable</span>
+          </div>
+          <a href="#" class="creatrice-link">
+            Découvrir la collection
+            <svg width="16" height="10" viewBox="0 0 16 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M1 5h14M10 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SÉLECTION PRODUITS
+  ============================================= -->
+  <section class="produits" id="produits">
+    <div class="section-header reveal">
+      <p class="section-label">La Sélection</p>
+      <h2 class="section-title">Pièces du Moment</h2>
+      <p class="section-sub">Disponibles maintenant — fabriquées en France</p>
+    </div>
+
+    <div class="produits-grid">
+
+      <!-- My Tailor is Joh products -->
+      <div class="product-card reveal">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-1">
+            <span class="product-img-label">Chemise Coton</span>
+          </div>
+        </div>
+        <p class="product-brand">My Tailor is Joh</p>
+        <p class="product-name">Chemise Coton Blanc</p>
+        <p class="product-price">190 €</p>
+      </div>
+
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-2">
+            <span class="product-img-label">Pantalon Laine</span>
+          </div>
+        </div>
+        <p class="product-brand">My Tailor is Joh</p>
+        <p class="product-name">Pantalon Laine Vert Sauge</p>
+        <p class="product-price">230 €</p>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-3">
+            <span class="product-img-label">Robe Tailleur</span>
+          </div>
+        </div>
+        <p class="product-brand">My Tailor is Joh</p>
+        <p class="product-name">Robe Tailleur Laine Grège</p>
+        <p class="product-price">320 €</p>
+      </div>
+
+      <!-- La 8e Fois products -->
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-4">
+            <span class="product-img-label">Jupe Emilie</span>
+          </div>
+        </div>
+        <p class="product-brand">La 8e Fois</p>
+        <p class="product-name">Jupe Emilie</p>
+        <p class="product-price">—</p>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-5">
+            <span class="product-img-label">Robe Emma</span>
+          </div>
+        </div>
+        <p class="product-brand">La 8e Fois</p>
+        <p class="product-name">Robe Emma</p>
+        <p class="product-price">—</p>
+      </div>
+
+      <div class="product-card reveal reveal-delay-3">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-6">
+            <span class="product-img-label">Bomber Fritz</span>
+          </div>
+        </div>
+        <p class="product-brand">La 8e Fois</p>
+        <p class="product-name">Bomber Fritz</p>
+        <p class="product-price">—</p>
+      </div>
+
+    </div>
+
+    <div class="produits-cta reveal">
+      <a href="#" class="btn-outline">Voir tous les produits</a>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       VALEURS BBC
+  ============================================= -->
+  <section class="valeurs">
+    <div class="valeurs-grid">
+
+      <div class="valeur-item reveal">
+        <svg class="valeur-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="24" cy="24" r="20" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M12 24l8 8 16-16" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M24 8v4M24 36v4M8 24h4M36 24h4" stroke="currentColor" stroke-width="1" stroke-linecap="round" opacity="0.4"/>
+        </svg>
+        <h3 class="valeur-title">100% Made in France</h3>
+        <p class="valeur-desc">Chaque pièce est fabriquée sur le sol français. Nous visitons chaque atelier et vérifions l'origine de chaque matière.</p>
+      </div>
+
+      <div class="valeur-item reveal reveal-delay-2">
+        <svg class="valeur-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M24 6C14 6 6 14 6 24s8 18 18 18 18-8 18-18" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M24 14v10l6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="36" cy="12" r="5" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M34 12l1.5 1.5L38 10" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <h3 class="valeur-title">Créatrices visitées</h3>
+        <p class="valeur-desc">Nous rencontrons chaque créatrice, visitons son atelier. Aucune marque n'intègre BBC sans ce rendez-vous essentiel.</p>
+      </div>
+
+      <div class="valeur-item reveal reveal-delay-4">
+        <svg class="valeur-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M8 16l4-6h24l4 6v22a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2V16z" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M8 16h32" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M20 16v-6M28 16v-6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M18 28c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <h3 class="valeur-title">Livraison soignée & retours offerts</h3>
+        <p class="valeur-desc">Vos commandes sont emballées avec soin. Les retours sont offerts sous 30 jours — sans condition, sans question.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       JOURNAL STRIP
+  ============================================= -->
+  <section class="journal-strip">
+    <div class="section-header reveal">
+      <p class="section-label">Journal BBC</p>
+      <h2 class="section-title">Dernières Parutions</h2>
+    </div>
+
+    <div class="journal-marquee">
+      <div class="journal-marquee-inner">
+        <div class="journal-item">
+          <span class="journal-item-num">01</span>
+          <span class="journal-item-text">Dans l'atelier de Johanna Richard — Paris, Marais</span>
+        </div>
+        <div class="journal-item">
+          <span class="journal-item-num">02</span>
+          <span class="journal-item-text">Le deadstock Haute Couture : une seconde vie pour les tissus nobles</span>
+        </div>
+        <div class="journal-item">
+          <span class="journal-item-num">03</span>
+          <span class="journal-item-text">Florence Marceau et l'art du vêtement ajustable</span>
+        </div>
+        <div class="journal-item">
+          <span class="journal-item-num">04</span>
+          <span class="journal-item-text">Pourquoi "Fabriqué en France" change tout</span>
+        </div>
+        <div class="journal-item">
+          <span class="journal-item-num">05</span>
+          <span class="journal-item-text">Guide d'entretien : faire durer ses pièces</span>
+        </div>
+      </div>
+      <!-- Duplicate for infinite scroll -->
+      <div class="journal-marquee-inner" aria-hidden="true">
+        <div class="journal-item">
+          <span class="journal-item-num">01</span>
+          <span class="journal-item-text">Dans l'atelier de Johanna Richard — Paris, Marais</span>
+        </div>
+        <div class="journal-item">
+          <span class="journal-item-num">02</span>
+          <span class="journal-item-text">Le deadstock Haute Couture : une seconde vie pour les tissus nobles</span>
+        </div>
+        <div class="journal-item">
+          <span class="journal-item-num">03</span>
+          <span class="journal-item-text">Florence Marceau et l'art du vêtement ajustable</span>
+        </div>
+        <div class="journal-item">
+          <span class="journal-item-num">04</span>
+          <span class="journal-item-text">Pourquoi "Fabriqué en France" change tout</span>
+        </div>
+        <div class="journal-item">
+          <span class="journal-item-num">05</span>
+          <span class="journal-item-text">Guide d'entretien : faire durer ses pièces</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       NEWSLETTER
+  ============================================= -->
+  <section class="newsletter">
+    <p class="section-label reveal">La Lettre BBC</p>
+    <h2 class="newsletter-title reveal reveal-delay-1">Rejoindre l'Atelier</h2>
+    <p class="newsletter-sub reveal reveal-delay-2">
+      Nouvelles collections, portraits de créatrices, essais mode.<br>
+      Une fois par mois. Rien de plus.
+    </p>
+    <form class="newsletter-form reveal reveal-delay-3" onsubmit="return false;">
+      <input
+        type="email"
+        class="newsletter-input"
+        placeholder="Votre adresse e-mail"
+        autocomplete="email"
+      />
+      <button type="submit" class="newsletter-btn">S'inscrire</button>
+    </form>
+    <p class="newsletter-note reveal reveal-delay-4">Données confidentielles. Désinscription en un clic.</p>
+  </section>
+
+
+  <!-- =============================================
+       FOOTER
+  ============================================= -->
+  <footer class="footer">
+    <div class="footer-top">
+
+      <div>
+        <div class="footer-logo">Bleu Blanc <span>Couture</span></div>
+        <p class="footer-tagline">
+          "Acheter moins.<br>
+          Acheter mieux.<br>
+          Acheter français."
+        </p>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Navigation</p>
+        <ul class="footer-links">
+          <li><a href="#">Catalogue</a></li>
+          <li><a href="#">Nos Créatrices</a></li>
+          <li><a href="#">Journal BBC</a></li>
+          <li><a href="#">Notre Histoire</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Suivre BBC</p>
+        <div class="footer-socials">
+          <!-- Instagram -->
+          <a href="#" class="footer-social" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+            </svg>
+          </a>
+          <!-- TikTok -->
+          <a href="#" class="footer-social" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Bleu Blanc Couture — SASU. Tous droits réservés.</p>
+      <ul class="footer-legal">
+        <li><a href="#">CGU</a></li>
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Mentions légales</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+
+  <!-- =============================================
+       JAVASCRIPT
+  ============================================= -->
+  <script>
+    // --- Nav scroll effect ---
+    const nav = document.getElementById('mainNav');
+    const onScroll = () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // --- Mobile menu toggle ---
+    const burger = document.getElementById('navBurger');
+    const menu   = document.getElementById('navMenu');
+
+    burger.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      burger.setAttribute('aria-expanded', isOpen);
+      // lock scroll when open
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    // Close menu when a link is clicked
+    menu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        menu.classList.remove('open');
+        document.body.style.overflow = '';
+      });
+    });
+
+    // --- Scroll reveal via IntersectionObserver ---
+    const reveals = document.querySelectorAll('.reveal');
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    reveals.forEach(el => revealObserver.observe(el));
+
+    // --- Smooth scroll for anchor links ---
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
