@@ -1,0 +1,33 @@
+<section class="section {{ section.settings.background }}">
+  <div class="container">
+    <div class="prose reveal">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.heading != blank -%}<h2>{{ section.settings.heading }}</h2>{%- endif -%}
+      {%- if section.settings.lead != blank -%}<p class="lead"{% if section.settings.heading == blank %} style="margin-top:1.4rem;"{% endif %}>{{ section.settings.lead }}</p>{%- endif -%}
+      <div class="rte{% if section.settings.dropcap %} rte--dropcap{% endif %}">{{ section.settings.body }}</div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Texte éditorial (prose)",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Fond",
+      "options": [
+        { "value": "bg-creme", "label": "Crème" },
+        { "value": "bg-creme-dark", "label": "Crème foncé" },
+        { "value": "bg-creme-medium", "label": "Crème moyen" }
+      ],
+      "default": "bg-creme"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Le Constat" },
+    { "type": "text", "id": "heading", "label": "Titre", "default": "La mode a oublié d'où elle venait" },
+    { "type": "textarea", "id": "lead", "label": "Citation d'introduction (italique)" },
+    { "type": "checkbox", "id": "dropcap", "label": "Lettrine sur le premier paragraphe", "default": true },
+    { "type": "richtext", "id": "body", "label": "Texte", "default": "<p>La France est le pays de la mode. Du savoir-faire. Des ateliers. Des créateurs. Et pourtant, jamais nos garde-robes n'ont été aussi remplies de vêtements anonymes, fabriqués loin, portés peu, oubliés vite.</p><p>Entre un luxe devenu inaccessible et une fast fashion qui épuise les corps et la planète, un espace s'est vidé : celui d'une mode rare, juste, fabriquée près de chez nous par des mains que l'on peut nommer.</p>" }
+  ],
+  "presets": [{ "name": "Texte éditorial (prose)" }]
+}
+{% endschema %}

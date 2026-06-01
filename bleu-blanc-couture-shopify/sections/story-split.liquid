@@ -1,0 +1,56 @@
+<section class="section {{ section.settings.background }}">
+  <div class="container">
+    <div class="story-split{% if section.settings.reverse %} story-split--reverse{% endif %}">
+      <div class="story-split__media reveal">
+        <div class="media {{ section.settings.tone | default: 'tone-atelier' }}">
+          {%- render 'image-layers', image: section.settings.image, alt: section.settings.title, sizes: '(min-width:768px) 50vw, 100vw' -%}
+        </div>
+        {%- if section.settings.tag != blank -%}<span class="story-split__tag">{{ section.settings.tag }}</span>{%- endif -%}
+      </div>
+      <div class="story-split__text reveal reveal-delay-1">
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        {%- if section.settings.title != blank -%}<h2 class="story-split__title">{{ section.settings.title }}</h2>{%- endif -%}
+        {%- if section.settings.body != blank -%}<div class="story-split__body rte">{{ section.settings.body }}</div>{%- endif -%}
+        {%- if section.settings.link_label != blank -%}
+          <a class="link-arrow story-split__link" href="{{ section.settings.link_url }}">{{ section.settings.link_label }} <span class="arrow">&rarr;</span></a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Histoire (split image/texte)",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Fond",
+      "options": [
+        { "value": "bg-creme", "label": "Crème" },
+        { "value": "bg-creme-dark", "label": "Crème foncé" },
+        { "value": "bg-creme-medium", "label": "Crème moyen" }
+      ],
+      "default": "bg-creme-medium"
+    },
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "checkbox", "id": "reverse", "label": "Inverser (texte à gauche)", "default": false },
+    { "type": "text", "id": "tag", "label": "Étiquette sur l'image", "default": "Depuis 2024" },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Notre Histoire" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Pourquoi Bleu Blanc Couture" },
+    { "type": "richtext", "id": "body", "label": "Texte", "default": "<p>La France est le pays de la mode. Du savoir-faire. Des ateliers. Des créateurs. Bleu Blanc Couture est née d'un refus — celui de la mode jetable, de l'uniformisation, de l'anonymat.</p><p>Entre le luxe inaccessible et la fast fashion, nous traçons une autre voie : celle d'une mode rare, française, et profondément humaine.</p>" },
+    { "type": "text", "id": "link_label", "label": "Texte du lien", "default": "En savoir plus" },
+    { "type": "url", "id": "link_url", "label": "Lien" },
+    {
+      "type": "select", "id": "tone", "label": "Teinte de repli (sans image)",
+      "options": [
+        { "value": "tone-atelier", "label": "Atelier" },
+        { "value": "tone-portrait", "label": "Portrait" },
+        { "value": "tone-stone", "label": "Pierre" },
+        { "value": "tone-grege", "label": "Grège" }
+      ],
+      "default": "tone-atelier"
+    }
+  ],
+  "presets": [{ "name": "Histoire (split image/texte)" }]
+}
+{% endschema %}

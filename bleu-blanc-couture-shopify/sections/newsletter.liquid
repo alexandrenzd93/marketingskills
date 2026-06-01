@@ -1,0 +1,55 @@
+<section class="section {{ section.settings.background }} newsletter">
+  <div class="container container--narrow">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow eyebrow--center reveal">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.title != blank -%}<h2 class="newsletter__title reveal reveal-delay-1">{{ section.settings.title }}</h2>{%- endif -%}
+    {%- if section.settings.subtitle != blank -%}<p class="newsletter__sub reveal reveal-delay-2">{{ section.settings.subtitle }}</p>{%- endif -%}
+
+    {%- if section.settings.show_form -%}
+      {%- form 'customer', class: 'newsletter__form reveal reveal-delay-3' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <input class="newsletter__input" type="email" name="contact[email]" placeholder="Votre adresse e-mail" aria-label="Votre adresse e-mail" required>
+        <button class="btn" type="submit" name="commit">S'inscrire</button>
+        {%- if form.posted_successfully? -%}
+          <p class="form-msg" role="status">{{ section.settings.success | default: 'Merci — bienvenue dans l’Atelier.' }}</p>
+        {%- elsif form.errors -%}
+          <p class="form-msg" role="status">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+        {%- endif -%}
+      {%- endform -%}
+    {%- else -%}
+      <div class="section-cta reveal reveal-delay-3">
+        {%- if section.settings.button_label != blank -%}<a class="btn btn--gold btn--lg" href="{{ section.settings.button_link }}">{{ section.settings.button_label }}</a>{%- endif -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.note != blank -%}<p class="newsletter__note reveal reveal-delay-4">{{ section.settings.note }}</p>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter / Appel à l'action",
+  "settings": [
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Fond",
+      "options": [
+        { "value": "bg-creme", "label": "Crème" },
+        { "value": "bg-creme-dark", "label": "Crème foncé" },
+        { "value": "bg-creme-medium", "label": "Crème moyen" }
+      ],
+      "default": "bg-creme"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "La Newsletter" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Rejoindre l'Atelier" },
+    { "type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "Nouveautés, portraits de créatrices, coulisses des ateliers. Une lettre rare — jamais plus d'une fois par mois." },
+    { "type": "checkbox", "id": "show_form", "label": "Afficher le formulaire d'inscription", "default": true },
+    { "type": "text", "id": "success", "label": "Message de succès", "default": "Merci — bienvenue dans l'Atelier." },
+    { "type": "text", "id": "note", "label": "Note (bas)", "default": "Désinscription en un clic · Vos données restent en France" },
+    { "type": "header", "content": "Mode bouton (si formulaire masqué)" },
+    { "type": "text", "id": "button_label", "label": "Texte du bouton" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" }
+  ],
+  "presets": [{ "name": "Newsletter / Appel à l'action" }]
+}
+{% endschema %}

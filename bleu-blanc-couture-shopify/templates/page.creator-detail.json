@@ -1,0 +1,57 @@
+{
+  "sections": {
+    "hero": {
+      "type": "creator-hero",
+      "settings": {
+        "eyebrow": "My Tailor is Joh · Paris",
+        "name": "Johanna<br>Richard",
+        "subtitle": "Ex-costumière de l'Opéra de Paris. Elle taille aujourd'hui un vestiaire féminin dans les tissus deadstock de la Haute Couture — pièce par pièce, dans son atelier du Marais.",
+        "meta": "Le Marais · Tailleur féminin · Tissus deadstock",
+        "tone": "tone-portrait",
+        "min_height": 88
+      }
+    },
+    "story": {
+      "type": "prose",
+      "settings": {
+        "background": "bg-creme",
+        "eyebrow": "L'Histoire",
+        "lead": "« J'ai appris à habiller des personnages avant d'habiller des femmes. La scène ne pardonne aucun défaut — c'est là que j'ai compris ce qu'était vraiment une coupe. »",
+        "dropcap": true,
+        "body": "<p>Pendant des années, Johanna Richard a conçu les costumes de l'Opéra de Paris. Un métier de précision, de matières nobles et de gestes répétés jusqu'à la perfection. Lorsqu'elle fonde My Tailor is Joh, elle emporte avec elle cette exigence — et une conviction : la beauté d'un vêtement se loge dans sa construction.</p><p>Plutôt que de commander des tissus neufs, elle puise dans le deadstock de la Haute Couture : ces étoffes magnifiques, produites en excès par les grandes maisons. Des laines, des soies, des lins d'une qualité rare — disponibles en quantités limitées, qui imposent de penser chaque pièce comme une édition.</p>"
+      }
+    },
+    "atelier": {
+      "type": "image-gallery",
+      "blocks": {
+        "g1": { "type": "image", "settings": { "tone": "tone-atelier", "wide": true } },
+        "g2": { "type": "image", "settings": { "tone": "tone-portrait" } },
+        "g3": { "type": "image", "settings": { "tone": "tone-grege" } },
+        "g4": { "type": "image", "settings": { "tone": "tone-stone" } },
+        "g5": { "type": "image", "settings": { "tone": "tone-marron-glace" } },
+        "g6": { "type": "image", "settings": { "tone": "tone-atelier", "wide": true } }
+      },
+      "block_order": ["g1", "g2", "g3", "g4", "g5", "g6"],
+      "settings": { "background": "bg-creme-dark", "eyebrow": "L'Atelier", "title": "Le Marais, Paris" }
+    },
+    "quote": {
+      "type": "pullquote",
+      "settings": { "background": "bg-creme", "quote": "Sauver un tissu, c'est déjà créer", "author": "Johanna Richard — My Tailor is Joh" }
+    },
+    "collections": {
+      "type": "collection-tags",
+      "blocks": {
+        "t1": { "type": "tag", "settings": { "label": "Conception" } },
+        "t2": { "type": "tag", "settings": { "label": "Illusion" } },
+        "t3": { "type": "tag", "settings": { "label": "Certitude" } },
+        "t4": { "type": "tag", "settings": { "label": "Sensation" } },
+        "t5": { "type": "tag", "settings": { "label": "Sœur" } },
+        "t6": { "type": "tag", "settings": { "label": "Palace" } },
+        "t7": { "type": "tag", "settings": { "label": "Évasion" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4", "t5", "t6", "t7"],
+      "settings": { "background": "bg-creme-dark", "eyebrow": "Ses Collections", "title": "Sept territoires, un même geste", "show_products": true, "products_to_show": 6, "cta_label": "Voir toutes les pièces" }
+    }
+  },
+  "order": ["hero", "story", "atelier", "quote", "collections"]
+}

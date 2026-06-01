@@ -1,0 +1,28 @@
+<section class="section {{ section.settings.background }}">
+  <div class="container">
+    <blockquote class="pullquote reveal">
+      {{ section.settings.quote }}<span class="dot">.</span>
+      {%- if section.settings.author != blank -%}<span class="pullquote__author">{{ section.settings.author }}</span>{%- endif -%}
+    </blockquote>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Citation",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Fond",
+      "options": [
+        { "value": "bg-creme", "label": "Crème" },
+        { "value": "bg-creme-dark", "label": "Crème foncé" },
+        { "value": "bg-creme-medium", "label": "Crème moyen" }
+      ],
+      "default": "bg-creme"
+    },
+    { "type": "textarea", "id": "quote", "label": "Citation (le point final est ajouté en or)", "default": "Entre le luxe inaccessible et la mode jetable, une autre voie" },
+    { "type": "text", "id": "author", "label": "Auteur (optionnel)" }
+  ],
+  "presets": [{ "name": "Citation" }]
+}
+{% endschema %}

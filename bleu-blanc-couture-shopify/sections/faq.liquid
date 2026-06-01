@@ -1,0 +1,74 @@
+<section class="section {{ section.settings.background }}" style="padding-top: clamp(20px,3vw,40px);">
+  <div class="container container--narrow">
+    {%- liquid
+      assign open = false
+      assign cat_index = 0
+      assign grp = 'faq'
+    -%}
+    {%- for block in section.blocks -%}
+      {%- case block.type -%}
+        {%- when 'category' -%}
+          {%- if open -%}</div></div>{%- endif -%}
+          {%- assign cat_index = cat_index | plus: 1 -%}
+          {%- assign grp = block.id -%}
+          <div class="faq-cat reveal" {{ block.shopify_attributes }}>
+            <h2 class="faq-cat__title"><span class="faq-cat__num">{{ cat_index | prepend: '0' | slice: -2, 2 }}</span>{{ block.settings.title }}</h2>
+            <div class="accordion-set">
+          {%- assign open = true -%}
+        {%- when 'item' -%}
+          <div class="accordion" data-accordion data-group="{{ grp }}" {{ block.shopify_attributes }}>
+            <button class="accordion__trigger" aria-expanded="false">{{ block.settings.question }}<span class="accordion__icon" aria-hidden="true"></span></button>
+            <div class="accordion__panel"><div class="accordion__panel-inner rte">{{ block.settings.answer }}</div></div>
+          </div>
+      {%- endcase -%}
+    {%- endfor -%}
+    {%- if open -%}</div></div>{%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "FAQ (accordéons)",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Fond",
+      "options": [
+        { "value": "bg-creme", "label": "Crème" },
+        { "value": "bg-creme-dark", "label": "Crème foncé" }
+      ],
+      "default": "bg-creme"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Catégorie",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre de la catégorie", "default": "Commandes & Livraison" }
+      ]
+    },
+    {
+      "type": "item",
+      "name": "Question / Réponse",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Quels sont les délais de livraison ?" },
+        { "type": "richtext", "id": "answer", "label": "Réponse", "default": "<p>En France métropolitaine, comptez 2 à 4 jours ouvrés après expédition.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ (accordéons)",
+      "blocks": [
+        { "type": "category", "settings": { "title": "Commandes & Livraison" } },
+        { "type": "item", "settings": { "question": "Quels sont les délais de livraison ?", "answer": "<p>En France métropolitaine, comptez 2 à 4 jours ouvrés après expédition. Chaque commande est préparée à la main, avec soin.</p>" } },
+        { "type": "item", "settings": { "question": "La livraison est-elle offerte ?", "answer": "<p>La livraison est offerte en France dès 200 € d'achat. En dessous, une participation forfaitaire de 6,90 € est appliquée.</p>" } },
+        { "type": "category", "settings": { "title": "Tailles & Essayage" } },
+        { "type": "item", "settings": { "question": "Comment choisir ma taille ?", "answer": "<p>Chaque fiche produit comporte un guide des tailles détaillé. En cas de doute, écrivez-nous.</p>" } },
+        { "type": "category", "settings": { "title": "Retours & Remboursements" } },
+        { "type": "item", "settings": { "question": "Quelle est votre politique de retour ?", "answer": "<p>Vous disposez de 30 jours après réception pour nous retourner une pièce non portée, dans son état d'origine.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

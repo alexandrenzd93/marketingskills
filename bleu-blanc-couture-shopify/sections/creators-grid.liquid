@@ -1,0 +1,111 @@
+<section class="section {{ section.settings.background }}">
+  <div class="container">
+    <div class="section-head reveal" style="margin-bottom: clamp(2.4rem, 4vw, 3.6rem);">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.title != blank -%}<h2 class="section-title">{{ section.settings.title }}</h2>{%- endif -%}
+      {%- if section.settings.subtitle != blank -%}<p class="section-sub">{{ section.settings.subtitle }}</p>{%- endif -%}
+    </div>
+
+    <div class="creators-grid">
+      {%- for block in section.blocks -%}
+        {%- assign delay = forloop.index0 -%}
+        {%- case block.type -%}
+          {%- when 'creator' -%}
+            {%- assign size_class = 'creator-card--sm' -%}
+            {%- if block.settings.size == 'feature' -%}{%- assign size_class = 'creator-card--feature' -%}{%- endif -%}
+            <article class="creator-card {{ size_class }} reveal{% if delay > 0 %} reveal-delay-{{ delay }}{% endif %}" {{ block.shopify_attributes }}>
+              <div class="media {{ block.settings.tone | default: 'tone-portrait' }}">
+                {%- render 'image-layers', image: block.settings.image, alt: block.settings.name, sizes: '(min-width:768px) 33vw, 100vw' -%}
+              </div>
+              {%- if block.settings.location != blank -%}
+                <span class="creator-card__loc">{%- render 'icon', name: 'location' -%}{{ block.settings.location }}</span>
+              {%- endif -%}
+              <h3 class="creator-card__name">{{ block.settings.name }}</h3>
+              {%- if block.settings.story != blank -%}<p class="creator-card__story">{{ block.settings.story }}</p>{%- endif -%}
+              {%- if block.settings.link_label != blank -%}
+                <a class="link-arrow creator-card__link" href="{{ block.settings.link_url }}">{{ block.settings.link_label }} <span class="arrow">&rarr;</span></a>
+              {%- endif -%}
+            </article>
+          {%- when 'soon' -%}
+            <div class="creator-soon reveal{% if delay > 0 %} reveal-delay-{{ delay }}{% endif %}" {{ block.shopify_attributes }}>
+              <span class="creator-soon__lock">{%- render 'icon', name: 'lock' -%}</span>
+              <p class="creator-soon__title">{{ block.settings.title | default: 'Bientôt' }}</p>
+              <p class="creator-soon__text">{{ block.settings.text }}</p>
+            </div>
+        {%- endcase -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Grille créateurs",
+  "settings": [
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Fond",
+      "options": [
+        { "value": "bg-creme", "label": "Crème" },
+        { "value": "bg-creme-dark", "label": "Crème foncé" },
+        { "value": "bg-creme-medium", "label": "Crème moyen" }
+      ],
+      "default": "bg-creme"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Nos Créateurs" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Les mains derrière les pièces" },
+    { "type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "Des créatrices françaises que nous avons choisies, rencontrées, et dont nous racontons l'histoire — une à une." }
+  ],
+  "blocks": [
+    {
+      "type": "creator",
+      "name": "Créateur",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        {
+          "type": "select", "id": "size", "label": "Taille de carte",
+          "options": [ { "value": "feature", "label": "Grande (vedette)" }, { "value": "small", "label": "Petite" } ],
+          "default": "small"
+        },
+        { "type": "text", "id": "location", "label": "Lieu", "default": "France" },
+        { "type": "text", "id": "name", "label": "Nom", "default": "Nom du créateur" },
+        { "type": "textarea", "id": "story", "label": "Description" },
+        { "type": "text", "id": "link_label", "label": "Texte du lien", "default": "Découvrir" },
+        { "type": "url", "id": "link_url", "label": "Lien" },
+        {
+          "type": "select", "id": "tone", "label": "Teinte de repli (sans photo)",
+          "options": [
+            { "value": "tone-portrait", "label": "Portrait" },
+            { "value": "tone-stone", "label": "Pierre" },
+            { "value": "tone-lingerie", "label": "Lingerie" },
+            { "value": "tone-grege", "label": "Grège" },
+            { "value": "tone-atelier", "label": "Atelier" }
+          ],
+          "default": "tone-portrait"
+        }
+      ]
+    },
+    {
+      "type": "soon",
+      "name": "Bientôt (placeholder)",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "Bientôt" },
+        { "type": "text", "id": "text", "label": "Texte", "default": "Une nouvelle créatrice rejoint l'atelier" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grille créateurs",
+      "blocks": [
+        { "type": "creator", "settings": { "size": "feature", "location": "Paris · Le Marais", "name": "My Tailor is Joh", "story": "Johanna Richard, ex-costumière de l'Opéra de Paris, taille un vestiaire féminin dans des tissus deadstock issus de la Haute Couture.", "link_label": "Découvrir l'atelier" } },
+        { "type": "creator", "settings": { "size": "small", "tone": "tone-stone", "location": "Île-de-France", "name": "La 8e Fois", "story": "Florence Marceau réinvente le vêtement upcyclé et ajustable, labellisé « Fabriqué à Paris 2024 ».", "link_label": "Découvrir" } },
+        { "type": "creator", "settings": { "size": "small", "tone": "tone-lingerie", "location": "France", "name": "Le Manoir à Lingerie", "story": "La lingerie française fine, pensée comme une seconde peau — délicate, juste, intemporelle.", "link_label": "Découvrir" } },
+        { "type": "soon", "settings": { "text": "Une nouvelle créatrice rejoint l'atelier" } },
+        { "type": "soon", "settings": { "text": "Un savoir-faire français à découvrir" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

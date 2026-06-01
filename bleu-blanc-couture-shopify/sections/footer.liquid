@@ -1,0 +1,104 @@
+{%- liquid
+  assign watermark = section.settings.watermark | default: 'BBC'
+-%}
+<footer class="site-footer">
+  {%- if watermark != blank -%}<span class="site-footer__watermark" aria-hidden="true">{{ watermark }}</span>{%- endif -%}
+  <div class="site-footer__inner container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <p class="footer-brand__logo">{{ settings.logo_text | default: shop.name }}</p>
+        {%- if section.settings.tagline != blank -%}
+          <p class="footer-brand__tag">{{ section.settings.tagline | newline_to_br }}</p>
+        {%- endif -%}
+      </div>
+
+      <nav class="footer-col" aria-label="Navigation pied de page">
+        <p class="footer-col__title">{{ section.settings.menu_title | default: 'Explorer' }}</p>
+        <div class="footer-nav">
+          {%- for link in linklists[section.settings.menu].links -%}
+            <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- endfor -%}
+        </div>
+      </nav>
+
+      <div class="footer-col">
+        <p class="footer-col__title">{{ section.settings.social_title | default: 'Suivre BBC' }}</p>
+        <div class="footer-social">
+          {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" target="_blank" rel="noopener" aria-label="Instagram">{%- render 'icon', name: 'instagram' -%}</a>{%- endif -%}
+          {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener" aria-label="TikTok">{%- render 'icon', name: 'tiktok' -%}</a>{%- endif -%}
+          {%- if settings.social_facebook != blank -%}<a href="{{ settings.social_facebook }}" target="_blank" rel="noopener" aria-label="Facebook">{%- render 'icon', name: 'facebook' -%}</a>{%- endif -%}
+          {%- if settings.social_pinterest != blank -%}<a href="{{ settings.social_pinterest }}" target="_blank" rel="noopener" aria-label="Pinterest">{%- render 'icon', name: 'pinterest' -%}</a>{%- endif -%}
+        </div>
+
+        {%- if section.settings.show_newsletter -%}
+          <div class="footer-news">
+            {%- if section.settings.newsletter_label != blank -%}<p class="footer-news__label">{{ section.settings.newsletter_label }}</p>{%- endif -%}
+            {%- form 'customer', class: 'footer-news__form' -%}
+              <input type="hidden" name="contact[tags]" value="newsletter">
+              <input class="footer-news__input" type="email" name="contact[email]" placeholder="E-mail" aria-label="Votre adresse e-mail" required>
+              <button class="footer-news__btn" type="submit" name="commit">S'inscrire</button>
+              {%- if form.posted_successfully? -%}
+                <p class="form-msg" role="status">Merci, c'est noté.</p>
+              {%- elsif form.errors -%}
+                <p class="form-msg" role="status">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+              {%- else -%}
+                <p class="form-msg" role="status" aria-live="polite"></p>
+              {%- endif -%}
+            {%- endform -%}
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-bottom__copy">© {{ 'now' | date: '%Y' }} {{ shop.name }} — {{ section.settings.copyright_suffix | default: 'Made in France' }}</p>
+      <nav class="footer-legal" aria-label="Mentions légales">
+        {%- for link in linklists[section.settings.legal_menu].links -%}
+          <a href="{{ link.url }}">{{ link.title }}</a>
+        {%- endfor -%}
+      </nav>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pied de page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Signature (multi-lignes)",
+      "default": "Acheter moins.\nAcheter mieux.\nAcheter français."
+    },
+    {
+      "type": "text",
+      "id": "watermark",
+      "label": "Filigrane (initiales)",
+      "default": "BBC"
+    },
+    {
+      "type": "header",
+      "content": "Colonne navigation"
+    },
+    { "type": "text", "id": "menu_title", "label": "Titre", "default": "Explorer" },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" },
+    {
+      "type": "header",
+      "content": "Colonne sociale & newsletter"
+    },
+    { "type": "text", "id": "social_title", "label": "Titre", "default": "Suivre BBC" },
+    { "type": "checkbox", "id": "show_newsletter", "label": "Afficher l'inscription newsletter", "default": true },
+    { "type": "text", "id": "newsletter_label", "label": "Texte newsletter", "default": "Recevez nos nouveautés et rendez-vous parisiens." },
+    {
+      "type": "header",
+      "content": "Bas de page"
+    },
+    { "type": "text", "id": "copyright_suffix", "label": "Mention copyright", "default": "Made in France" },
+    { "type": "link_list", "id": "legal_menu", "label": "Menu mentions légales", "default": "footer" }
+  ],
+  "enabled_on": {
+    "groups": ["footer"]
+  }
+}
+{% endschema %}

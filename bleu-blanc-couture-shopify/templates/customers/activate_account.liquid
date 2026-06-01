@@ -1,0 +1,14 @@
+<div class="page-header container">
+  <h1 class="page-title page-title--xl">Activer mon compte</h1>
+</div>
+<section class="section" style="padding-top: clamp(20px,3vw,40px);">
+  <div class="container container--narrow" style="max-width:460px;">
+    {%- form 'activate_customer_password' -%}
+      {{ form.errors | default_errors }}
+      <div class="field"><label for="ActivatePassword">Mot de passe</label><input type="password" id="ActivatePassword" name="customer[password]" autocomplete="new-password"></div>
+      <div class="field"><label for="ActivatePasswordConfirm">Confirmer le mot de passe</label><input type="password" id="ActivatePasswordConfirm" name="customer[password_confirmation]" autocomplete="new-password"></div>
+      <button class="btn btn--gold btn--block" type="submit">Activer mon compte</button>
+      <button class="btn btn--ghost btn--block" type="submit" name="decline" style="margin-top:.8rem;">Refuser l'invitation</button>
+    {%- endform -%}
+  </div>
+</section>

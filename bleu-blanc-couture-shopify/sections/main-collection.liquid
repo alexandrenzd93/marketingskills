@@ -1,0 +1,110 @@
+{%- paginate collection.products by section.settings.products_per_page -%}
+<div class="page-header container">
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="{{ routes.root_url }}">Accueil</a><span class="sep">/</span><span>{{ collection.title }}</span>
+  </nav>
+  {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+  <h1 class="page-title page-title--xl">{{ collection.title }}</h1>
+  {%- if collection.description != blank -%}
+    <div class="page-intro rte">{{ collection.description }}</div>
+  {%- elsif section.settings.intro != blank -%}
+    <p class="page-intro">{{ section.settings.intro }}</p>
+  {%- endif -%}
+</div>
+
+<section class="section" style="padding-top: clamp(20px,3vw,36px);">
+  <div class="container">
+    <form class="catalogue-layout" data-facet-form method="get">
+
+      {%- comment -%} -------- Filters -------- {%- endcomment -%}
+      {%- if collection.filters.size > 0 -%}
+        <button type="button" class="filter-toggle" data-filter-toggle aria-expanded="false">
+          {%- render 'icon', name: 'filter' -%} Filtrer
+        </button>
+
+        <aside class="filters" data-filter-panel aria-label="Filtres">
+          <div class="filters__head">
+            <h2>Filtrer</h2>
+            <a class="filters__reset" data-filter-reset href="{{ collection.url }}">Réinitialiser</a>
+          </div>
+
+          {%- if collection.sort_options.size > 0 -%}
+            <noscript><button type="submit" class="btn btn--ghost" style="margin-bottom:1rem;">Appliquer</button></noscript>
+          {%- endif -%}
+
+          {%- for filter in collection.filters -%}
+            <div class="filter-group">
+              <p class="filter-group__title">{{ filter.label }}</p>
+              {%- case filter.type -%}
+                {%- when 'price_range' -%}
+                  <div class="price-range">
+                    <input class="price-range__input" type="number" inputmode="decimal" name="{{ filter.min_value.param_name }}" value="{{ filter.min_value.value }}" placeholder="{{ 0 | money_without_currency }}" min="0" max="{{ filter.range_max | money_without_currency | strip }}">
+                    <span>–</span>
+                    <input class="price-range__input" type="number" inputmode="decimal" name="{{ filter.max_value.param_name }}" value="{{ filter.max_value.value }}" placeholder="{{ filter.range_max | money_without_currency }}" min="0" max="{{ filter.range_max | money_without_currency | strip }}">
+                  </div>
+                {%- else -%}
+                  {%- for value in filter.values -%}
+                    <label class="filter-opt">
+                      <input type="checkbox" name="{{ value.param_name }}" value="{{ value.value }}"{% if value.active %} checked{% endif %}{% if value.count == 0 and value.active == false %} disabled{% endif %}>
+                      {{ value.label }}<span class="count">{{ value.count }}</span>
+                    </label>
+                  {%- endfor -%}
+              {%- endcase -%}
+            </div>
+          {%- endfor -%}
+        </aside>
+      {%- endif -%}
+
+      {%- comment -%} -------- Grid -------- {%- endcomment -%}
+      <div>
+        <div class="catalogue-toolbar">
+          <p class="catalogue-count"><b>{{ collection.products_count }} {% if collection.products_count > 1 %}pièces{% else %}pièce{% endif %}</b></p>
+          {%- if collection.sort_options.size > 0 -%}
+            <div class="sort">
+              <label for="sort">Trier</label>
+              <select id="sort" name="sort_by" aria-label="Trier les produits">
+                {%- for option in collection.sort_options -%}
+                  <option value="{{ option.value }}"{% if option.value == collection.sort_by or option.value == collection.default_sort_by %} selected{% endif %}>{{ option.name }}</option>
+                {%- endfor -%}
+              </select>
+              <span class="sort__chev" aria-hidden="true"></span>
+            </div>
+          {%- endif -%}
+        </div>
+
+        {%- if collection.products.size > 0 -%}
+          <div class="product-grid">
+            {%- for product in collection.products -%}
+              {%- render 'product-card', product: product, index: forloop.index0 -%}
+            {%- endfor -%}
+          </div>
+
+          {%- if paginate.pages > 1 -%}
+            <div class="pagination">
+              {{ paginate | default_pagination | replace: '&laquo; Précédent', '←' | replace: 'Suivant &raquo;', '→' }}
+            </div>
+          {%- endif -%}
+        {%- else -%}
+          <div class="catalogue-empty" style="display:block;">
+            <p>Aucune pièce ne correspond à votre sélection.</p>
+            <p style="font-family:var(--font-body);font-style:normal;font-size:14px;color:var(--gris);margin-top:.6rem;">
+              <a href="{{ collection.url }}" style="color:var(--gold);">Réinitialiser les filtres</a>
+            </p>
+          </div>
+        {%- endif -%}
+      </div>
+    </form>
+  </div>
+</section>
+{%- endpaginate -%}
+
+{% schema %}
+{
+  "name": "Catalogue (collection)",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "La Collection" },
+    { "type": "textarea", "id": "intro", "label": "Introduction (si la collection n'a pas de description)", "default": "Toutes nos pièces Made in France, réunies. Chacune est confectionnée en France par l'une de nos créatrices, en série limitée." },
+    { "type": "range", "id": "products_per_page", "min": 8, "max": 24, "step": 4, "label": "Produits par page", "default": 12 }
+  ]
+}
+{% endschema %}

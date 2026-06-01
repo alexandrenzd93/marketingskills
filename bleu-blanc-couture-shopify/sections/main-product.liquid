@@ -1,0 +1,257 @@
+{%- liquid
+  assign p = product
+  assign current_variant = p.selected_or_first_available_variant
+  assign coll_name = p.metafields.custom.collection_name | default: p.type
+  assign mf = p.metafields.custom
+-%}
+
+<div class="page-header container" style="padding-bottom: clamp(16px,2vw,24px);">
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="{{ routes.root_url }}">Accueil</a><span class="sep">/</span>
+    <a href="{{ routes.all_products_collection_url }}">Catalogue</a><span class="sep">/</span>
+    <span>{{ p.title }}</span>
+  </nav>
+</div>
+
+<section class="section" style="padding-top: clamp(8px,2vw,20px);" data-product>
+  <div class="container">
+    <div class="product-page">
+
+      {%- comment -%} -------- Gallery -------- {%- endcomment -%}
+      <div class="gallery reveal">
+        <div class="gallery__main media {% unless p.featured_image %}tone-grege{% endunless %}">
+          <div class="media__layer media__layer--base"></div>
+          {%- if p.featured_image -%}
+            {%- assign main_alt = p.featured_image.alt | default: p.title -%}
+            <img class="media__img"
+              data-gallery-image
+              src="{{ p.featured_image | image_url: width: 1200 }}"
+              srcset="{{ p.featured_image | image_url: width: 600 }} 600w, {{ p.featured_image | image_url: width: 1000 }} 1000w, {{ p.featured_image | image_url: width: 1600 }} 1600w"
+              sizes="(min-width:1000px) 45vw, 100vw"
+              alt="{{ main_alt | escape }}"
+              width="600" height="800"
+              loading="eager">
+          {%- endif -%}
+          {%- if section.settings.show_badge -%}<span class="badge-mif"><span class="tri" aria-hidden="true"></span>{{ 'general.made_in_france' | t }}</span>{%- endif -%}
+        </div>
+
+        {%- if p.images.size > 1 -%}
+          <div class="gallery__thumbs">
+            {%- for image in p.images limit: 8 -%}
+              <button type="button" class="gallery__thumb media{% if forloop.first %} is-active{% endif %}"
+                data-gallery-thumb
+                data-src="{{ image | image_url: width: 1200 }}"
+                data-srcset="{{ image | image_url: width: 600 }} 600w, {{ image | image_url: width: 1200 }} 1200w"
+                aria-label="{{ p.title }} — vue {{ forloop.index }}">
+                <img class="media__img" src="{{ image | image_url: width: 200 }}" alt="" loading="lazy" width="78" height="104">
+              </button>
+            {%- endfor -%}
+          </div>
+        {%- endif -%}
+      </div>
+
+      {%- comment -%} -------- Info -------- {%- endcomment -%}
+      <div class="product-info reveal reveal-delay-1">
+        {%- if p.vendor != blank -%}
+          <a class="product-info__brand" href="{{ p.vendor | url_for_vendor }}">{{ p.vendor }}</a>
+        {%- endif -%}
+        <h1 class="product-info__title">{{ p.title }}</h1>
+        {%- if coll_name != blank -%}<p class="product-info__collection">Collection {{ coll_name }}</p>{%- endif -%}
+        <p class="product-info__price" data-product-price>
+          {%- if current_variant.compare_at_price > current_variant.price -%}
+            <s>{{ current_variant.compare_at_price | money }}</s> {{ current_variant.price | money }}
+          {%- else -%}
+            {{ current_variant.price | money }}
+          {%- endif -%}
+        </p>
+        {%- if p.description != blank -%}<div class="product-info__desc rte">{{ p.description }}</div>{%- endif -%}
+
+        {%- comment -%} -------- Variant JSON for JS -------- {%- endcomment -%}
+        <script type="application/json" data-variant-json>
+          [
+          {%- for v in p.variants -%}
+            {
+              "id": {{ v.id }},
+              "options": {{ v.options | json }},
+              "price": {{ v.price }},
+              "compare_at_price": {{ v.compare_at_price | default: 0 }},
+              "available": {{ v.available }}
+              {%- if v.featured_media -%},
+              "media_src": {{ v.featured_media.preview_image | image_url: width: 1200 | json }},
+              "media_srcset": {{ v.featured_media.preview_image | image_url: width: 1200 | append: ' 1200w' | json }}
+              {%- endif -%}
+            }{%- unless forloop.last -%},{%- endunless -%}
+          {%- endfor -%}
+          ]
+        </script>
+
+        {%- form 'product', p, data-product-form: '' -%}
+          <input type="hidden" name="id" data-variant-id value="{{ current_variant.id }}">
+
+          {%- unless p.has_only_default_variant -%}
+            {%- for option in p.options_with_values -%}
+              {%- assign opt_handle = option.name | downcase -%}
+              <div class="product-opt">
+                <div class="product-opt__label">
+                  <span>{{ option.name }}</span>
+                  {%- if opt_handle contains 'taille' or opt_handle contains 'size' -%}
+                    {%- if section.settings.size_guide_page != blank -%}<a href="{{ pages[section.settings.size_guide_page].url }}">Guide des tailles</a>{%- endif -%}
+                  {%- endif -%}
+                </div>
+                {%- if option.values.size <= 6 -%}
+                  <div class="size-selector" data-option-index="{{ forloop.index0 }}">
+                    {%- for value in option.values -%}
+                      <button type="button" class="size-btn{% if option.selected_value == value %} is-active{% endif %}" data-value="{{ value | escape }}">{{ value }}</button>
+                    {%- endfor -%}
+                  </div>
+                {%- else -%}
+                  <select class="variant-select" data-option-index="{{ forloop.index0 }}" aria-label="{{ option.name }}">
+                    {%- for value in option.values -%}
+                      <option value="{{ value | escape }}"{% if option.selected_value == value %} selected{% endif %}>{{ value }}</option>
+                    {%- endfor -%}
+                  </select>
+                {%- endif -%}
+              </div>
+            {%- endfor -%}
+          {%- endunless -%}
+
+          <div class="product-opt">
+            <div class="product-opt__label"><span>Quantité</span></div>
+            <div class="product-buy">
+              <div class="qty-stepper" data-qty>
+                <button type="button" data-qty-minus aria-label="Diminuer">−</button>
+                <input type="text" name="quantity" value="1" inputmode="numeric" aria-label="Quantité" readonly>
+                <button type="button" data-qty-plus aria-label="Augmenter">+</button>
+              </div>
+              <button class="btn btn--gold" type="submit" data-add-to-cart data-add-label="{{ 'products.add_to_cart' | t }}"{% unless current_variant.available %} disabled{% endunless %}>
+                <span>{% if current_variant.available %}{{ 'products.add_to_cart' | t }}{% else %}Épuisé{% endif %}</span>
+              </button>
+            </div>
+          </div>
+        {%- endform -%}
+
+        {%- if section.settings.appointment_label != blank -%}
+          <a class="product-secondary" href="{{ section.settings.appointment_link }}">
+            {%- render 'icon', name: 'calendar' -%}
+            {{ section.settings.appointment_label }}
+          </a>
+        {%- endif -%}
+
+        <div class="product-reassure">
+          {%- if section.settings.reassure_1 != blank -%}<span>{%- render 'icon', name: 'truck' -%}{{ section.settings.reassure_1 }}</span>{%- endif -%}
+          {%- if section.settings.reassure_2 != blank -%}<span>{%- render 'icon', name: 'return' -%}{{ section.settings.reassure_2 }}</span>{%- endif -%}
+          {%- if section.settings.reassure_3 != blank -%}<span>{%- render 'icon', name: 'shield' -%}{{ section.settings.reassure_3 }}</span>{%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{%- comment -%} -------- Passeport de Fabrication (from product metafields) -------- {%- endcomment -%}
+{%- if section.settings.show_passeport -%}
+  {%- assign has_passeport = false -%}
+  {%- if mf.atelier != blank or mf.matiere != blank or mf.temps_confection != blank or mf.creatrice != blank or mf.origine != blank or mf.edition != blank -%}{%- assign has_passeport = true -%}{%- endif -%}
+  {%- if has_passeport -%}
+    <section class="section bg-creme-dark">
+      <div class="container container--narrow">
+        <div class="passeport reveal">
+          <div class="passeport__head">
+            <span class="passeport__seal">{{ section.settings.passeport_seal | default: 'BBC' }}</span>
+            <p class="passeport__kicker">{{ section.settings.passeport_kicker | default: "Certificat d'authenticité" }}</p>
+            <h2 class="passeport__title">{{ section.settings.passeport_title | default: 'Passeport de Fabrication' }}</h2>
+          </div>
+          {%- if mf.atelier != blank -%}<div class="passeport__row"><span class="passeport__k">Atelier</span><span class="passeport__v">{{ mf.atelier }}</span></div>{%- endif -%}
+          {%- if mf.matiere != blank -%}<div class="passeport__row"><span class="passeport__k">Matière</span><span class="passeport__v">{{ mf.matiere }}</span></div>{%- endif -%}
+          {%- if mf.temps_confection != blank -%}<div class="passeport__row"><span class="passeport__k">Temps de confection</span><span class="passeport__v">{{ mf.temps_confection }}</span></div>{%- endif -%}
+          {%- if mf.creatrice != blank -%}<div class="passeport__row"><span class="passeport__k">Créatrice</span><span class="passeport__v">{{ mf.creatrice }}</span></div>{%- endif -%}
+          {%- if mf.origine != blank -%}<div class="passeport__row"><span class="passeport__k">Origine</span><span class="passeport__v">{{ mf.origine }}</span></div>{%- endif -%}
+          {%- if mf.edition != blank -%}<div class="passeport__row"><span class="passeport__k">Édition</span><span class="passeport__v">{{ mf.edition }}</span></div>{%- endif -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+{%- endif -%}
+
+{%- comment -%} -------- Details accordions -------- {%- endcomment -%}
+<section class="section">
+  <div class="container container--narrow">
+    <div class="accordion-set">
+      <div class="accordion open" data-accordion data-group="produit">
+        <button class="accordion__trigger" aria-expanded="true">Description détaillée<span class="accordion__icon" aria-hidden="true"></span></button>
+        <div class="accordion__panel"><div class="accordion__panel-inner rte">{{ p.description | default: '<p>Description à venir.</p>' }}</div></div>
+      </div>
+      {%- if mf.matieres_entretien != blank -%}
+        <div class="accordion" data-accordion data-group="produit">
+          <button class="accordion__trigger" aria-expanded="false">Matières &amp; entretien<span class="accordion__icon" aria-hidden="true"></span></button>
+          <div class="accordion__panel"><div class="accordion__panel-inner rte">{{ mf.matieres_entretien | metafield_tag }}</div></div>
+        </div>
+      {%- endif -%}
+      {%- if section.settings.shipping_text != blank -%}
+        <div class="accordion" data-accordion data-group="produit">
+          <button class="accordion__trigger" aria-expanded="false">Livraison &amp; retours<span class="accordion__icon" aria-hidden="true"></span></button>
+          <div class="accordion__panel"><div class="accordion__panel-inner rte">{{ section.settings.shipping_text }}</div></div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{%- comment -%} -------- Same atelier / related -------- {%- endcomment -%}
+{%- if section.settings.show_related -%}
+  {%- liquid
+    assign related = null
+    for c in p.collections
+      unless c.handle == 'frontpage' or c.handle == 'all'
+        assign related = c
+        break
+      endunless
+    endfor
+  -%}
+  {%- if related and related.products_count > 1 -%}
+    <section class="section bg-creme">
+      <div class="container">
+        <div class="section-head section-head--center reveal" style="margin-bottom: clamp(2.4rem,4vw,3.4rem);">
+          <p class="eyebrow eyebrow--center">{{ section.settings.related_eyebrow | default: 'Du même atelier' }}</p>
+          <h2 class="section-title">{{ p.vendor | default: related.title }}</h2>
+        </div>
+        <div class="product-grid" style="grid-template-columns:repeat(3,1fr);">
+          {%- assign shown = 0 -%}
+          {%- for rp in related.products -%}
+            {%- if rp.id != p.id and shown < 3 -%}
+              {%- render 'product-card', product: rp, index: forloop.index0 -%}
+              {%- assign shown = shown | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      </div>
+    </section>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Fiche produit",
+  "settings": [
+    { "type": "checkbox", "id": "show_badge", "label": "Badge \"Made in France\" sur l'image", "default": true },
+    { "type": "page", "id": "size_guide_page", "label": "Page guide des tailles" },
+    { "type": "header", "content": "Prendre rendez-vous (essayage)" },
+    { "type": "text", "id": "appointment_label", "label": "Texte du lien", "default": "Prendre rendez-vous pour l'essayer à Paris" },
+    { "type": "url", "id": "appointment_link", "label": "Lien" },
+    { "type": "header", "content": "Réassurance" },
+    { "type": "text", "id": "reassure_1", "label": "Argument 1", "default": "Livraison offerte dès 200 €" },
+    { "type": "text", "id": "reassure_2", "label": "Argument 2", "default": "Retours sous 30 jours" },
+    { "type": "text", "id": "reassure_3", "label": "Argument 3", "default": "Paiement sécurisé" },
+    { "type": "header", "content": "Passeport de Fabrication" },
+    { "type": "paragraph", "content": "Renseignez les champs via les métachamps produit (namespace custom) : atelier, matiere, temps_confection, creatrice, origine, edition, matieres_entretien." },
+    { "type": "checkbox", "id": "show_passeport", "label": "Afficher le passeport", "default": true },
+    { "type": "text", "id": "passeport_seal", "label": "Sceau (initiales)", "default": "BBC" },
+    { "type": "text", "id": "passeport_kicker", "label": "Sur-titre", "default": "Certificat d'authenticité" },
+    { "type": "text", "id": "passeport_title", "label": "Titre", "default": "Passeport de Fabrication" },
+    { "type": "header", "content": "Livraison & retours (accordéon)" },
+    { "type": "richtext", "id": "shipping_text", "label": "Texte", "default": "<p>Livraison offerte en France dès 200 € (2 à 4 jours ouvrés). Expédition soignée dans un emballage signé BBC.</p><p>Retours gratuits sous 30 jours.</p>" },
+    { "type": "header", "content": "Produits liés" },
+    { "type": "checkbox", "id": "show_related", "label": "Afficher \"Du même atelier\"", "default": true },
+    { "type": "text", "id": "related_eyebrow", "label": "Sur-titre", "default": "Du même atelier" }
+  ]
+}
+{% endschema %}

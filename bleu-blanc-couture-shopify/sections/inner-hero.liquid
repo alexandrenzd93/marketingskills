@@ -1,0 +1,41 @@
+{%- liquid
+  assign align = 'flex-end'
+  if section.settings.align == 'center'
+    assign align = 'center'
+  endif
+-%}
+<section class="inner-hero" style="align-items:{{ align }}; min-height:{{ section.settings.min_height | default: 78 }}vh; {% if section.settings.bg_opacity %}--hero-bg-opacity:{{ section.settings.bg_opacity | divided_by: 100.0 }};{% endif %}">
+  {%- if section.settings.background_image != blank -%}
+    {{ section.settings.background_image | image_url: width: 2400 | image_tag: class: 'inner-hero__bg', widths: '800,1200,1600,2400', sizes: '100vw', loading: 'eager', alt: '' }}
+  {%- endif -%}
+  <div class="grain" aria-hidden="true"></div>
+  <div class="hero__glow" aria-hidden="true"></div>
+  <div class="inner-hero__inner container">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow inner-hero__eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+    {%- if section.settings.title != blank -%}<h1 class="inner-hero__title">{{ section.settings.title }}</h1>{%- endif -%}
+    {%- if section.settings.subtitle != blank -%}<p class="inner-hero__sub">{{ section.settings.subtitle }}</p>{%- endif -%}
+  </div>
+  {%- if section.settings.meta != blank -%}<p class="inner-hero__meta">{{ section.settings.meta }}</p>{%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Héros intérieur (sombre)",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Notre Histoire" },
+    { "type": "text", "id": "title", "label": "Titre (le saut de ligne <br> est accepté)", "default": "Née d'un refus" },
+    { "type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "La France est le pays de la mode, du savoir-faire, des ateliers. Bleu Blanc Couture est née de la volonté de lui rendre sa place." },
+    { "type": "text", "id": "meta", "label": "Méta (bas)", "default": "Paris · Depuis 2024" },
+    {
+      "type": "select", "id": "align", "label": "Alignement vertical",
+      "options": [ { "value": "flex-end", "label": "Bas" }, { "value": "center", "label": "Centre" } ],
+      "default": "flex-end"
+    },
+    { "type": "range", "id": "min_height", "min": 50, "max": 100, "step": 2, "unit": "vh", "label": "Hauteur", "default": 78 },
+    { "type": "header", "content": "Image de fond (optionnel)" },
+    { "type": "image_picker", "id": "background_image", "label": "Image" },
+    { "type": "range", "id": "bg_opacity", "min": 10, "max": 100, "step": 5, "unit": "%", "label": "Opacité", "default": 55 }
+  ],
+  "presets": [{ "name": "Héros intérieur (sombre)" }]
+}
+{% endschema %}

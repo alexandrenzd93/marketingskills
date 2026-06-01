@@ -1,0 +1,4 @@
+{
+  "sections": { "main": { "type": "main-list-collections", "settings": { "eyebrow": "Les Maisons", "title": "Nos Collections" } } },
+  "order": ["main"]
+}

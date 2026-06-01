@@ -1,0 +1,45 @@
+<div class="page-header container">
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="{{ routes.root_url }}">Accueil</a><span class="sep">/</span><a href="{{ blog.url }}">{{ blog.title }}</a><span class="sep">/</span><span>{{ article.title }}</span>
+  </nav>
+</div>
+
+<article class="section" style="padding-top: clamp(8px,2vw,20px);">
+  <div class="container container--narrow">
+    {%- if article.tags.size > 0 -%}<p class="eyebrow">{{ article.tags.first }}</p>{%- endif -%}
+    <h1 class="page-title page-title--xl" style="margin-bottom:1rem;">{{ article.title }}</h1>
+    <p class="journal-featured__meta" style="margin-bottom: clamp(1.6rem,3vw,2.4rem);">
+      {{ article.published_at | date: '%-d %B %Y' }}{% if article.author != blank %} · {{ article.author }}{% endif %}
+    </p>
+  </div>
+
+  {%- if article.image -%}
+    <div class="container">
+      <div class="media tone-atelier" style="aspect-ratio:16/9;border-radius:var(--radius);margin-bottom: clamp(2rem,4vw,3.4rem);">
+        {%- render 'image-layers', image: article.image, alt: article.title, sizes: '100vw', loading: 'eager' -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  <div class="container container--narrow">
+    <div class="prose"><div class="rte">{{ article.content }}</div></div>
+
+    {%- if blog.comments_enabled? -%}
+      <div style="margin-top: clamp(2.4rem,5vw,4rem);">
+        {%- if article.comments_count > 0 -%}
+          <h2 class="section-title" style="font-size:24px;margin-bottom:1.4rem;">{{ article.comments_count }} commentaire{% if article.comments_count > 1 %}s{% endif %}</h2>
+          {%- for comment in article.comments -%}
+            <div style="border-top:1px solid var(--line);padding:18px 0;">
+              <p style="font-weight:500;">{{ comment.author }}</p>
+              <div class="rte">{{ comment.content }}</div>
+            </div>
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+</article>
+
+{% schema %}
+{ "name": "Article", "settings": [] }
+{% endschema %}

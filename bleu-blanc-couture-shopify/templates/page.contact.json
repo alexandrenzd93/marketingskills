@@ -1,0 +1,32 @@
+{
+  "sections": {
+    "header": {
+      "type": "page-header",
+      "settings": {
+        "show_breadcrumb": true,
+        "eyebrow": "Nous rencontrer",
+        "title": "Contact & Rendez-vous",
+        "intro": "<p>Une question, une commande, l'envie d'essayer une pièce ? Écrivez-nous, ou réservez un moment dans notre espace parisien.</p>"
+      }
+    },
+    "contact": {
+      "type": "contact",
+      "blocks": {
+        "a1": { "type": "detail", "settings": { "title": "L'adresse", "value": "<p>Espace BBC, sur rendez-vous<br>Le Marais — 75003 Paris<br>France</p>" } },
+        "a2": { "type": "detail", "settings": { "title": "Nous joindre", "value": "<p>bonjour@bleublancouture.fr<br>+33 1 00 00 00 00</p>" } },
+        "a3": { "type": "detail", "settings": { "title": "Horaires", "value": "<p>Mardi – Samedi · 11h – 19h<br>Sur rendez-vous uniquement<br>Dimanche & Lundi · fermé</p>" } }
+      },
+      "block_order": ["a1", "a2", "a3"],
+      "settings": {
+        "background": "bg-creme",
+        "note": "Chez Bleu Blanc Couture, l'achat est une décision réfléchie. Prenez rendez-vous, nous vous accueillons personnellement dans notre espace parisien.",
+        "booking_eyebrow": "Sur rendez-vous",
+        "booking_title": "Réservez votre essayage privé — Paris",
+        "booking_text": "Un moment rien qu'à vous : nous sortons les pièces qui vous intéressent, vous les essayez tranquillement, sans pression d'achat.",
+        "booking_cta_label": "Choisir un créneau",
+        "map_label": "Le Marais · 75003 Paris"
+      }
+    }
+  },
+  "order": ["header", "contact"]
+}

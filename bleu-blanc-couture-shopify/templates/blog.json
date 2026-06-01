@@ -1,0 +1,18 @@
+{
+  "sections": {
+    "main": { "type": "main-blog", "settings": { "eyebrow": "Lectures de l'atelier" } },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "background": "bg-creme-dark",
+        "eyebrow": "La Newsletter",
+        "title": "Ne rien manquer",
+        "subtitle": "Nos nouveaux articles et nos rencontres d'atelier, une fois par mois, dans votre boîte mail.",
+        "show_form": true,
+        "success": "Merci — à très vite dans votre boîte mail.",
+        "note": ""
+      }
+    }
+  },
+  "order": ["main", "newsletter"]
+}

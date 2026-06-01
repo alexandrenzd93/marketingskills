@@ -1,0 +1,61 @@
+{%- comment -%}
+  BBC product card. Uses real Shopify product data, with the editorial design
+  preserved. Falls back to a coloured "tone" placeholder when a product has no
+  image yet.
+
+  Parameters:
+    product     - (product) required
+    index       - (number) loop index, used to vary the fallback tone
+    reveal      - (boolean) add scroll-reveal animation class (default true)
+    show_badge  - (boolean) show the "Made in France" badge (default true)
+    sizes       - (string) responsive sizes attribute
+{%- endcomment -%}
+{%- liquid
+  assign tones = 'tone-grege,tone-ivoire,tone-sauge,tone-denim,tone-rose,tone-marron-glace,tone-bleu,tone-stone' | split: ','
+  assign i = index | default: 0
+  assign mod = i | modulo: 8
+  assign tone = tones[mod] | default: 'tone-grege'
+
+  assign brand = product.vendor | default: ''
+  assign coll_name = product.metafields.custom.collection_name | default: product.type
+
+  assign reveal_class = ''
+  unless reveal == false
+    assign reveal_class = 'reveal'
+  endunless
+
+  assign show_badge_final = true
+  if show_badge == false
+    assign show_badge_final = false
+  endif
+  if product.metafields.custom.made_in_france == false
+    assign show_badge_final = false
+  endif
+
+  assign img_alt = product.images[1]
+-%}
+<a class="product-card {{ reveal_class }}" href="{{ product.url }}">
+  <div class="media {{ tone }}">
+    {%- render 'image-layers',
+        image: product.featured_image,
+        image_alt: img_alt,
+        alt: product.title,
+        sizes: sizes -%}
+    {%- if show_badge_final -%}
+      <span class="badge-mif"><span class="tri" aria-hidden="true"></span>{{ 'general.made_in_france' | t }}</span>
+    {%- endif -%}
+    <span class="product-card__cta">{{ 'products.card.view' | t }} <span class="arrow">&rarr;</span></span>
+  </div>
+  {%- if brand != blank -%}<p class="product-card__brand">{{ brand }}</p>{%- endif -%}
+  <h3 class="product-card__name">{{ product.title }}</h3>
+  <div class="product-card__meta">
+    {%- if coll_name != blank -%}<span class="product-card__collection">{{ coll_name }}</span>{%- else -%}<span></span>{%- endif -%}
+    <span class="price">
+      {%- if product.compare_at_price > product.price -%}
+        <span class="price--on-sale"><s>{{ product.compare_at_price | money }}</s> {{ product.price | money }}</span>
+      {%- else -%}
+        {{ product.price | money }}
+      {%- endif -%}
+    </span>
+  </div>
+</a>

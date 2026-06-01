@@ -1,0 +1,87 @@
+{
+  "sections": {
+    "hero": {
+      "type": "inner-hero",
+      "settings": {
+        "eyebrow": "Notre Histoire",
+        "title": "Née d'un refus",
+        "subtitle": "La France est le pays de la mode, du savoir-faire, des ateliers. Bleu Blanc Couture est née de la volonté de lui rendre sa place.",
+        "meta": "Paris · Depuis 2024",
+        "align": "flex-end",
+        "min_height": 78
+      }
+    },
+    "manifeste": {
+      "type": "manifeste",
+      "blocks": {
+        "p1": { "type": "phrase", "settings": { "bold": "Refus de la mode jetable.", "text": "Nous croyons au vêtement que l'on garde, que l'on transmet, que l'on aime des années durant." } },
+        "p2": { "type": "phrase", "settings": { "bold": "Refus de l'uniformisation.", "text": "Chaque pièce porte la signature d'une créatrice, jamais celle d'une usine anonyme." } },
+        "p3": { "type": "phrase", "settings": { "bold": "Refus de l'anonymat.", "text": "Nous connaissons nos ateliers. Nous les visitons. Nous racontons leur histoire." } }
+      },
+      "block_order": ["p1", "p2", "p3"],
+      "settings": { "label": "Le Manifeste", "headline": "Acheter moins. Acheter mieux. Acheter français." }
+    },
+    "constat": {
+      "type": "prose",
+      "settings": {
+        "background": "bg-creme-dark",
+        "eyebrow": "Le Constat",
+        "heading": "La mode a oublié d'où elle venait",
+        "dropcap": true,
+        "body": "<p>La France est le pays de la mode. Du savoir-faire. Des ateliers. Des créateurs. Et pourtant, jamais nos garde-robes n'ont été aussi remplies de vêtements anonymes, fabriqués loin, portés peu, oubliés vite.</p><p>Entre un luxe devenu inaccessible et une fast fashion qui épuise les corps et la planète, un espace s'est vidé : celui d'une mode rare, juste, fabriquée près de chez nous par des mains que l'on peut nommer.</p><p>Bleu Blanc Couture est née pour habiter cet espace. Non pas une marque de plus, mais une maison de curation.</p>"
+      }
+    },
+    "quote": {
+      "type": "pullquote",
+      "settings": { "background": "bg-creme", "quote": "Entre le luxe inaccessible et la mode jetable, une autre voie" }
+    },
+    "parti": {
+      "type": "story-split",
+      "settings": {
+        "background": "bg-creme-medium",
+        "tag": "Curatée · Intime · Authentique",
+        "eyebrow": "Notre parti pris",
+        "title": "Moins de pièces, plus de sens",
+        "body": "<p>Nous ne sortons pas de collection chaque semaine. Nous n'avons pas mille références. Nous préférons quelques pièces, choisies pour durer, présentées avec le soin qu'on réserve à ce qui compte.</p><p>Chaque vêtement arrive accompagné de son histoire : qui l'a dessiné, où il a été cousu, dans quelle matière. C'est cela, pour nous, le vrai luxe — savoir ce que l'on porte.</p>",
+        "link_label": "Rencontrer nos créatrices",
+        "tone": "tone-atelier"
+      }
+    },
+    "values": {
+      "type": "values",
+      "blocks": {
+        "v1": { "type": "value", "settings": { "icon": "value-made", "title": "100% Made in France", "text": "Chaque pièce est confectionnée en France, dans des ateliers que nous avons choisis et visités." } },
+        "v2": { "type": "value", "settings": { "icon": "value-creators", "title": "Créatrices visitées", "text": "Nous rencontrons chaque créatrice, nous parcourons son atelier, nous racontons son histoire." } },
+        "v3": { "type": "value", "settings": { "icon": "value-shipping", "title": "Livraison soignée & retours offerts", "text": "Emballage soigné, livraison offerte dès 200 €, retours gratuits sous 30 jours." } }
+      },
+      "block_order": ["v1", "v2", "v3"],
+      "settings": { "background": "bg-creme", "eyebrow": "Nos Engagements", "title": "Trois promesses, jamais négociées" }
+    },
+    "gallery": {
+      "type": "image-gallery",
+      "blocks": {
+        "g1": { "type": "image", "settings": { "tone": "tone-portrait" } },
+        "g2": { "type": "image", "settings": { "tone": "tone-atelier", "wide": true } },
+        "g3": { "type": "image", "settings": { "tone": "tone-grege" } },
+        "g4": { "type": "image", "settings": { "tone": "tone-stone" } },
+        "g5": { "type": "image", "settings": { "tone": "tone-sauge" } },
+        "g6": { "type": "image", "settings": { "tone": "tone-marron-glace", "wide": true } }
+      },
+      "block_order": ["g1", "g2", "g3", "g4", "g5", "g6"],
+      "settings": { "background": "bg-creme-dark" }
+    },
+    "cta": {
+      "type": "newsletter",
+      "settings": {
+        "background": "bg-creme",
+        "eyebrow": "La suite",
+        "title": "Acheter, autrement",
+        "subtitle": "Découvrez les pièces de nos créatrices, ou venez les essayer dans notre espace parisien, sur rendez-vous.",
+        "show_form": false,
+        "button_label": "Voir le catalogue",
+        "note": ""
+      }
+    }
+  },
+  "order": ["hero", "manifeste", "constat", "quote", "parti", "values", "gallery", "cta"]
+}

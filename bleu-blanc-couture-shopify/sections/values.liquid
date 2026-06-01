@@ -1,0 +1,70 @@
+<section class="section {{ section.settings.background }}">
+  <div class="container">
+    <div class="section-head section-head--center reveal" style="margin-bottom: clamp(2.6rem, 5vw, 4rem);">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow eyebrow--center">{{ section.settings.eyebrow }}</p>{%- endif -%}
+      {%- if section.settings.title != blank -%}<h2 class="section-title">{{ section.settings.title }}</h2>{%- endif -%}
+    </div>
+
+    <div class="valeurs">
+      {%- for block in section.blocks -%}
+        {%- assign delay = forloop.index0 -%}
+        <div class="valeur reveal{% if delay > 0 %} reveal-delay-{{ delay }}{% endif %}" {{ block.shopify_attributes }}>
+          <div class="valeur__icon" aria-hidden="true">{%- render 'icon', name: block.settings.icon -%}</div>
+          <h3 class="valeur__title">{{ block.settings.title }}</h3>
+          <p class="valeur__text">{{ block.settings.text }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Valeurs / Engagements",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Fond",
+      "options": [
+        { "value": "bg-creme", "label": "Crème" },
+        { "value": "bg-creme-dark", "label": "Crème foncé" },
+        { "value": "bg-creme-medium", "label": "Crème moyen" }
+      ],
+      "default": "bg-creme"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Nos Engagements" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "L'exigence, en trois promesses" }
+  ],
+  "blocks": [
+    {
+      "type": "value",
+      "name": "Engagement",
+      "settings": [
+        {
+          "type": "select", "id": "icon", "label": "Icône",
+          "options": [
+            { "value": "value-made", "label": "Losange (Made in France)" },
+            { "value": "value-creators", "label": "Personne (Créatrices)" },
+            { "value": "value-shipping", "label": "Colis (Livraison)" },
+            { "value": "shield", "label": "Bouclier" },
+            { "value": "return", "label": "Retours" }
+          ],
+          "default": "value-made"
+        },
+        { "type": "text", "id": "title", "label": "Titre", "default": "100% Made in France" },
+        { "type": "textarea", "id": "text", "label": "Texte", "default": "Chaque pièce est confectionnée en France, dans des ateliers que nous avons choisis et visités." }
+      ]
+    }
+  ],
+  "max_blocks": 6,
+  "presets": [
+    {
+      "name": "Valeurs / Engagements",
+      "blocks": [
+        { "type": "value", "settings": { "icon": "value-made", "title": "100% Made in France", "text": "Chaque pièce est confectionnée en France, dans des ateliers que nous avons choisis et visités." } },
+        { "type": "value", "settings": { "icon": "value-creators", "title": "Créatrices visitées", "text": "Nous rencontrons chaque créatrice, nous parcourons son atelier, nous racontons son histoire." } },
+        { "type": "value", "settings": { "icon": "value-shipping", "title": "Livraison soignée & retours offerts", "text": "Emballage soigné, livraison offerte dès 200 €, retours gratuits sous 30 jours." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

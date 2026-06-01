@@ -1,0 +1,79 @@
+<section class="section {{ section.settings.background }}" style="padding-top: clamp(20px,3vw,40px);">
+  <div class="container">
+    {%- for block in section.blocks -%}
+      {%- assign chips = block.settings.chips | split: ',' -%}
+      <article class="designer-block{% if block.settings.reverse %} designer-block--reverse{% endif %} reveal" {{ block.shopify_attributes }}>
+        <div class="designer-block__media media {{ block.settings.tone | default: 'tone-portrait' }}">
+          {%- render 'image-layers', image: block.settings.image, alt: block.settings.name, sizes: '(min-width:768px) 50vw, 100vw' -%}
+        </div>
+        <div class="designer-block__text">
+          <p class="designer-block__num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</p>
+          {%- if block.settings.location != blank -%}
+            <span class="designer-block__loc">{%- render 'icon', name: 'location' -%}{{ block.settings.location }}</span>
+          {%- endif -%}
+          <h2 class="designer-block__name">{{ block.settings.name }}</h2>
+          {%- if block.settings.body != blank -%}<div class="designer-block__body rte">{{ block.settings.body }}</div>{%- endif -%}
+          <div class="designer-block__foot">
+            {%- for chip in chips -%}<span class="designer-block__chip">{{ chip | strip }}</span>{%- endfor -%}
+            {%- if block.settings.link_label != blank -%}
+              <a class="link-arrow" href="{{ block.settings.link_url }}">{{ block.settings.link_label }} <span class="arrow">&rarr;</span></a>
+            {%- endif -%}
+          </div>
+        </div>
+      </article>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Liste créateurs (détaillée)",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Fond",
+      "options": [
+        { "value": "bg-creme", "label": "Crème" },
+        { "value": "bg-creme-dark", "label": "Crème foncé" },
+        { "value": "bg-creme-medium", "label": "Crème moyen" }
+      ],
+      "default": "bg-creme"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "designer",
+      "name": "Créateur",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "checkbox", "id": "reverse", "label": "Image à droite", "default": false },
+        { "type": "text", "id": "location", "label": "Lieu", "default": "Paris · Le Marais" },
+        { "type": "text", "id": "name", "label": "Nom", "default": "My Tailor is Joh" },
+        { "type": "richtext", "id": "body", "label": "Description" },
+        { "type": "text", "id": "chips", "label": "Étiquettes (séparées par des virgules)", "default": "7 collections, Tailleur féminin" },
+        { "type": "text", "id": "link_label", "label": "Texte du lien", "default": "Découvrir l'atelier" },
+        { "type": "url", "id": "link_url", "label": "Lien" },
+        {
+          "type": "select", "id": "tone", "label": "Teinte de repli",
+          "options": [
+            { "value": "tone-portrait", "label": "Portrait" },
+            { "value": "tone-stone", "label": "Pierre" },
+            { "value": "tone-lingerie", "label": "Lingerie" },
+            { "value": "tone-atelier", "label": "Atelier" }
+          ],
+          "default": "tone-portrait"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Liste créateurs (détaillée)",
+      "blocks": [
+        { "type": "designer", "settings": { "tone": "tone-portrait", "location": "Paris · Le Marais", "name": "My Tailor is Joh", "body": "<p>Johanna Richard a passé des années à habiller la scène, comme costumière à l'Opéra de Paris. De cette exigence du sur-mesure, elle a fait une maison de tailleur féminin.</p>", "chips": "7 collections, Tailleur féminin", "link_label": "Découvrir l'atelier" } },
+        { "type": "designer", "settings": { "tone": "tone-stone", "reverse": true, "location": "Île-de-France", "name": "La 8e Fois", "body": "<p>Florence Marceau croit qu'un vêtement mérite plusieurs vies. La 8e Fois conçoit des pièces upcyclées, ajustables, façonnées à partir de matières déjà existantes.</p>", "chips": "Upcycling, Fabriqué à Paris 2024", "link_label": "Voir les pièces" } },
+        { "type": "designer", "settings": { "tone": "tone-lingerie", "location": "France", "name": "Le Manoir à Lingerie", "body": "<p>La lingerie française dans ce qu'elle a de plus juste : des dentelles fines, des coupes pensées pour le corps réel.</p>", "chips": "Lingerie fine, Dentelle française", "link_label": "Voir les pièces" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

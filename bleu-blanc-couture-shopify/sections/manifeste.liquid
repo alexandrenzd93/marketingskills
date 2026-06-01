@@ -1,0 +1,55 @@
+<section class="section bg-creme manifeste" id="manifeste">
+  <div class="container">
+    {%- if section.settings.label != blank -%}<p class="eyebrow eyebrow--center manifeste__label">{{ section.settings.label }}</p>{%- endif -%}
+    {%- if section.settings.headline != blank -%}
+      <h2 class="manifeste__type">
+        <span class="manifeste__ghost" aria-hidden="true">{{ section.settings.headline }}</span>
+        <span class="manifeste__live">{{ section.settings.headline }}</span>
+      </h2>
+    {%- endif -%}
+
+    <div class="manifeste__phrases">
+      {%- for block in section.blocks -%}
+        {%- assign delay = forloop.index0 | times: 2 -%}
+        <div class="manifeste__phrase reveal{% if forloop.index0 > 0 %} reveal-delay-{{ delay }}{% endif %}" {{ block.shopify_attributes }}>
+          {%- if block.settings.bold != blank -%}<b>{{ block.settings.bold }}</b> {% endif -%}
+          {{ block.settings.text }}
+        </div>
+        {%- unless forloop.last -%}
+          <span class="manifeste__sep reveal" aria-hidden="true"></span>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Manifeste",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Sur-titre", "default": "Le Manifeste" },
+    { "type": "text", "id": "headline", "label": "Phrase manifeste (effet machine à écrire)", "default": "Acheter moins. Acheter mieux. Acheter français." }
+  ],
+  "blocks": [
+    {
+      "type": "phrase",
+      "name": "Phrase",
+      "settings": [
+        { "type": "text", "id": "bold", "label": "Accroche (gras)", "default": "Refus de la mode jetable." },
+        { "type": "textarea", "id": "text", "label": "Texte", "default": "Nous croyons au vêtement que l'on garde, que l'on transmet, que l'on aime des années durant." }
+      ]
+    }
+  ],
+  "max_blocks": 5,
+  "presets": [
+    {
+      "name": "Manifeste",
+      "blocks": [
+        { "type": "phrase", "settings": { "bold": "Refus de la mode jetable.", "text": "Nous croyons au vêtement que l'on garde, que l'on transmet, que l'on aime des années durant." } },
+        { "type": "phrase", "settings": { "bold": "Refus de l'uniformisation.", "text": "Chaque pièce porte la signature d'une créatrice, jamais celle d'une usine anonyme." } },
+        { "type": "phrase", "settings": { "bold": "Refus de l'anonymat.", "text": "Nous connaissons nos ateliers. Nous les visitons. Nous racontons leur histoire." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,72 @@
+{%- liquid
+  assign coll = collections[section.settings.collection]
+  assign limit = section.settings.products_to_show | default: 6
+-%}
+<section class="section {{ section.settings.background }}">
+  <div class="container">
+    <div class="section-head section-head--between reveal">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        {%- if section.settings.title != blank -%}<h2 class="section-title">{{ section.settings.title }}</h2>{%- endif -%}
+      </div>
+      {%- if section.settings.link_label != blank -%}
+        <a class="link-arrow" href="{{ section.settings.link_url | default: coll.url | default: routes.all_products_collection_url }}">{{ section.settings.link_label }} <span class="arrow">&rarr;</span></a>
+      {%- endif -%}
+    </div>
+
+    <div class="product-grid">
+      {%- if coll != blank and coll.products_count > 0 -%}
+        {%- for product in coll.products limit: limit -%}
+          {%- render 'product-card', product: product, index: forloop.index0 -%}
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..limit) -%}
+          {%- assign ph = i | minus: 1 -%}
+          <div class="product-card">
+            <div class="media {% cycle 'tone-grege','tone-ivoire','tone-sauge','tone-denim','tone-rose','tone-bleu' %}">
+              <div class="media__layer media__layer--base"></div>
+              <span class="badge-mif"><span class="tri" aria-hidden="true"></span>Made in France</span>
+            </div>
+            <p class="product-card__brand">{{ 'onboarding.product_vendor' | t }}</p>
+            <h3 class="product-card__name">{{ 'onboarding.product_title' | t }}</h3>
+            <div class="product-card__meta"><span class="product-card__collection">Collection</span><span class="price">{{ 32000 | money }}</span></div>
+          </div>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.cta_label != blank -%}
+      <div class="section-cta reveal">
+        <a class="btn btn--ghost btn--lg" href="{{ section.settings.link_url | default: coll.url | default: routes.all_products_collection_url }}">{{ section.settings.cta_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Sélection produits",
+  "settings": [
+    {
+      "type": "select",
+      "id": "background",
+      "label": "Fond",
+      "options": [
+        { "value": "bg-creme", "label": "Crème" },
+        { "value": "bg-creme-dark", "label": "Crème foncé" },
+        { "value": "bg-creme-medium", "label": "Crème moyen" }
+      ],
+      "default": "bg-creme-dark"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "La Sélection" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Pièces du moment" },
+    { "type": "collection", "id": "collection", "label": "Collection à afficher" },
+    { "type": "range", "id": "products_to_show", "min": 2, "max": 12, "step": 1, "label": "Nombre de produits", "default": 6 },
+    { "type": "header", "content": "Liens" },
+    { "type": "text", "id": "link_label", "label": "Lien (en-tête)", "default": "Voir tout le catalogue" },
+    { "type": "url", "id": "link_url", "label": "URL du lien" },
+    { "type": "text", "id": "cta_label", "label": "Bouton (bas)", "default": "Voir tout le catalogue" }
+  ],
+  "presets": [{ "name": "Sélection produits" }]
+}
+{% endschema %}

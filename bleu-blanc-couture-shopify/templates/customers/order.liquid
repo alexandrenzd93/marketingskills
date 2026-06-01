@@ -1,0 +1,33 @@
+<div class="page-header container">
+  <nav class="breadcrumb" aria-label="Fil d'Ariane"><a href="{{ routes.account_url }}">Mon compte</a><span class="sep">/</span><span>{{ order.name }}</span></nav>
+  <p class="eyebrow">Commande</p>
+  <h1 class="page-title page-title--xl">{{ order.name }}</h1>
+  <p class="page-intro">Passée le {{ order.created_at | date: '%-d %B %Y' }} · {{ order.financial_status_label }} · {{ order.fulfillment_status_label }}</p>
+</div>
+<section class="section" style="padding-top: clamp(20px,3vw,40px);">
+  <div class="container">
+    <div class="cart-table">
+      {%- for line in order.line_items -%}
+        <div class="cart-row" style="grid-template-columns:1fr auto auto;">
+          <div>
+            <a class="cart-row__name" href="{{ line.product.url }}">{{ line.title }}</a>
+            <p class="cart-row__variant">Quantité : {{ line.quantity }}</p>
+          </div>
+          <div class="cart-row__variant">{{ line.price | money }}</div>
+          <div class="cart-row__price">{{ line.final_line_price | money }}</div>
+        </div>
+      {%- endfor -%}
+    </div>
+    <div class="cart-foot">
+      <div class="cart-foot__note">
+        <p style="font-weight:500;">Adresse de livraison</p>
+        {%- if order.shipping_address -%}<p style="color:var(--gris);margin-top:.4rem;">{{ order.shipping_address | format_address }}</p>{%- endif -%}
+      </div>
+      <div class="cart-foot__totals">
+        <p class="cart-foot__tax">Sous-total : {{ order.line_items_subtotal_price | money }}</p>
+        <p class="cart-foot__tax">Livraison : {{ order.shipping_price | money }}</p>
+        <p class="cart-foot__subtotal">Total : {{ order.total_price | money }}</p>
+      </div>
+    </div>
+  </div>
+</section>

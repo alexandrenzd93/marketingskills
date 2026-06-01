@@ -1,0 +1,55 @@
+{
+  "general": {
+    "made_in_france": "Made in France",
+    "meta": {
+      "tags": "Étiqueté « {{ tags }} »",
+      "page": "Page {{ page }}"
+    },
+    "search": {
+      "title": "Recherche",
+      "placeholder": "Rechercher une pièce…",
+      "submit": "Rechercher",
+      "no_results": "Aucun résultat pour « {{ terms }} ».",
+      "results_with_count": {
+        "one": "{{ count }} résultat",
+        "other": "{{ count }} résultats"
+      }
+    },
+    "404": {
+      "title": "Page introuvable",
+      "subtext": "La page que vous cherchez n'existe pas ou a été déplacée.",
+      "link": "Retour à l'accueil"
+    },
+    "pagination": {
+      "previous": "Précédent",
+      "next": "Suivant"
+    },
+    "newsletter": {
+      "success": "Merci, c'est noté."
+    }
+  },
+  "accessibility": {
+    "skip_to_content": "Aller au contenu"
+  },
+  "products": {
+    "card": {
+      "view": "Voir le produit"
+    },
+    "add_to_cart": "Ajouter au panier",
+    "sold_out": "Épuisé"
+  },
+  "onboarding": {
+    "product_title": "Exemple de pièce",
+    "product_vendor": "Créateur"
+  },
+  "customer": {
+    "account": "Mon compte",
+    "log_in": "Se connecter",
+    "log_out": "Se déconnecter",
+    "register": "Créer un compte",
+    "email": "Email",
+    "password": "Mot de passe",
+    "first_name": "Prénom",
+    "last_name": "Nom"
+  }
+}

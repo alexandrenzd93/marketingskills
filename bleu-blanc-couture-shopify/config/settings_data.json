@@ -1,0 +1,33 @@
+{
+  "current": {
+    "logo_text": "Bleu Blanc Couture",
+    "logo_image_width": 180,
+    "tagline": "Acheter moins. Acheter mieux. Acheter français.",
+    "color_creme": "#FAF8F5",
+    "color_creme_dark": "#F0EDE8",
+    "color_creme_medium": "#E8E4DC",
+    "color_gold": "#C9A96E",
+    "color_gold_light": "#D8BC8F",
+    "color_noir": "#1A1A1A",
+    "color_hero_dark": "#1c1611",
+    "social_instagram": "https://instagram.com",
+    "social_tiktok": "https://tiktok.com",
+    "social_facebook": "",
+    "social_pinterest": "",
+    "cart_type": "page",
+    "page_width": 1340
+  },
+  "presets": {
+    "Bleu Blanc Couture": {
+      "logo_text": "Bleu Blanc Couture",
+      "tagline": "Acheter moins. Acheter mieux. Acheter français.",
+      "color_creme": "#FAF8F5",
+      "color_creme_dark": "#F0EDE8",
+      "color_creme_medium": "#E8E4DC",
+      "color_gold": "#C9A96E",
+      "color_gold_light": "#D8BC8F",
+      "color_noir": "#1A1A1A",
+      "color_hero_dark": "#1c1611"
+    }
+  }
+}

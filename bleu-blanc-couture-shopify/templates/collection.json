@@ -1,0 +1,13 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {
+        "eyebrow": "La Collection",
+        "intro": "Toutes nos pièces Made in France, réunies. Chacune est confectionnée en France par l'une de nos créatrices, en série limitée.",
+        "products_per_page": 12
+      }
+    }
+  },
+  "order": ["main"]
+}

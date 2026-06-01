@@ -1,0 +1,36 @@
+<div class="page-header container">
+  <p class="eyebrow">Mon compte</p>
+  <h1 class="page-title page-title--xl">Bonjour {{ customer.first_name | default: customer.email }}</h1>
+  <p class="page-intro"><a href="{{ routes.account_logout_url }}" style="color:var(--gold);">Se déconnecter</a></p>
+</div>
+<section class="section" style="padding-top: clamp(20px,3vw,40px);">
+  <div class="container">
+    <div class="story-split">
+      <div>
+        <h2 class="section-title" style="font-size:26px;margin-bottom:1.2rem;">Commandes</h2>
+        {%- paginate customer.orders by 12 -%}
+          {%- if customer.orders.size > 0 -%}
+            <div class="cart-table">
+              {%- for order in customer.orders -%}
+                <div class="cart-row" style="grid-template-columns:1fr auto auto;">
+                  <div><a class="cart-row__name" href="{{ order.customer_url }}">Commande {{ order.name }}</a><p class="cart-row__variant">{{ order.created_at | date: '%-d %B %Y' }}</p></div>
+                  <div class="cart-row__variant">{{ order.financial_status_label }}</div>
+                  <div class="cart-row__price">{{ order.total_price | money }}</div>
+                </div>
+              {%- endfor -%}
+            </div>
+            {%- if paginate.pages > 1 -%}<div class="pagination">{{ paginate | default_pagination }}</div>{%- endif -%}
+          {%- else -%}
+            <p style="color:var(--gris);">Vous n'avez pas encore passé de commande.</p>
+          {%- endif -%}
+        {%- endpaginate -%}
+      </div>
+      <div>
+        <h2 class="section-title" style="font-size:26px;margin-bottom:1.2rem;">Adresse</h2>
+        {%- assign addr = customer.default_address -%}
+        {%- if addr -%}<p style="color:var(--gris-fonce);">{{ addr | format_address }}</p>{%- else -%}<p style="color:var(--gris);">Aucune adresse enregistrée.</p>{%- endif -%}
+        <p style="margin-top:1rem;"><a class="link-arrow" href="{{ routes.account_addresses_url }}">Gérer mes adresses <span class="arrow">&rarr;</span></a></p>
+      </div>
+    </div>
+  </div>
+</section>

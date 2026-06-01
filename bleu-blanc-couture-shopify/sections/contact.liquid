@@ -1,0 +1,119 @@
+<section class="section {{ section.settings.background }}" style="padding-top: clamp(20px,3vw,40px);">
+  <div class="container">
+    <div class="contact-layout">
+      {%- comment -%} ---- Form ---- {%- endcomment -%}
+      <div class="reveal">
+        {%- if section.settings.note != blank -%}<p class="contact-note">{{ section.settings.note }}</p>{%- endif -%}
+        {%- form 'contact', class: 'contact-form' -%}
+          {%- if form.posted_successfully? -%}
+            <p class="form-msg" role="status" style="margin-bottom:1rem;">{{ section.settings.success | default: 'Merci — nous vous répondons sous 24 h.' }}</p>
+          {%- elsif form.errors -%}
+            <p class="form-msg" role="status" style="margin-bottom:1rem;">{{ form.errors | default_errors }}</p>
+          {%- endif -%}
+          <div class="field">
+            <label for="ContactName">Nom</label>
+            <input type="text" id="ContactName" name="contact[name]" placeholder="Votre nom" value="{{ form.name }}" required>
+          </div>
+          <div class="field">
+            <label for="ContactEmail">Email</label>
+            <input type="email" id="ContactEmail" name="contact[email]" placeholder="vous@exemple.fr" value="{{ form.email }}" required>
+          </div>
+          <div class="field">
+            <label for="ContactPhone">Téléphone</label>
+            <input type="tel" id="ContactPhone" name="contact[phone]" placeholder="06 00 00 00 00" value="{{ form.phone }}">
+          </div>
+          <div class="field">
+            <label for="ContactMessage">Commentaire</label>
+            <textarea id="ContactMessage" name="contact[body]" placeholder="Votre message, ou les pièces que vous souhaitez essayer…">{{ form.body }}</textarea>
+          </div>
+          <button class="btn btn--gold btn--lg btn--block" type="submit">Envoyer le message</button>
+        {%- endform -%}
+      </div>
+
+      {%- comment -%} ---- Booking ---- {%- endcomment -%}
+      <div class="reveal reveal-delay-1">
+        <div class="booking">
+          {%- if section.settings.booking_eyebrow != blank -%}<p class="eyebrow">{{ section.settings.booking_eyebrow }}</p>{%- endif -%}
+          {%- if section.settings.booking_title != blank -%}<h2 class="page-title" style="margin-top:.7rem;">{{ section.settings.booking_title }}</h2>{%- endif -%}
+          {%- if section.settings.booking_text != blank -%}<p style="color:var(--gris);font-weight:300;margin-top:1rem;">{{ section.settings.booking_text }}</p>{%- endif -%}
+          {%- if section.settings.booking_embed != blank -%}
+            <div class="booking__embed" style="margin-top:1.4rem;">{{ section.settings.booking_embed }}</div>
+          {%- else -%}
+            <div class="booking__cal" role="img" aria-label="Module de réservation">
+              {%- render 'icon', name: 'calendar' -%}
+              <span class="booking__cal-label">{{ section.settings.booking_placeholder | default: 'Module de réservation' }}</span>
+              <span style="font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--gris-clair);">Intégration à venir</span>
+              {%- if section.settings.booking_cta_label != blank -%}<a class="btn btn--ghost" href="{{ section.settings.booking_cta_link }}" style="margin-top:.6rem;">{{ section.settings.booking_cta_label }}</a>{%- endif -%}
+            </div>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+
+    {%- if section.blocks.size > 0 -%}
+      <div class="contact-details reveal">
+        {%- for block in section.blocks -%}
+          <div class="contact-detail" {{ block.shopify_attributes }}>
+            <p class="contact-detail__k">{{ block.settings.title }}</p>
+            <div class="contact-detail__v rte">{{ block.settings.value }}</div>
+          </div>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.map_embed != blank -%}
+      <div class="map-embed reveal" style="margin-top: clamp(36px,5vw,56px);">{{ section.settings.map_embed }}</div>
+    {%- elsif section.settings.map_label != blank -%}
+      <div class="map-ph reveal" role="img" aria-label="{{ section.settings.map_label }}">
+        {%- render 'icon', name: 'pin' -%}
+        <span class="map-ph__label">{{ section.settings.map_label }}</span>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Contact & Rendez-vous",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Fond",
+      "options": [ { "value": "bg-creme", "label": "Crème" }, { "value": "bg-creme-dark", "label": "Crème foncé" } ],
+      "default": "bg-creme"
+    },
+    { "type": "textarea", "id": "note", "label": "Note au-dessus du formulaire", "default": "Chez Bleu Blanc Couture, l'achat est une décision réfléchie. Prenez rendez-vous, nous vous accueillons personnellement dans notre espace parisien." },
+    { "type": "text", "id": "success", "label": "Message de succès", "default": "Merci — nous vous répondons sous 24 h." },
+    { "type": "header", "content": "Réservation (droite)" },
+    { "type": "text", "id": "booking_eyebrow", "label": "Sur-titre", "default": "Sur rendez-vous" },
+    { "type": "text", "id": "booking_title", "label": "Titre", "default": "Réservez votre essayage privé — Paris" },
+    { "type": "textarea", "id": "booking_text", "label": "Texte", "default": "Un moment rien qu'à vous : nous sortons les pièces qui vous intéressent, vous les essayez tranquillement, sans pression d'achat." },
+    { "type": "html", "id": "booking_embed", "label": "Code d'intégration (Calendly, etc.)" },
+    { "type": "text", "id": "booking_placeholder", "label": "Libellé du module (si pas d'intégration)", "default": "Module de réservation" },
+    { "type": "text", "id": "booking_cta_label", "label": "Bouton", "default": "Choisir un créneau" },
+    { "type": "url", "id": "booking_cta_link", "label": "Lien du bouton" },
+    { "type": "header", "content": "Carte" },
+    { "type": "html", "id": "map_embed", "label": "Code d'intégration de carte (Google Maps iframe)" },
+    { "type": "text", "id": "map_label", "label": "Libellé carte (si pas d'intégration)", "default": "Le Marais · 75003 Paris" }
+  ],
+  "blocks": [
+    {
+      "type": "detail",
+      "name": "Coordonnée",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Titre", "default": "L'adresse" },
+        { "type": "richtext", "id": "value", "label": "Valeur", "default": "<p>Espace BBC, sur rendez-vous<br>Le Marais — 75003 Paris<br>France</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Contact & Rendez-vous",
+      "blocks": [
+        { "type": "detail", "settings": { "title": "L'adresse", "value": "<p>Espace BBC, sur rendez-vous<br>Le Marais — 75003 Paris<br>France</p>" } },
+        { "type": "detail", "settings": { "title": "Nous joindre", "value": "<p>bonjour@bleublancouture.fr<br>+33 1 00 00 00 00</p>" } },
+        { "type": "detail", "settings": { "title": "Horaires", "value": "<p>Mardi – Samedi · 11h – 19h<br>Sur rendez-vous uniquement<br>Dimanche & Lundi · fermé</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

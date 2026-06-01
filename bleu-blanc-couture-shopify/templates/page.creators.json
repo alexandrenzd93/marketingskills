@@ -1,0 +1,45 @@
+{
+  "sections": {
+    "header": {
+      "type": "page-header",
+      "settings": {
+        "show_breadcrumb": true,
+        "eyebrow": "Les Maisons",
+        "title": "Nos Créateurs",
+        "intro": "<p>Nous ne référençons pas des marques : nous choisissons des femmes. Chaque créatrice est rencontrée, son atelier visité, son histoire racontée. Voici celles qui composent aujourd'hui Bleu Blanc Couture.</p>"
+      }
+    },
+    "designers": {
+      "type": "designers-list",
+      "blocks": {
+        "d1": { "type": "designer", "settings": { "tone": "tone-portrait", "location": "Paris · Le Marais", "name": "My Tailor is Joh", "body": "<p>Johanna Richard a passé des années à habiller la scène, comme costumière à l'Opéra de Paris. De cette exigence du sur-mesure, elle a fait une maison de tailleur féminin.</p><p>Ses pièces naissent de tissus deadstock issus de la Haute Couture — des étoffes rares, sauvées de l'oubli, retaillées une à une dans son atelier du Marais.</p>", "chips": "7 collections, Tailleur féminin", "link_label": "Découvrir l'atelier" } },
+        "d2": { "type": "designer", "settings": { "tone": "tone-stone", "reverse": true, "location": "Île-de-France", "name": "La 8e Fois", "body": "<p>Florence Marceau croit qu'un vêtement mérite plusieurs vies. La 8e Fois conçoit des pièces upcyclées, ajustables, façonnées à partir de matières déjà existantes.</p><p>Chaque création porte le label « Fabriqué à Paris 2024 » — une garantie d'origine et de transparence.</p>", "chips": "Upcycling, Fabriqué à Paris 2024", "link_label": "Voir les pièces" } },
+        "d3": { "type": "designer", "settings": { "tone": "tone-lingerie", "location": "France", "name": "Le Manoir à Lingerie", "body": "<p>La lingerie française dans ce qu'elle a de plus juste : des dentelles fines, des coupes pensées pour le corps réel, une douceur qui se porte comme une seconde peau.</p>", "chips": "Lingerie fine, Dentelle française", "link_label": "Voir les pièces" } }
+      },
+      "block_order": ["d1", "d2", "d3"],
+      "settings": { "background": "bg-creme" }
+    },
+    "soon": {
+      "type": "creators-grid",
+      "blocks": {
+        "s1": { "type": "soon", "settings": { "title": "Bientôt", "text": "Une nouvelle créatrice rejoint l'atelier" } },
+        "s2": { "type": "soon", "settings": { "title": "Bientôt", "text": "Un savoir-faire français à découvrir" } }
+      },
+      "block_order": ["s1", "s2"],
+      "settings": { "background": "bg-creme-dark", "eyebrow": "À venir", "title": "De nouvelles signatures", "subtitle": "Nous sélectionnons avec lenteur. D'autres créatrices rejoindront bientôt l'atelier." }
+    },
+    "cta": {
+      "type": "newsletter",
+      "settings": {
+        "background": "bg-creme",
+        "eyebrow": "Vous êtes créatrice ?",
+        "title": "Rejoindre l'atelier",
+        "subtitle": "Vous concevez et fabriquez en France ? Parlons-en. Nous accueillons chaque année quelques nouvelles maisons, choisies avec soin.",
+        "show_form": false,
+        "button_label": "Nous écrire",
+        "note": ""
+      }
+    }
+  },
+  "order": ["header", "designers", "soon", "cta"]
+}

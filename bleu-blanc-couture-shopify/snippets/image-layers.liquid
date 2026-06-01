@@ -1,0 +1,40 @@
+{%- comment -%}
+  Renders the two gradient placeholder layers used by the BBC design, plus a
+  real Shopify image laid over them when one is available. Drop this INSIDE a
+  `.media tone-xxx` element. The gradient stays visible as a graceful fallback
+  whenever no image is set, so the design never breaks.
+
+  Parameters:
+    image      - (image) primary Shopify image object
+    image_alt  - (image) optional second image revealed on hover
+    alt        - (string) alt text override
+    sizes      - (string) sizes attribute (default: 50vw)
+    loading    - (string) 'lazy' (default) or 'eager'
+    widths     - (string) srcset widths (default sensible set)
+{%- endcomment -%}
+{%- liquid
+  assign img_sizes = sizes | default: '(min-width: 1000px) 33vw, (min-width: 600px) 50vw, 100vw'
+  assign img_loading = loading | default: 'lazy'
+  assign img_widths = widths | default: '300,400,600,800,1000,1200,1600'
+  assign img_alt = alt | default: image.alt
+-%}
+<div class="media__layer media__layer--base"></div>
+<div class="media__layer media__layer--alt"></div>
+{%- if image != blank -%}
+  {{ image | image_url: width: 1600 | image_tag:
+      class: 'media__img',
+      widths: img_widths,
+      sizes: img_sizes,
+      loading: img_loading,
+      alt: img_alt
+  }}
+{%- endif -%}
+{%- if image_alt != blank -%}
+  {{ image_alt | image_url: width: 1600 | image_tag:
+      class: 'media__img media__img--alt',
+      widths: img_widths,
+      sizes: img_sizes,
+      loading: 'lazy',
+      alt: ''
+  }}
+{%- endif -%}

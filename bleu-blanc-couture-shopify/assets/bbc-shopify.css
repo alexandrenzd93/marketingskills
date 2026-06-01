@@ -1,0 +1,164 @@
+/* ==========================================================================
+   BLEU BLANC COUTURE — bbc-shopify.css
+   Additions that bind the editorial design (base.css) to Shopify data:
+   real product images over the gradient placeholders, variant/cart states,
+   cart & search pages, and a few accessibility helpers.
+   Loaded AFTER base.css so it can layer on top of the design tokens.
+   ========================================================================== */
+
+/* --- Real images sit over the gradient "tone" placeholders --- */
+.media__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  transition: transform 1.2s var(--ease-luxury), opacity var(--t-mid);
+}
+.media__img--alt { opacity: 0; z-index: 2; }
+.product-card:hover .media__img { transform: scale(1.05); }
+.product-card:hover .media__img--alt { opacity: 1; }
+.creator-card:hover .media__img,
+.article-card:hover .media__img,
+.designer-block:hover .media__img { transform: scale(1.04); }
+
+/* Shopify sometimes injects its own placeholder svg — keep our gradient instead */
+.media .placeholder-svg { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; }
+
+/* --- Skip link (accessibility) --- */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 12px;
+  z-index: 1000;
+  background: var(--noir);
+  color: var(--creme);
+  padding: 10px 16px;
+  border-radius: var(--radius);
+  font-size: 12px;
+  transition: top var(--t-fast);
+}
+.skip-link:focus { top: 12px; }
+
+/* --- Price on sale --- */
+.price--on-sale s { color: var(--gris-clair); margin-right: .4em; font-weight: 400; }
+
+/* --- Add to cart disabled / sold out --- */
+.btn[disabled],
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+
+/* --- Product gallery (real Shopify media) --- */
+.gallery__main { background: var(--creme-medium); }
+.gallery__main .media__img { z-index: 1; }
+.gallery__thumb .media__img { z-index: 1; }
+
+/* --- Variant select fallback (multi-option products) --- */
+.variant-select {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--blanc);
+  font-family: var(--font-body);
+  font-size: 14px;
+  margin-top: .6rem;
+  cursor: pointer;
+}
+.variant-fieldset { border: none; padding: 0; margin: 0; }
+
+/* --- Filters as a real form --- */
+.filters form { display: contents; }
+.color-swatch input,
+.size-pill input,
+.filter-opt input { accent-color: var(--gold); }
+
+/* ==========================================================================
+   CART PAGE
+   ========================================================================== */
+.cart { max-width: var(--maxw); margin-inline: auto; }
+.cart-empty { text-align: center; padding: clamp(40px, 8vw, 90px) 0; }
+.cart-empty__title { font-family: var(--font-display); font-size: var(--fs-section); margin-bottom: 1.2rem; }
+
+.cart-table { width: 100%; border-collapse: collapse; }
+.cart-row { display: grid; grid-template-columns: 90px 1fr auto auto; gap: clamp(14px, 2vw, 28px); align-items: center; padding: 22px 0; border-bottom: 1px solid var(--line); }
+.cart-row__media { width: 90px; aspect-ratio: 3 / 4; border-radius: var(--radius); overflow: hidden; background: var(--creme-medium); }
+.cart-row__media img { width: 100%; height: 100%; object-fit: cover; }
+.cart-row__brand { font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--gris); }
+.cart-row__name { font-family: var(--font-display); font-size: 18px; margin: .2rem 0; }
+.cart-row__variant { font-size: 13px; color: var(--gris); }
+.cart-row__remove { font-size: 12px; color: var(--gris); text-decoration: underline; margin-top: .4rem; display: inline-block; }
+.cart-row__price { font-family: var(--font-display); font-size: 18px; white-space: nowrap; }
+.cart-foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-start; gap: 24px; margin-top: 32px; }
+.cart-foot__note { font-size: 13px; color: var(--gris); max-width: 420px; }
+.cart-foot__totals { text-align: right; margin-left: auto; }
+.cart-foot__subtotal { font-family: var(--font-display); font-size: 26px; }
+.cart-foot__tax { font-size: 12px; color: var(--gris); margin: .4rem 0 1rem; }
+
+@media (max-width: 600px) {
+  .cart-row { grid-template-columns: 72px 1fr; grid-template-areas: "media info" "media price"; }
+  .cart-row__media { width: 72px; }
+  .cart-row__qty { grid-column: 1 / -1; }
+}
+
+/* ==========================================================================
+   SEARCH
+   ========================================================================== */
+.search-form { display: flex; gap: 10px; max-width: 640px; margin: 0 auto clamp(30px,5vw,54px); }
+.search-form__input { flex: 1; padding: 14px 18px; border: 1px solid var(--line); border-radius: var(--radius); background: var(--blanc); font-size: 15px; }
+.search-results__empty { text-align: center; color: var(--gris); padding: 40px 0; }
+
+/* ==========================================================================
+   PAGINATION
+   ========================================================================== */
+.pagination { display: flex; justify-content: center; gap: 8px; margin-top: clamp(36px, 5vw, 60px); }
+.pagination a, .pagination span {
+  min-width: 40px; height: 40px; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: var(--radius);
+  font-size: 13px; transition: border-color var(--t-fast), background var(--t-fast);
+}
+.pagination a:hover { border-color: var(--gold); }
+.pagination .pagination__current { background: var(--noir); color: var(--creme); border-color: var(--noir); }
+
+/* ==========================================================================
+   RTE — Shopify rich-text output inside prose blocks
+   ========================================================================== */
+.rte > * + * { margin-top: 1.1rem; }
+.rte a { color: var(--gold); text-decoration: underline; text-underline-offset: 3px; }
+.rte ul { list-style: disc; padding-left: 1.3em; }
+.rte ol { list-style: decimal; padding-left: 1.3em; }
+.rte img { border-radius: var(--radius); margin-block: 1.4rem; }
+
+/* Shopify theme-editor: let merchants see empty sections clearly */
+.shopify-section:empty { min-height: 0; }
+
+/* --- Optional background image behind the dark hero(es) --- */
+.hero__bg, .inner-hero__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+  opacity: var(--hero-bg-opacity, 0.55);
+}
+.hero__bg + .hero__glow,
+.inner-hero__bg + .hero__glow { z-index: 1; }
+
+/* --- Price range filter --- */
+.price-range { display: flex; align-items: center; gap: 8px; }
+.price-range__input {
+  width: 100%; padding: 9px 10px; border: 1px solid var(--line);
+  border-radius: var(--radius); background: var(--blanc); font-size: 13px;
+}
+a.filters__reset { cursor: pointer; }
+
+/* --- Drop-cap on the first paragraph of an editorial rich-text block --- */
+.rte--dropcap > p:first-of-type::first-letter {
+  font-family: var(--font-display);
+  float: left;
+  font-size: 4.6em;
+  line-height: 0.78;
+  padding: 0.05em 0.12em 0 0;
+  color: var(--gold);
+}

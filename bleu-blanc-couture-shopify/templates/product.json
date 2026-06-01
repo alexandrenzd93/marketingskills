@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {
+        "show_badge": true,
+        "show_passeport": true,
+        "show_related": true,
+        "appointment_label": "Prendre rendez-vous pour l'essayer à Paris",
+        "reassure_1": "Livraison offerte dès 200 €",
+        "reassure_2": "Retours sous 30 jours",
+        "reassure_3": "Paiement sécurisé"
+      }
+    }
+  },
+  "order": ["main"]
+}

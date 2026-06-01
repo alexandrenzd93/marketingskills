@@ -1,0 +1,49 @@
+{
+  "sections": {
+    "header": {
+      "type": "page-header",
+      "settings": {
+        "show_breadcrumb": true,
+        "eyebrow": "Questions fréquentes",
+        "title": "Tout savoir",
+        "intro": "<p>Livraison, tailles, retours, Made in France, rendez-vous parisiens : voici les réponses.</p>"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "c1": { "type": "category", "settings": { "title": "Commandes & Livraison" } },
+        "c1q1": { "type": "item", "settings": { "question": "Quels sont les délais de livraison ?", "answer": "<p>En France métropolitaine, comptez 2 à 4 jours ouvrés après expédition. Chaque commande est préparée à la main, avec soin.</p>" } },
+        "c1q2": { "type": "item", "settings": { "question": "La livraison est-elle offerte ?", "answer": "<p>La livraison est offerte en France dès 200 € d'achat. En dessous, une participation forfaitaire de 6,90 € est appliquée.</p>" } },
+        "c1q3": { "type": "item", "settings": { "question": "Livrez-vous à l'international ?", "answer": "<p>Oui, nous livrons dans toute l'Union européenne (5 à 8 jours ouvrés). Pour le reste du monde, contactez-nous avant commande.</p>" } },
+        "c2": { "type": "category", "settings": { "title": "Tailles & Essayage" } },
+        "c2q1": { "type": "item", "settings": { "question": "Comment choisir ma taille ?", "answer": "<p>Chaque fiche produit comporte un guide des tailles détaillé. En cas de doute, écrivez-nous : nous connaissons chaque pièce.</p>" } },
+        "c2q2": { "type": "item", "settings": { "question": "Puis-je essayer avant d'acheter ?", "answer": "<p>Oui. Sur rendez-vous, dans notre espace parisien, vous essayez les pièces qui vous intéressent, sans aucune obligation d'achat.</p>" } },
+        "c3": { "type": "category", "settings": { "title": "Retours & Remboursements" } },
+        "c3q1": { "type": "item", "settings": { "question": "Quelle est votre politique de retour ?", "answer": "<p>Vous disposez de 30 jours après réception pour nous retourner une pièce non portée, dans son état d'origine, étiquettes attachées.</p>" } },
+        "c3q2": { "type": "item", "settings": { "question": "Les retours sont-ils gratuits ?", "answer": "<p>Oui, les retours sont offerts en France métropolitaine grâce à une étiquette prépayée incluse dans votre colis.</p>" } },
+        "c4": { "type": "category", "settings": { "title": "Nos Créateurs & Made in France" } },
+        "c4q1": { "type": "item", "settings": { "question": "Où sont fabriquées les pièces ?", "answer": "<p>Toutes nos pièces sont confectionnées en France, dans les ateliers de nos créatrices — principalement à Paris et en Île-de-France.</p>" } },
+        "c4q2": { "type": "item", "settings": { "question": "Que signifie « deadstock » ?", "answer": "<p>Le deadstock désigne des tissus produits en excès par les maisons de couture, restés inutilisés. Les réemployer évite le gaspillage et garantit des pièces uniques.</p>" } },
+        "c5": { "type": "category", "settings": { "title": "Rendez-vous à Paris" } },
+        "c5q1": { "type": "item", "settings": { "question": "Comment réserver un rendez-vous ?", "answer": "<p>Depuis la page Contact, choisissez un créneau via notre module de réservation, ou écrivez-nous directement.</p>" } },
+        "c5q2": { "type": "item", "settings": { "question": "Le rendez-vous est-il payant ?", "answer": "<p>Non, l'essayage privé est entièrement gratuit et sans engagement.</p>" } }
+      },
+      "block_order": ["c1", "c1q1", "c1q2", "c1q3", "c2", "c2q1", "c2q2", "c3", "c3q1", "c3q2", "c4", "c4q1", "c4q2", "c5", "c5q1", "c5q2"],
+      "settings": { "background": "bg-creme" }
+    },
+    "cta": {
+      "type": "newsletter",
+      "settings": {
+        "background": "bg-creme-dark",
+        "eyebrow": "Une autre question ?",
+        "title": "Nous sommes là",
+        "subtitle": "Notre équipe répond personnellement, sous 24 heures. Aucune question n'est de trop.",
+        "show_form": false,
+        "button_label": "Nous contacter",
+        "note": ""
+      }
+    }
+  },
+  "order": ["header", "faq", "cta"]
+}

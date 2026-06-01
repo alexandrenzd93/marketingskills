@@ -1,0 +1,46 @@
+<div class="page-header container">
+  <nav class="breadcrumb" aria-label="Fil d'Ariane">
+    <a href="{{ routes.root_url }}">Accueil</a><span class="sep">/</span><span>Recherche</span>
+  </nav>
+  <p class="eyebrow">Catalogue</p>
+  <h1 class="page-title page-title--xl">Recherche</h1>
+</div>
+
+<section class="section" style="padding-top: clamp(20px,3vw,40px);">
+  <div class="container">
+    <form class="search-form" action="{{ routes.search_url }}" method="get" role="search">
+      <input class="search-form__input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="Rechercher une pièce, une créatrice…" aria-label="Rechercher">
+      <button class="btn btn--gold" type="submit">Rechercher</button>
+    </form>
+
+    {%- if search.performed -%}
+      {%- if search.results_count > 0 -%}
+        <p class="catalogue-count" style="margin-bottom:1.4rem;"><b>{{ search.results_count }} {% if search.results_count > 1 %}résultats{% else %}résultat{% endif %}</b></p>
+        {%- paginate search.results by 12 -%}
+          <div class="product-grid">
+            {%- for item in search.results -%}
+              {%- if item.object_type == 'product' -%}
+                {%- render 'product-card', product: item, index: forloop.index0 -%}
+              {%- else -%}
+                <a class="product-card reveal" href="{{ item.url }}">
+                  <div class="media {% cycle 'tone-atelier','tone-stone','tone-grege' %}">
+                    {%- if item.image -%}{%- render 'image-layers', image: item.image, alt: item.title -%}{%- else -%}<div class="media__layer media__layer--base"></div>{%- endif -%}
+                    <span class="product-card__cta">Lire <span class="arrow">&rarr;</span></span>
+                  </div>
+                  <h3 class="product-card__name" style="margin-top:1rem;">{{ item.title }}</h3>
+                </a>
+              {%- endif -%}
+            {%- endfor -%}
+          </div>
+          {%- if paginate.pages > 1 -%}<div class="pagination">{{ paginate | default_pagination }}</div>{%- endif -%}
+        {%- endpaginate -%}
+      {%- else -%}
+        <p class="search-results__empty">Aucun résultat pour « {{ search.terms | escape }} ». Essayez un autre terme.</p>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{ "name": "Recherche", "settings": [] }
+{% endschema %}

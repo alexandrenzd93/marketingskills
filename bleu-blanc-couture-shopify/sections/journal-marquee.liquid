@@ -1,0 +1,64 @@
+{%- liquid
+  assign blog = blogs[section.settings.blog]
+  assign limit = section.settings.articles_to_show | default: 6
+-%}
+<section class="section {{ section.settings.background }}">
+  <div class="container">
+    <div class="section-head section-head--between reveal" style="margin-bottom: clamp(2.2rem, 4vw, 3.2rem);">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        {%- if section.settings.title != blank -%}<h2 class="section-title">{{ section.settings.title }}</h2>{%- endif -%}
+      </div>
+      {%- if section.settings.link_label != blank -%}
+        <a class="link-arrow" href="{{ section.settings.link_url | default: blog.url }}">{{ section.settings.link_label }} <span class="arrow">&rarr;</span></a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  <div class="marquee reveal" aria-label="Articles du journal">
+    <div class="marquee__track">
+      {%- if blog != blank and blog.articles_count > 0 -%}
+        {%- for article in blog.articles limit: limit -%}
+          <span class="marquee__item"><a href="{{ article.url }}">{{ article.title }}</a> <span class="star" aria-hidden="true">&#10022;</span></span>
+        {%- endfor -%}
+        {%- comment -%} duplicate for seamless loop {%- endcomment -%}
+        {%- for article in blog.articles limit: limit -%}
+          <span class="marquee__item" aria-hidden="true"><a href="{{ article.url }}" tabindex="-1">{{ article.title }}</a> <span class="star">&#10022;</span></span>
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign items = section.settings.fallback_items | newline_to_br | split: '<br />' -%}
+        {%- for item in items -%}
+          <span class="marquee__item"><a href="{{ blog.url | default: '#' }}">{{ item | strip }}</a> <span class="star" aria-hidden="true">&#10022;</span></span>
+        {%- endfor -%}
+        {%- for item in items -%}
+          <span class="marquee__item" aria-hidden="true"><a href="{{ blog.url | default: '#' }}" tabindex="-1">{{ item | strip }}</a> <span class="star">&#10022;</span></span>
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Journal (bandeau défilant)",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Fond",
+      "options": [
+        { "value": "bg-creme", "label": "Crème" },
+        { "value": "bg-creme-dark", "label": "Crème foncé" },
+        { "value": "bg-creme-medium", "label": "Crème moyen" }
+      ],
+      "default": "bg-creme-dark"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Le Journal" },
+    { "type": "text", "id": "title", "label": "Titre", "default": "Lectures de l'atelier" },
+    { "type": "blog", "id": "blog", "label": "Blog source" },
+    { "type": "range", "id": "articles_to_show", "min": 3, "max": 12, "step": 1, "label": "Nombre d'articles", "default": 6 },
+    { "type": "text", "id": "link_label", "label": "Texte du lien", "default": "Lire le journal" },
+    { "type": "url", "id": "link_url", "label": "URL du lien" },
+    { "type": "textarea", "id": "fallback_items", "label": "Titres de repli (un par ligne, si aucun blog)", "default": "Dans l'atelier de Johanna Richard\nLe deadstock, luxe de demain\nReconnaître un vrai Made in France\nL'upcycling selon La 8e Fois\nCinq pièces pour une garde-robe qui dure" }
+  ],
+  "presets": [{ "name": "Journal (bandeau défilant)" }]
+}
+{% endschema %}

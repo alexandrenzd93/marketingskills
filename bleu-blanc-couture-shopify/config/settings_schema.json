@@ -1,0 +1,107 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Bleu Blanc Couture",
+    "theme_version": "1.0.0",
+    "theme_author": "Bleu Blanc Couture",
+    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
+    "theme_support_url": "https://help.shopify.com/"
+  },
+  {
+    "name": "Identité",
+    "settings": [
+      {
+        "type": "text",
+        "id": "logo_text",
+        "label": "Nom de la marque (logo texte)",
+        "default": "Bleu Blanc Couture",
+        "info": "Affiché dans l'en-tête et le pied de page si aucun logo image n'est défini."
+      },
+      {
+        "type": "image_picker",
+        "id": "logo_image",
+        "label": "Logo (image, optionnel)"
+      },
+      {
+        "type": "range",
+        "id": "logo_image_width",
+        "min": 80,
+        "max": 320,
+        "step": 10,
+        "unit": "px",
+        "label": "Largeur du logo image",
+        "default": 180
+      },
+      {
+        "type": "text",
+        "id": "tagline",
+        "label": "Signature",
+        "default": "Acheter moins. Acheter mieux. Acheter français."
+      }
+    ]
+  },
+  {
+    "name": "Couleurs",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Palette de la marque"
+      },
+      { "type": "color", "id": "color_creme",        "label": "Crème (fond clair)",      "default": "#FAF8F5" },
+      { "type": "color", "id": "color_creme_dark",   "label": "Crème foncé",              "default": "#F0EDE8" },
+      { "type": "color", "id": "color_creme_medium", "label": "Crème moyen",              "default": "#E8E4DC" },
+      { "type": "color", "id": "color_gold",         "label": "Or (accent)",              "default": "#C9A96E" },
+      { "type": "color", "id": "color_gold_light",   "label": "Or clair",                 "default": "#D8BC8F" },
+      { "type": "color", "id": "color_noir",         "label": "Noir (encre)",             "default": "#1A1A1A" },
+      { "type": "color", "id": "color_hero_dark",    "label": "Fond sombre (héros)",      "default": "#1c1611" }
+    ]
+  },
+  {
+    "name": "Typographie",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Le thème utilise Bodoni Moda (titres) et Raleway (texte), chargées depuis Google Fonts pour préserver l'identité éditoriale."
+      }
+    ]
+  },
+  {
+    "name": "Réseaux sociaux",
+    "settings": [
+      { "type": "text", "id": "social_instagram", "label": "URL Instagram", "default": "https://instagram.com" },
+      { "type": "text", "id": "social_tiktok",    "label": "URL TikTok",    "default": "https://tiktok.com" },
+      { "type": "text", "id": "social_facebook",  "label": "URL Facebook" },
+      { "type": "text", "id": "social_pinterest", "label": "URL Pinterest" }
+    ]
+  },
+  {
+    "name": "Panier",
+    "settings": [
+      {
+        "type": "select",
+        "id": "cart_type",
+        "label": "Comportement du panier",
+        "options": [
+          { "value": "page", "label": "Page panier" },
+          { "value": "drawer", "label": "Tiroir latéral" }
+        ],
+        "default": "page"
+      }
+    ]
+  },
+  {
+    "name": "Mise en page",
+    "settings": [
+      {
+        "type": "range",
+        "id": "page_width",
+        "min": 1200,
+        "max": 1600,
+        "step": 20,
+        "unit": "px",
+        "label": "Largeur maximale du contenu",
+        "default": 1340
+      }
+    ]
+  }
+]

@@ -1,0 +1,147 @@
+{%- liquid
+  assign is_home = false
+  if template.name == 'index'
+    assign is_home = true
+  endif
+
+  assign dark_hero = false
+  if template.suffix == 'histoire' or template.suffix == 'creator-detail'
+    assign dark_hero = true
+  endif
+
+  assign header_class = 'header-solid'
+  if is_home and section.settings.transparent_on_home
+    assign header_class = ''
+  elsif dark_hero
+    assign header_class = ''
+  endif
+
+  assign menu = section.settings.menu
+-%}
+
+<header class="site-header {{ header_class }}">
+  {%- if section.settings.announcement_text != blank -%}
+    <div class="announce" role="region" aria-label="Annonce">
+      <p class="announce__text">{{ section.settings.announcement_text }}</p>
+      <button class="announce__close" aria-label="Fermer l'annonce">{%- render 'icon', name: 'close' -%}</button>
+    </div>
+  {%- endif -%}
+
+  <nav class="nav container" aria-label="Navigation principale">
+    <div class="nav__left">
+      <button class="nav__burger" aria-label="Ouvrir le menu" aria-expanded="false"><span></span><span></span></button>
+      <ul class="nav__menu">
+        {%- for link in linklists[menu].links -%}
+          <li><a class="nav__link{% if link.active %} nav__link--active{% endif %}" href="{{ link.url }}">{{ link.title }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </div>
+
+    <a class="nav__logo" href="{{ routes.root_url }}">
+      {%- if section.settings.logo_image != blank -%}
+        {%- assign logo = section.settings.logo_image -%}
+        {%- assign logo_style = 'width:' | append: settings.logo_image_width | append: 'px;height:auto;' -%}
+        {{ logo | image_url: width: 600 | image_tag:
+            class: 'nav__logo-img',
+            widths: '180,360,540,720',
+            sizes: '180px',
+            alt: shop.name,
+            style: logo_style
+        }}
+      {%- else -%}
+        {{ settings.logo_text | default: shop.name }}
+      {%- endif -%}
+    </a>
+
+    <div class="nav__icons">
+      <a class="nav__icon" href="{{ routes.search_url }}" aria-label="Rechercher">{%- render 'icon', name: 'search' -%}</a>
+      <a class="nav__icon nav__icon--account" href="{% if shop.customer_accounts_enabled %}{{ routes.account_url }}{% else %}{{ pages[section.settings.account_fallback_page].url | default: routes.root_url }}{% endif %}" aria-label="Mon compte">{%- render 'icon', name: 'account' -%}</a>
+      <a class="nav__icon" href="{{ routes.cart_url }}" aria-label="Panier ({{ cart.item_count }} article)" data-cart-link>
+        {%- render 'icon', name: 'cart' -%}
+        <span class="nav__cart-count" data-cart-count>{% if cart.item_count > 0 %}{{ cart.item_count }}{% endif %}</span>
+      </a>
+    </div>
+  </nav>
+</header>
+
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <div class="mobile-menu__top">
+    <span class="mobile-menu__logo">{{ settings.logo_text | default: shop.name }}</span>
+    <button class="mobile-menu__close" aria-label="Fermer le menu">{%- render 'icon', name: 'close' -%}</button>
+  </div>
+  <nav class="mobile-menu__links" aria-label="Menu mobile">
+    {%- for link in linklists[menu].links -%}
+      <a class="mobile-menu__link" href="{{ link.url }}"><span class="num">{{ forloop.index | prepend: '0' | slice: -2, 2 }}</span>{{ link.title }}</a>
+    {%- endfor -%}
+  </nav>
+  <div class="mobile-menu__foot">
+    {%- if section.settings.faq_page != blank -%}<a href="{{ pages[section.settings.faq_page].url }}">FAQ</a>{%- endif -%}
+    {%- if settings.social_instagram != blank -%}<a href="{{ settings.social_instagram }}" target="_blank" rel="noopener">Instagram</a>{%- endif -%}
+    {%- if settings.social_tiktok != blank -%}<a href="{{ settings.social_tiktok }}" target="_blank" rel="noopener">TikTok</a>{%- endif -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "En-tête",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Barre d'annonce"
+    },
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Texte d'annonce",
+      "default": "Livraison offerte dès 200 € · Retours sous 30 jours · Made in France"
+    },
+    {
+      "type": "header",
+      "content": "Navigation"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu principal",
+      "default": "main-menu"
+    },
+    {
+      "type": "header",
+      "content": "Logo"
+    },
+    {
+      "type": "image_picker",
+      "id": "logo_image",
+      "label": "Logo image (sinon le nom texte est utilisé)"
+    },
+    {
+      "type": "header",
+      "content": "Liens secondaires"
+    },
+    {
+      "type": "page",
+      "id": "faq_page",
+      "label": "Page FAQ (menu mobile)"
+    },
+    {
+      "type": "page",
+      "id": "account_fallback_page",
+      "label": "Page \"compte\" de repli",
+      "info": "Utilisée si les comptes clients sont désactivés (ex. page Contact)."
+    },
+    {
+      "type": "header",
+      "content": "Comportement"
+    },
+    {
+      "type": "checkbox",
+      "id": "transparent_on_home",
+      "label": "En-tête transparent sur la page d'accueil",
+      "default": true
+    }
+  ],
+  "enabled_on": {
+    "groups": ["header"]
+  }
+}
+{% endschema %}

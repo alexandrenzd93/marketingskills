@@ -1,0 +1,35 @@
+<div class="page-header container">
+  <nav class="breadcrumb" aria-label="Fil d'Ariane"><a href="{{ routes.account_url }}">Mon compte</a><span class="sep">/</span><span>Adresses</span></nav>
+  <h1 class="page-title page-title--xl">Mes adresses</h1>
+</div>
+<section class="section" style="padding-top: clamp(20px,3vw,40px);">
+  <div class="container container--narrow">
+
+    <h2 class="section-title" style="font-size:24px;margin-bottom:1.2rem;">Ajouter une adresse</h2>
+    {%- form 'customer_address', customer.new_address -%}
+      <div class="field"><label>Prénom</label><input type="text" name="address[first_name]" value="{{ form.first_name }}"></div>
+      <div class="field"><label>Nom</label><input type="text" name="address[last_name]" value="{{ form.last_name }}"></div>
+      <div class="field"><label>Adresse</label><input type="text" name="address[address1]" value="{{ form.address1 }}"></div>
+      <div class="field"><label>Complément</label><input type="text" name="address[address2]" value="{{ form.address2 }}"></div>
+      <div class="field"><label>Ville</label><input type="text" name="address[city]" value="{{ form.city }}"></div>
+      <div class="field"><label>Code postal</label><input type="text" name="address[zip]" value="{{ form.zip }}"></div>
+      <div class="field"><label>Pays</label><select name="address[country]" data-default="{{ form.country }}">{{ country_option_tags }}</select></div>
+      <div class="field"><label>Téléphone</label><input type="tel" name="address[phone]" value="{{ form.phone }}"></div>
+      <button class="btn btn--gold btn--block" type="submit">Ajouter l'adresse</button>
+    {%- endform -%}
+
+    {%- if customer.addresses.size > 0 -%}
+      <h2 class="section-title" style="font-size:24px;margin:clamp(2.4rem,4vw,3.4rem) 0 1.2rem;">Adresses enregistrées</h2>
+      {%- for address in customer.addresses -%}
+        <div style="border-top:1px solid var(--line);padding:18px 0;">
+          <p style="color:var(--gris-fonce);">{{ address | format_address }}</p>
+          <p style="margin-top:.6rem;">
+            <a href="{{ routes.account_url }}" style="color:var(--gold);">Modifier dans Shopify</a>
+          </p>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+
+    <p style="margin-top:1.4rem;"><a class="link-arrow" href="{{ routes.account_url }}">Retour à mon compte <span class="arrow">&rarr;</span></a></p>
+  </div>
+</section>

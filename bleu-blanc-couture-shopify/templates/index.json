@@ -1,0 +1,101 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Collection Printemps — Été 2025",
+        "title": "L'Élégance Made in France",
+        "subtitle": "Une sélection intime de créatrices françaises. Des pièces pensées pour durer, façonnées dans les ateliers de Paris et d'Île-de-France.",
+        "button_label": "Découvrir la sélection",
+        "link_label": "Nos créateurs",
+        "coords": "Paris · Made in France · Depuis 2024",
+        "season": "Édition N°01",
+        "scroll_label": "Défiler",
+        "scroll_anchor": "manifeste"
+      }
+    },
+    "manifeste": {
+      "type": "manifeste",
+      "blocks": {
+        "p1": { "type": "phrase", "settings": { "bold": "Refus de la mode jetable.", "text": "Nous croyons au vêtement que l'on garde, que l'on transmet, que l'on aime des années durant." } },
+        "p2": { "type": "phrase", "settings": { "bold": "Refus de l'uniformisation.", "text": "Chaque pièce porte la signature d'une créatrice, jamais celle d'une usine anonyme." } },
+        "p3": { "type": "phrase", "settings": { "bold": "Refus de l'anonymat.", "text": "Nous connaissons nos ateliers. Nous les visitons. Nous racontons leur histoire." } }
+      },
+      "block_order": ["p1", "p2", "p3"],
+      "settings": { "label": "Le Manifeste", "headline": "Acheter moins. Acheter mieux. Acheter français." }
+    },
+    "selection": {
+      "type": "featured-products",
+      "settings": {
+        "background": "bg-creme-dark",
+        "eyebrow": "La Sélection",
+        "title": "Pièces du moment",
+        "products_to_show": 6,
+        "link_label": "Voir tout le catalogue",
+        "cta_label": "Voir tout le catalogue"
+      }
+    },
+    "creators": {
+      "type": "creators-grid",
+      "blocks": {
+        "c1": { "type": "creator", "settings": { "size": "feature", "tone": "tone-portrait", "location": "Paris · Le Marais", "name": "My Tailor is Joh", "story": "Johanna Richard, ex-costumière de l'Opéra de Paris, taille un vestiaire féminin dans des tissus deadstock issus de la Haute Couture. Un tailleur d'exception, pièce par pièce.", "link_label": "Découvrir l'atelier" } },
+        "c2": { "type": "creator", "settings": { "size": "small", "tone": "tone-stone", "location": "Île-de-France", "name": "La 8e Fois", "story": "Florence Marceau réinvente le vêtement upcyclé et ajustable, labellisé « Fabriqué à Paris 2024 ».", "link_label": "Découvrir" } },
+        "c3": { "type": "creator", "settings": { "size": "small", "tone": "tone-lingerie", "location": "France", "name": "Le Manoir à Lingerie", "story": "La lingerie française fine, pensée comme une seconde peau — délicate, juste, intemporelle.", "link_label": "Découvrir" } },
+        "s1": { "type": "soon", "settings": { "title": "Bientôt", "text": "Une nouvelle créatrice rejoint l'atelier" } },
+        "s2": { "type": "soon", "settings": { "title": "Bientôt", "text": "Un savoir-faire français à découvrir" } }
+      },
+      "block_order": ["c1", "c2", "c3", "s1", "s2"],
+      "settings": {
+        "background": "bg-creme",
+        "eyebrow": "Nos Créateurs",
+        "title": "Les mains derrière les pièces",
+        "subtitle": "Des créatrices françaises que nous avons choisies, rencontrées, et dont nous racontons l'histoire — une à une."
+      }
+    },
+    "story": {
+      "type": "story-split",
+      "settings": {
+        "background": "bg-creme-medium",
+        "tag": "Depuis 2024",
+        "eyebrow": "Notre Histoire",
+        "title": "Pourquoi Bleu Blanc Couture",
+        "body": "<p>La France est le pays de la mode. Du savoir-faire. Des ateliers. Des créateurs. Bleu Blanc Couture est née d'un refus — celui de la mode jetable, de l'uniformisation, de l'anonymat.</p><p>Entre le luxe inaccessible et la fast fashion, nous traçons une autre voie : celle d'une mode rare, française, et profondément humaine. Curatée, intime, authentique.</p>",
+        "link_label": "En savoir plus",
+        "tone": "tone-atelier"
+      }
+    },
+    "values": {
+      "type": "values",
+      "blocks": {
+        "v1": { "type": "value", "settings": { "icon": "value-made", "title": "100% Made in France", "text": "Chaque pièce est confectionnée en France, dans des ateliers que nous avons choisis et visités." } },
+        "v2": { "type": "value", "settings": { "icon": "value-creators", "title": "Créatrices visitées", "text": "Nous rencontrons chaque créatrice, nous parcourons son atelier, nous racontons son histoire." } },
+        "v3": { "type": "value", "settings": { "icon": "value-shipping", "title": "Livraison soignée & retours offerts", "text": "Emballage soigné, livraison offerte dès 200 €, retours gratuits sous 30 jours." } }
+      },
+      "block_order": ["v1", "v2", "v3"],
+      "settings": { "background": "bg-creme", "eyebrow": "Nos Engagements", "title": "L'exigence, en trois promesses" }
+    },
+    "journal": {
+      "type": "journal-marquee",
+      "settings": {
+        "background": "bg-creme-dark",
+        "eyebrow": "Le Journal",
+        "title": "Lectures de l'atelier",
+        "articles_to_show": 6,
+        "link_label": "Lire le journal"
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "background": "bg-creme",
+        "eyebrow": "La Newsletter",
+        "title": "Rejoindre l'Atelier",
+        "subtitle": "Nouveautés, portraits de créatrices, coulisses des ateliers. Une lettre rare — jamais plus d'une fois par mois.",
+        "show_form": true,
+        "success": "Merci — bienvenue dans l'Atelier.",
+        "note": "Désinscription en un clic · Vos données restent en France"
+      }
+    }
+  },
+  "order": ["hero", "manifeste", "selection", "creators", "story", "values", "journal", "newsletter"]
+}

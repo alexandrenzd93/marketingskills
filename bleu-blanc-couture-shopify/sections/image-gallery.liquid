@@ -1,0 +1,72 @@
+<section class="section {{ section.settings.background }}">
+  <div class="container">
+    {%- if section.settings.eyebrow != blank or section.settings.title != blank -%}
+      <div class="section-head reveal" style="margin-bottom: clamp(2rem,3vw,3rem);">
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
+        {%- if section.settings.title != blank -%}<h2 class="section-title">{{ section.settings.title }}</h2>{%- endif -%}
+      </div>
+    {%- endif -%}
+    <div class="atelier-grid reveal">
+      {%- for block in section.blocks -%}
+        <div class="media {{ block.settings.tone | default: 'tone-atelier' }}{% if block.settings.wide %} media--wide{% endif %}" {{ block.shopify_attributes }}>
+          {%- render 'image-layers', image: block.settings.image, sizes: '(min-width:768px) 33vw, 50vw' -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Galerie (atelier)",
+  "settings": [
+    {
+      "type": "select", "id": "background", "label": "Fond",
+      "options": [
+        { "value": "bg-creme", "label": "Crème" },
+        { "value": "bg-creme-dark", "label": "Crème foncé" },
+        { "value": "bg-creme-medium", "label": "Crème moyen" }
+      ],
+      "default": "bg-creme-dark"
+    },
+    { "type": "text", "id": "eyebrow", "label": "Sur-titre" },
+    { "type": "text", "id": "title", "label": "Titre" }
+  ],
+  "blocks": [
+    {
+      "type": "image",
+      "name": "Image",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "checkbox", "id": "wide", "label": "Large (2 colonnes)", "default": false },
+        {
+          "type": "select", "id": "tone", "label": "Teinte de repli",
+          "options": [
+            { "value": "tone-atelier", "label": "Atelier" },
+            { "value": "tone-portrait", "label": "Portrait" },
+            { "value": "tone-stone", "label": "Pierre" },
+            { "value": "tone-grege", "label": "Grège" },
+            { "value": "tone-sauge", "label": "Sauge" },
+            { "value": "tone-marron-glace", "label": "Marron glacé" }
+          ],
+          "default": "tone-atelier"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [
+    {
+      "name": "Galerie (atelier)",
+      "blocks": [
+        { "type": "image", "settings": { "tone": "tone-portrait" } },
+        { "type": "image", "settings": { "tone": "tone-atelier", "wide": true } },
+        { "type": "image", "settings": { "tone": "tone-grege" } },
+        { "type": "image", "settings": { "tone": "tone-stone" } },
+        { "type": "image", "settings": { "tone": "tone-sauge" } },
+        { "type": "image", "settings": { "tone": "tone-marron-glace", "wide": true } }
+      ]
+    }
+  ]
+}
+{% endschema %}
