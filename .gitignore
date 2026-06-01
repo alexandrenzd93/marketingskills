@@ -31,3 +31,4 @@ skills-lock.json
 
 # Shopify theme build artifacts (generated zips)
 bleu-blanc-couture-*.zip
+*.zip
