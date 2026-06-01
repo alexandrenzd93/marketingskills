@@ -28,6 +28,7 @@
       "type": "featured-products",
       "settings": {
         "background": "bg-creme-dark",
+        "collection": "my-tailor-is-joh",
         "eyebrow": "La Sélection",
         "title": "Pièces du moment",
         "products_to_show": 6,
@@ -38,9 +39,9 @@
     "creators": {
       "type": "creators-grid",
       "blocks": {
-        "c1": { "type": "creator", "settings": { "size": "feature", "tone": "tone-portrait", "location": "Paris · Le Marais", "name": "My Tailor is Joh", "story": "Johanna Richard, ex-costumière de l'Opéra de Paris, taille un vestiaire féminin dans des tissus deadstock issus de la Haute Couture. Un tailleur d'exception, pièce par pièce.", "link_label": "Découvrir l'atelier" } },
-        "c2": { "type": "creator", "settings": { "size": "small", "tone": "tone-stone", "location": "Île-de-France", "name": "La 8e Fois", "story": "Florence Marceau réinvente le vêtement upcyclé et ajustable, labellisé « Fabriqué à Paris 2024 ».", "link_label": "Découvrir" } },
-        "c3": { "type": "creator", "settings": { "size": "small", "tone": "tone-lingerie", "location": "France", "name": "Le Manoir à Lingerie", "story": "La lingerie française fine, pensée comme une seconde peau — délicate, juste, intemporelle.", "link_label": "Découvrir" } },
+        "c1": { "type": "creator", "settings": { "size": "feature", "tone": "tone-portrait", "location": "Paris · Le Marais", "name": "My Tailor is Joh", "story": "Johanna Richard, ex-costumière de l'Opéra de Paris, taille un vestiaire féminin dans des tissus deadstock issus de la Haute Couture. Un tailleur d'exception, pièce par pièce.", "link_label": "Découvrir l'atelier", "link_url": "/collections/my-tailor-is-joh" } },
+        "c2": { "type": "creator", "settings": { "size": "small", "tone": "tone-stone", "location": "Île-de-France", "name": "La 8e Fois", "story": "Florence Marceau réinvente le vêtement upcyclé et ajustable, labellisé « Fabriqué à Paris 2024 ».", "link_label": "Découvrir", "link_url": "/collections/la-8e-fois" } },
+        "c3": { "type": "creator", "settings": { "size": "small", "tone": "tone-lingerie", "location": "France", "name": "Le Manoir à Lingerie", "story": "La lingerie française fine, pensée comme une seconde peau — délicate, juste, intemporelle.", "link_label": "Découvrir", "link_url": "/collections/le-manoir-a-lingerie" } },
         "s1": { "type": "soon", "settings": { "title": "Bientôt", "text": "Une nouvelle créatrice rejoint l'atelier" } },
         "s2": { "type": "soon", "settings": { "title": "Bientôt", "text": "Un savoir-faire français à découvrir" } }
       },
@@ -78,10 +79,12 @@
       "type": "journal-marquee",
       "settings": {
         "background": "bg-creme-dark",
+        "blog": "actualites",
         "eyebrow": "Le Journal",
         "title": "Lectures de l'atelier",
         "articles_to_show": 6,
-        "link_label": "Lire le journal"
+        "link_label": "Lire le journal",
+        "link_url": "/blogs/actualites"
       }
     },
     "newsletter": {
