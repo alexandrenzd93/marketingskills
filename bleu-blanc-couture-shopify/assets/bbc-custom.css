@@ -1,0 +1,130 @@
+/* ==========================================================================
+   BLEU BLANC COUTURE — bbc-custom.css
+   Personnalisations & correctifs. Chargé APRÈS base.css et bbc-shopify.css :
+   ce fichier a donc le dernier mot sur le style.
+   ========================================================================== */
+
+/* ---- 1. POLICE DES GRANDS TITRES → Newsreader (serif, façon Times) ------- */
+:root {
+  --font-display: 'Newsreader', 'Times New Roman', Georgia, serif;
+}
+
+/* ==========================================================================
+   2. CORRECTIF ÉDITEUR — plus jamais de texte transparent
+   Dans l'éditeur Shopify, les animations d'apparition (reveal / fade / hero)
+   ne se relancent pas quand on modifie une section : le texte restait
+   invisible. En "design mode" on force donc tout à rester visible.
+   ========================================================================== */
+html.bbc-design-mode .reveal,
+html.bbc-design-mode [class*="reveal-delay"],
+html.bbc-design-mode .hero__title .word > span,
+html.bbc-design-mode .hero__sub,
+html.bbc-design-mode .hero__cta,
+html.bbc-design-mode .hero__coords,
+html.bbc-design-mode .hero__season,
+html.bbc-design-mode .hero__scroll,
+html.bbc-design-mode .manifeste__line,
+html.bbc-design-mode .manifeste__phrase {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  visibility: visible !important;
+}
+
+/* ==========================================================================
+   3. HERO
+   ========================================================================== */
+/* Titre principal bien blanc */
+.hero__title,
+.hero__title .word > span { color: #FFFFFF; }
+.hero__sub { color: rgba(255, 255, 255, 0.88); }
+
+/* Photo de fond (réglable dans l'éditeur : section Héros → « Image de fond ») :
+   on la rend bien visible, et un voile dégradé garde le texte lisible
+   quelle que soit la photo choisie. */
+.hero__bg { opacity: var(--hero-bg-opacity, 0.7); }
+.hero:has(.hero__bg)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(180deg, rgba(12,10,7,0.55) 0%, rgba(12,10,7,0.20) 40%, rgba(12,10,7,0.60) 100%);
+  pointer-events: none;
+}
+
+/* ==========================================================================
+   4. EN-TÊTE — bande pleine qui suit toute la barre + lisibilité
+   (Le logo est déjà centré et le menu à gauche dans la grille de base.)
+   ========================================================================== */
+/* Quand on défile : une vraie bande crème opaque sur toute la largeur */
+.site-header.scrolled .nav {
+  background: rgba(250, 248, 245, 0.96);
+  box-shadow: 0 1px 0 var(--line-soft), 0 10px 30px -26px rgba(0, 0, 0, 0.5);
+}
+.header-solid .nav { background: rgba(250, 248, 245, 0.97); }
+
+/* En haut de l'accueil (en-tête transparent) : léger voile sombre pour que
+   le menu blanc reste lisible, même avec une photo de fond claire. */
+.home .site-header:not(.scrolled)::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 220%;
+  background: linear-gradient(180deg, rgba(10, 8, 6, 0.45), transparent);
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* ==========================================================================
+   5. MANIFESTE — les 3 phrases l'une sous l'autre
+   ========================================================================== */
+.manifeste__type--stacked {
+  position: static;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: clamp(0.06em, 1vw, 0.16em);
+  line-height: 1.04;
+}
+.manifeste__type--stacked .manifeste__line { display: block; }
+
+/* ==========================================================================
+   6. SURVOL DES PRODUITS — zoom doux, sans à-coups ni clignotement
+   ========================================================================== */
+.product-card .media,
+.creator-card .media,
+.article-card .media,
+.designer-block__media { overflow: hidden; }
+
+.product-card .media__img,
+.product-card .media__layer {
+  transition: transform 0.9s var(--ease-luxury, cubic-bezier(0.22, 1, 0.36, 1));
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.product-card:hover .media__img,
+.product-card:hover .media__layer { transform: scale(1.05); }
+
+/* S'il n'y a qu'une seule photo, on n'essaie pas de faire apparaître une 2e
+   image au survol (ce qui provoquait le clignotement signalé). */
+.product-card .media__img--alt { display: none; }
+
+/* ==========================================================================
+   7. CONTRASTE / LISIBILITÉ
+   ========================================================================== */
+.eyebrow { color: #A97D32; }                  /* doré un peu plus foncé = lisible */
+.section-sub, .section-sub p { color: var(--gris-fonce); }
+.creator-card__story, .valeur__text { color: var(--gris-fonce); }
+
+/* ==========================================================================
+   8. MOBILE — version téléphone soignée
+   ========================================================================== */
+@media (max-width: 860px) {
+  .hero__title { font-size: clamp(40px, 12.5vw, 64px); max-width: 14ch; }
+  .manifeste__type--stacked { font-size: clamp(26px, 8.5vw, 42px); }
+}
+@media (max-width: 600px) {
+  .product-grid { grid-template-columns: repeat(2, 1fr); gap: 14px 12px; }
+  .hero__coords, .hero__season { display: none; }
+  .manifeste__type--stacked { font-size: clamp(24px, 9vw, 36px); }
+}

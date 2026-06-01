@@ -19,13 +19,14 @@
     <meta name="description" content="{{ page_description | escape }}">
   {%- endif -%}
 
-  {%- comment -%} Fonts: Bodoni Moda (display) + Raleway (body) {%- endcomment -%}
+  {%- comment -%} Fonts: Newsreader (display) + Raleway (body) {%- endcomment -%}
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
 
   {{ 'base.css' | asset_url | stylesheet_tag }}
   {{ 'bbc-shopify.css' | asset_url | stylesheet_tag }}
+  {{ 'bbc-custom.css' | asset_url | stylesheet_tag }}
 
   {%- style -%}
     :root {
@@ -40,7 +41,7 @@
     }
   {%- endstyle -%}
 
-  <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+  <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js'); if (window.Shopify && Shopify.designMode) { document.documentElement.classList.add('bbc-design-mode'); }</script>
 
   {{ content_for_header }}
 </head>
@@ -68,5 +69,6 @@
   {% sections 'footer-group' %}
 
   <script src="{{ 'global.js' | asset_url }}" defer></script>
+  <script>document.addEventListener('shopify:section:load',function(e){var r=(e.target||document).querySelectorAll('.reveal');for(var i=0;i<r.length;i++){r[i].classList.add('is-visible');}});</script>
 </body>
 </html>

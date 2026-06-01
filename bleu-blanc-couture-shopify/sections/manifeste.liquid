@@ -2,9 +2,12 @@
   <div class="container">
     {%- if section.settings.label != blank -%}<p class="eyebrow eyebrow--center manifeste__label">{{ section.settings.label }}</p>{%- endif -%}
     {%- if section.settings.headline != blank -%}
-      <h2 class="manifeste__type">
-        <span class="manifeste__ghost" aria-hidden="true">{{ section.settings.headline }}</span>
-        <span class="manifeste__live">{{ section.settings.headline }}</span>
+      {%- assign mlines = section.settings.headline | split: '.' -%}
+      <h2 class="manifeste__type manifeste__type--stacked">
+        {%- for ml in mlines -%}
+          {%- assign mt = ml | strip -%}
+          {%- if mt != blank -%}<span class="manifeste__line">{{ mt }}.</span>{%- endif -%}
+        {%- endfor -%}
       </h2>
     {%- endif -%}
 

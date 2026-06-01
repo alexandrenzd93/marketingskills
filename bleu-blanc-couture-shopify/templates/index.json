@@ -3,13 +3,13 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "eyebrow": "Collection Printemps — Été 2025",
-        "title": "L'Élégance Made in France",
+        "eyebrow": "",
+        "title": "L'élégance à la française",
         "subtitle": "Une sélection intime de créatrices françaises. Des pièces pensées pour durer, façonnées dans les ateliers de Paris et d'Île-de-France.",
         "button_label": "Découvrir la sélection",
         "link_label": "Nos créateurs",
-        "coords": "Paris · Made in France · Depuis 2024",
-        "season": "Édition N°01",
+        "coords": "",
+        "season": "",
         "scroll_label": "Défiler",
         "scroll_anchor": "manifeste"
       }

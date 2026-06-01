@@ -12,9 +12,9 @@
     "contact": {
       "type": "contact",
       "blocks": {
-        "a1": { "type": "detail", "settings": { "title": "L'adresse", "value": "<p>Espace BBC, sur rendez-vous<br>Le Marais — 75003 Paris<br>France</p>" } },
-        "a2": { "type": "detail", "settings": { "title": "Nous joindre", "value": "<p>bonjour@bleublancouture.fr<br>+33 1 00 00 00 00</p>" } },
-        "a3": { "type": "detail", "settings": { "title": "Horaires", "value": "<p>Mardi – Samedi · 11h – 19h<br>Sur rendez-vous uniquement<br>Dimanche & Lundi · fermé</p>" } }
+        "a1": { "type": "detail", "settings": { "title": "L'adresse", "value": "<p>Espace BBC, sur rendez-vous<br>Paris 9e — 75009<br>France</p>" } },
+        "a2": { "type": "detail", "settings": { "title": "Nous joindre", "value": "<p>bleublancouture@gmail.com</p>" } },
+        "a3": { "type": "detail", "settings": { "title": "Horaires", "value": "<p>Lundi – Samedi · 10h – 19h<br>Sur rendez-vous<br>Dimanche · fermé</p>" } }
       },
       "block_order": ["a1", "a2", "a3"],
       "settings": {
@@ -24,7 +24,7 @@
         "booking_title": "Réservez votre essayage privé — Paris",
         "booking_text": "Un moment rien qu'à vous : nous sortons les pièces qui vous intéressent, vous les essayez tranquillement, sans pression d'achat.",
         "booking_cta_label": "Choisir un créneau",
-        "map_label": "Le Marais · 75003 Paris"
+        "map_label": "Paris 9e · 75009"
       }
     }
   },
