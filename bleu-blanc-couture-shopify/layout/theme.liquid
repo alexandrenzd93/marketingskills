@@ -19,10 +19,55 @@
     <meta name="description" content="{{ page_description | escape }}">
   {%- endif -%}
 
-  {%- comment -%} Fonts: Newsreader (display) + Raleway (body) {%- endcomment -%}
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+  {%- comment -%} Fonts: réglables dans Personnaliser → Typographie {%- endcomment -%}
+  {%- liquid
+    case settings.heading_font
+      when 'playfair'
+        assign head_family = "'Playfair Display', Georgia, serif"
+        assign head_g = "Playfair+Display:ital,wght@0,400;0,500;0,600;1,400"
+      when 'cormorant'
+        assign head_family = "'Cormorant Garamond', Georgia, serif"
+        assign head_g = "Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400"
+      when 'ebgaramond'
+        assign head_family = "'EB Garamond', Georgia, serif"
+        assign head_g = "EB+Garamond:ital,wght@0,400;0,500;0,600;1,400"
+      when 'times'
+        assign head_family = "'Times New Roman', Times, serif"
+        assign head_g = ""
+      else
+        assign head_family = "'Newsreader', Georgia, serif"
+        assign head_g = "Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400;1,6..72,500"
+    endcase
+    case settings.body_font
+      when 'montserrat'
+        assign body_family = "'Montserrat', sans-serif"
+        assign body_g = "Montserrat:wght@300;400;500;600"
+      when 'inter'
+        assign body_family = "'Inter', sans-serif"
+        assign body_g = "Inter:wght@300;400;500;600"
+      when 'lato'
+        assign body_family = "'Lato', sans-serif"
+        assign body_g = "Lato:wght@300;400;700"
+      when 'georgia'
+        assign body_family = "Georgia, 'Times New Roman', serif"
+        assign body_g = ""
+      else
+        assign body_family = "'Raleway', -apple-system, BlinkMacSystemFont, sans-serif"
+        assign body_g = "Raleway:wght@300;400;500;600"
+    endcase
+    assign gfonts = ""
+    if head_g != blank
+      assign gfonts = gfonts | append: "&family=" | append: head_g
+    endif
+    if body_g != blank
+      assign gfonts = gfonts | append: "&family=" | append: body_g
+    endif
+  -%}
+  {%- if gfonts != blank -%}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?{{ gfonts | remove_first: '&' }}&display=swap" rel="stylesheet">
+  {%- endif -%}
 
   {{ 'base.css' | asset_url | stylesheet_tag }}
   {{ 'bbc-shopify.css' | asset_url | stylesheet_tag }}
@@ -37,6 +82,9 @@
       --gold-light: {{ settings.color_gold_light }};
       --noir: {{ settings.color_noir }};
       --hero-dark: {{ settings.color_hero_dark }};
+      --font-display: {{ head_family }};
+      --font-body: {{ body_family }};
+      --section-y: clamp(34px, 6vw, {{ settings.section_spacing | default: 88 }}px);
       --maxw: {{ settings.page_width | default: 1340 }}px;
     }
   {%- endstyle -%}

@@ -60,8 +60,34 @@
     "name": "Typographie",
     "settings": [
       {
+        "type": "select",
+        "id": "heading_font",
+        "label": "Police des titres",
+        "options": [
+          { "value": "newsreader", "label": "Newsreader (par défaut)" },
+          { "value": "playfair", "label": "Playfair Display" },
+          { "value": "cormorant", "label": "Cormorant Garamond" },
+          { "value": "ebgaramond", "label": "EB Garamond" },
+          { "value": "times", "label": "Times New Roman (système)" }
+        ],
+        "default": "newsreader"
+      },
+      {
+        "type": "select",
+        "id": "body_font",
+        "label": "Police du texte",
+        "options": [
+          { "value": "raleway", "label": "Raleway (par défaut)" },
+          { "value": "montserrat", "label": "Montserrat" },
+          { "value": "inter", "label": "Inter" },
+          { "value": "lato", "label": "Lato" },
+          { "value": "georgia", "label": "Georgia (système)" }
+        ],
+        "default": "raleway"
+      },
+      {
         "type": "paragraph",
-        "content": "Le thème utilise Bodoni Moda (titres) et Raleway (texte), chargées depuis Google Fonts pour préserver l'identité éditoriale."
+        "content": "Les polices choisies s'appliquent à tout le site."
       }
     ]
   },
@@ -95,12 +121,22 @@
       {
         "type": "range",
         "id": "page_width",
-        "min": 1200,
+        "min": 1000,
         "max": 1600,
         "step": 20,
         "unit": "px",
         "label": "Largeur maximale du contenu",
         "default": 1340
+      },
+      {
+        "type": "range",
+        "id": "section_spacing",
+        "min": 30,
+        "max": 140,
+        "step": 2,
+        "unit": "px",
+        "label": "Espacement vertical des sections",
+        "default": 88
       }
     ]
   }
