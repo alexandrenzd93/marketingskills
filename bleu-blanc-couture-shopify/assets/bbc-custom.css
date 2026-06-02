@@ -148,3 +148,11 @@ html.bbc-design-mode .manifeste__phrase {
   .home .creators-grid > * { grid-column: auto !important; grid-row: auto !important; }
   .home .creators-grid .creator-card .media { aspect-ratio: 4 / 5; }
 }
+
+/* ==========================================================================
+   10. HERO — texte centré au milieu (page d'accueil)
+   ========================================================================== */
+.home .hero__inner { text-align: center; }
+.home .hero__title,
+.home .hero__sub { margin-inline: auto; }
+.home .hero__cta { justify-content: center; }
