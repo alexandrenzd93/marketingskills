@@ -28,11 +28,10 @@
       "type": "featured-products",
       "settings": {
         "background": "bg-creme-dark",
-        "collection": "",
-        "shuffle": true,
+        "collection": "my-tailor-is-joh",
         "eyebrow": "La Sélection",
         "title": "Pièces du moment",
-        "products_to_show": 8,
+        "products_to_show": 6,
         "link_label": "Voir tout le catalogue",
         "cta_label": "Voir tout le catalogue"
       }

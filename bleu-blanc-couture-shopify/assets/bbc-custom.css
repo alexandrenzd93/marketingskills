@@ -128,26 +128,3 @@ html.bbc-design-mode .manifeste__phrase {
   .hero__coords, .hero__season { display: none; }
   .manifeste__type--stacked { font-size: clamp(24px, 9vw, 36px); }
 }
-
-/* ==========================================================================
-   9. AJUSTEMENTS PAGE D'ACCUEIL (retours client)
-   ========================================================================== */
-/* Sections moins larges (étaient trop étirées) */
-.container { max-width: 1120px; }
-
-/* Hero : texte descendu + bouton principal plus discret */
-.home .hero { align-items: flex-end; }
-.home .hero__inner { padding-bottom: clamp(96px, 16vh, 175px); }
-.hero__cta .btn--lg {
-  font-size: 12px;
-  letter-spacing: 0.16em;
-  padding: 13px 26px;
-}
-
-/* Sélection produits : 4 pièces par ligne (images plus petites) sur l'accueil */
-.home .product-grid {
-  grid-template-columns: repeat(4, 1fr);
-  gap: clamp(12px, 1.4vw, 20px);
-}
-@media (max-width: 900px) { .home .product-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 600px) { .home .product-grid { grid-template-columns: repeat(2, 1fr); } }

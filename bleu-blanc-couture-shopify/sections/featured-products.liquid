@@ -1,13 +1,6 @@
 {%- liquid
   assign coll = collections[section.settings.collection]
-  if section.settings.collection == 'all' or coll == blank
-    assign coll = collections.all
-  endif
   assign limit = section.settings.products_to_show | default: 6
-  assign pool = limit
-  if section.settings.shuffle
-    assign pool = 50
-  endif
 -%}
 <section class="section {{ section.settings.background }}">
   <div class="container">
@@ -21,9 +14,9 @@
       {%- endif -%}
     </div>
 
-    <div class="product-grid" id="bbc-grid-{{ section.id }}"{% if section.settings.shuffle %} data-bbc-shuffle data-bbc-show="{{ limit }}"{% endif %}>
+    <div class="product-grid">
       {%- if coll != blank and coll.products_count > 0 -%}
-        {%- for product in coll.products limit: pool -%}
+        {%- for product in coll.products limit: limit -%}
           {%- render 'product-card', product: product, index: forloop.index0 -%}
         {%- endfor -%}
       {%- else -%}
@@ -50,19 +43,6 @@
   </div>
 </section>
 
-{%- if section.settings.shuffle -%}
-<script>
-(function () {
-  var g = document.getElementById('bbc-grid-{{ section.id }}');
-  if (!g) return;
-  var show = parseInt(g.getAttribute('data-bbc-show'), 10) || 8;
-  var items = Array.prototype.slice.call(g.children);
-  for (var i = items.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = items[i]; items[i] = items[j]; items[j] = t; }
-  for (var k = 0; k < items.length; k++) { if (k < show) { g.appendChild(items[k]); } else if (items[k].parentNode === g) { g.removeChild(items[k]); } }
-})();
-</script>
-{%- endif -%}
-
 {% schema %}
 {
   "name": "Sélection produits",
@@ -82,7 +62,6 @@
     { "type": "text", "id": "title", "label": "Titre", "default": "Pièces du moment" },
     { "type": "collection", "id": "collection", "label": "Collection à afficher" },
     { "type": "range", "id": "products_to_show", "min": 2, "max": 12, "step": 1, "label": "Nombre de produits", "default": 6 },
-    { "type": "checkbox", "id": "shuffle", "label": "Mélanger tout le catalogue", "default": false },
     { "type": "header", "content": "Liens" },
     { "type": "text", "id": "link_label", "label": "Lien (en-tête)", "default": "Voir tout le catalogue" },
     { "type": "url", "id": "link_url", "label": "URL du lien" },
