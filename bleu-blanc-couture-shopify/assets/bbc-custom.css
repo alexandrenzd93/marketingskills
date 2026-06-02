@@ -150,9 +150,37 @@ html.bbc-design-mode .manifeste__phrase {
 }
 
 /* ==========================================================================
-   10. HERO — texte centré au milieu (page d'accueil)
+   10. ALIGNEMENT DU TEXTE — réglable par section (Personnaliser → la section)
    ========================================================================== */
-.home .hero__inner { text-align: center; }
-.home .hero__title,
-.home .hero__sub { margin-inline: auto; }
-.home .hero__cta { justify-content: center; }
+/* Centré */
+[data-bbc-align="center"] { text-align: center; }
+[data-bbc-align="center"] .section-head,
+[data-bbc-align="center"] .section-head--between { align-items: center; justify-content: center; text-align: center; }
+[data-bbc-align="center"] .section-title,
+[data-bbc-align="center"] .section-sub,
+[data-bbc-align="center"] .hero__title,
+[data-bbc-align="center"] .hero__sub,
+[data-bbc-align="center"] .story-split__title,
+[data-bbc-align="center"] .story-split__body { margin-inline: auto; }
+[data-bbc-align="center"] .hero__cta,
+[data-bbc-align="center"] .section-cta { justify-content: center; }
+[data-bbc-align="center"] .story-split__text { align-items: center; text-align: center; }
+
+/* Droite */
+[data-bbc-align="right"] { text-align: right; }
+[data-bbc-align="right"] .section-head,
+[data-bbc-align="right"] .section-head--between { align-items: flex-end; text-align: right; }
+[data-bbc-align="right"] .section-title,
+[data-bbc-align="right"] .section-sub,
+[data-bbc-align="right"] .hero__title,
+[data-bbc-align="right"] .hero__sub { margin-left: auto; margin-right: 0; }
+[data-bbc-align="right"] .hero__cta,
+[data-bbc-align="right"] .section-cta { justify-content: flex-end; }
+[data-bbc-align="right"] .story-split__text { align-items: flex-end; text-align: right; }
+
+/* Gauche */
+[data-bbc-align="left"] { text-align: left; }
+[data-bbc-align="left"] .hero__title,
+[data-bbc-align="left"] .hero__sub { margin-inline: 0; }
+[data-bbc-align="left"] .hero__cta,
+[data-bbc-align="left"] .section-cta { justify-content: flex-start; }

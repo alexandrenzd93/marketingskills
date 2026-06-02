@@ -1,4 +1,4 @@
-<section class="section {{ section.settings.background }}">
+<section class="section {{ section.settings.background }}" data-bbc-align="{{ section.settings.text_align | default: 'left' }}">
   <div class="container">
     <div class="section-head reveal" style="margin-bottom: clamp(2.4rem, 4vw, 3.6rem);">
       {%- if section.settings.eyebrow != blank -%}<p class="eyebrow">{{ section.settings.eyebrow }}</p>{%- endif -%}
@@ -42,6 +42,7 @@
 {
   "name": "Grille créateurs",
   "settings": [
+    { "type": "select", "id": "text_align", "label": "Alignement du texte", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" }, { "value": "right", "label": "Droite" } ], "default": "left" },
     {
       "type": "select",
       "id": "background",

@@ -1,4 +1,4 @@
-<section class="section {{ section.settings.background }}">
+<section class="section {{ section.settings.background }}" data-bbc-align="{{ section.settings.text_align | default: 'left' }}">
   <div class="container">
     <div class="story-split{% if section.settings.reverse %} story-split--reverse{% endif %}">
       <div class="story-split__media reveal">
@@ -23,6 +23,7 @@
 {
   "name": "Histoire (image/texte)",
   "settings": [
+    { "type": "select", "id": "text_align", "label": "Alignement du texte", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" }, { "value": "right", "label": "Droite" } ], "default": "left" },
     {
       "type": "select", "id": "background", "label": "Fond",
       "options": [

@@ -1,7 +1,7 @@
 {%- liquid
   assign words = section.settings.title | strip | split: ' '
 -%}
-<section class="hero" id="hero-{{ section.id }}"{% if section.settings.bg_opacity %} style="--hero-bg-opacity: {{ section.settings.bg_opacity | divided_by: 100.0 }};"{% endif %}>
+<section class="hero" id="hero-{{ section.id }}"{% if section.settings.bg_opacity %} style="--hero-bg-opacity: {{ section.settings.bg_opacity | divided_by: 100.0 }};"{% endif %} data-bbc-align="{{ section.settings.text_align | default: 'center' }}">
   {%- if section.settings.background_image != blank -%}
     {{ section.settings.background_image | image_url: width: 2400 | image_tag: class: 'hero__bg', widths: '800,1200,1600,2000,2400', sizes: '100vw', loading: 'eager', alt: '' }}
   {%- endif -%}
@@ -40,6 +40,7 @@
 {
   "name": "Héros",
   "settings": [
+    { "type": "select", "id": "text_align", "label": "Alignement du texte", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" }, { "value": "right", "label": "Droite" } ], "default": "center" },
     { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "Collection Printemps — Été 2025" },
     { "type": "text", "id": "title", "label": "Titre (chaque mot est animé)", "default": "L'Élégance Made in France" },
     { "type": "textarea", "id": "subtitle", "label": "Sous-titre", "default": "Une sélection intime de créatrices françaises. Des pièces pensées pour durer, façonnées dans les ateliers de Paris et d'Île-de-France." },

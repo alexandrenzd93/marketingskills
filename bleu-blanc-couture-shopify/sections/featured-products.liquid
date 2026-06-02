@@ -9,7 +9,7 @@
     assign pool = 50
   endif
 -%}
-<section class="section {{ section.settings.background }}">
+<section class="section {{ section.settings.background }}" data-bbc-align="{{ section.settings.text_align | default: 'left' }}">
   <div class="container">
     <div class="section-head section-head--between reveal">
       <div>
@@ -78,6 +78,7 @@
       ],
       "default": "bg-creme-dark"
     },
+    { "type": "select", "id": "text_align", "label": "Alignement du texte", "options": [ { "value": "left", "label": "Gauche" }, { "value": "center", "label": "Centré" }, { "value": "right", "label": "Droite" } ], "default": "left" },
     { "type": "text", "id": "eyebrow", "label": "Sur-titre", "default": "La Sélection" },
     { "type": "text", "id": "title", "label": "Titre", "default": "Pièces du moment" },
     { "type": "collection", "id": "collection", "label": "Collection à afficher" },
