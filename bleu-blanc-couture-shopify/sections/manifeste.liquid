@@ -6,7 +6,7 @@
       <h2 class="manifeste__type manifeste__type--stacked">
         {%- for ml in mlines -%}
           {%- assign mt = ml | strip -%}
-          {%- if mt != blank -%}<span class="manifeste__line">{{ mt }}.</span>{%- endif -%}
+          {%- if mt != blank -%}<span class="manifeste__line">{{ mt }}<span class="manifeste__dot">.</span></span>{%- endif -%}
         {%- endfor -%}
       </h2>
     {%- endif -%}

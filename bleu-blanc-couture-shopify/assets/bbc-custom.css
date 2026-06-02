@@ -105,9 +105,7 @@ html.bbc-design-mode .manifeste__phrase {
 .product-card:hover .media__img,
 .product-card:hover .media__layer { transform: scale(1.05); }
 
-/* S'il n'y a qu'une seule photo, on n'essaie pas de faire apparaître une 2e
-   image au survol (ce qui provoquait le clignotement signalé). */
-.product-card .media__img--alt { display: none; }
+/* Changement de photo au survol : actif (géré par bbc-shopify.css). */
 
 /* ==========================================================================
    7. CONTRASTE / LISIBILITÉ
@@ -127,4 +125,26 @@ html.bbc-design-mode .manifeste__phrase {
   .product-grid { grid-template-columns: repeat(2, 1fr); gap: 14px 12px; }
   .hero__coords, .hero__season { display: none; }
   .manifeste__type--stacked { font-size: clamp(24px, 9vw, 36px); }
+}
+
+/* ==========================================================================
+   9. RÉGLAGES DEMANDÉS (page d'accueil)
+   ========================================================================== */
+/* Sections moins hautes : on réduit nettement l'espace haut / bas */
+:root { --section-y: clamp(44px, 6vw, 88px); }
+
+/* Manifeste : les points (.) en beige doré + on retire le trait séparateur */
+.manifeste__dot { color: var(--gold); }
+.manifeste__sep { display: none; }
+
+/* Sélection produits : 4 par ligne sur ordinateur, 2 sur téléphone */
+.home .product-grid { grid-template-columns: repeat(4, 1fr); gap: clamp(12px, 1.4vw, 20px); }
+@media (max-width: 900px) { .home .product-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 600px) { .home .product-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+
+/* « Les mains derrière les pièces » : cartes toutes alignées, même taille */
+@media (min-width: 901px) {
+  .home .creators-grid { grid-template-columns: repeat(3, 1fr); }
+  .home .creators-grid > * { grid-column: auto !important; grid-row: auto !important; }
+  .home .creators-grid .creator-card .media { aspect-ratio: 4 / 5; }
 }
