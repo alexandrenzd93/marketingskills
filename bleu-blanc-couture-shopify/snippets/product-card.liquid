@@ -33,9 +33,20 @@
   endif
 
   assign img_alt = product.images[1]
+  assign is_lingerie = false
+  comment
+    Le Manoir à Lingerie : on garde uniquement l'image de base (la 2e photo
+    provoque des bugs d'affichage) + fond blanc (photos sur fond blanc).
+  endcomment
+  for c in product.collections
+    if c.handle == 'le-manoir-a-lingerie'
+      assign img_alt = null
+      assign is_lingerie = true
+    endif
+  endfor
 -%}
 <a class="product-card {{ reveal_class }}" href="{{ product.url }}">
-  <div class="media {{ tone }}">
+  <div class="media {{ tone }}{% if is_lingerie %} media--white{% endif %}">
     {%- render 'image-layers',
         image: product.featured_image,
         image_alt: img_alt,
@@ -44,7 +55,6 @@
     {%- if show_badge_final -%}
       <span class="badge-mif"><span class="tri" aria-hidden="true"></span>{{ 'general.made_in_france' | t }}</span>
     {%- endif -%}
-    <span class="product-card__cta">{{ 'products.card.view' | t }} <span class="arrow">&rarr;</span></span>
   </div>
   {%- if brand != blank -%}<p class="product-card__brand">{{ brand }}</p>{%- endif -%}
   <h3 class="product-card__name">{{ product.title }}</h3>
