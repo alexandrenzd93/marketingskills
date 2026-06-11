@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Alexandre Nizard — Sites web boostés par l'IA, livrés en moins de 7 jours</title>
+<meta name="description" content="Création de sites web professionnels boostés par l'IA pour TPE, indépendants, consultants et entrepreneurs. Un site pro, intelligent, livré en moins de 7 jours.">
+<meta property="og:title" content="Alexandre Nizard — Sites web boostés par l'IA">
+<meta property="og:description" content="Un site pro, intelligent, livré en moins de 7 jours. Design sur-mesure, intégration IA, performance et SEO technique.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07070F;
+  --primary:#7C5CFC;
+  --accent:#00E0FF;
+  --text:#EEEEF5;
+  --muted:#8884A0;
+  --glass:rgba(124,92,252,.08);
+  --glass-border:rgba(124,92,252,.25);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+body.cursor-active{cursor:none}
+body.cursor-active a,body.cursor-active button{cursor:none}
+h1,h2,h3{font-family:'Space Grotesk',sans-serif}
+a{color:inherit;text-decoration:none}
+section{position:relative;padding:96px 24px;max-width:1120px;margin:0 auto}
+.section-title{font-size:38px;font-weight:600;margin-bottom:16px;text-align:center}
+.section-sub{color:var(--muted);text-align:center;max-width:560px;margin:0 auto 56px}
+.grad-text{background:linear-gradient(90deg,var(--primary),var(--accent));-webkit-background-clip:text;background-clip:text;color:transparent}
+
+/* Canvas */
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+.content{position:relative;z-index:1}
+
+/* Custom cursor */
+#cursor{
+  position:fixed;top:0;left:0;width:28px;height:28px;
+  border:2px solid var(--primary);border-radius:50%;
+  pointer-events:none;z-index:9999;
+  transform:translate(-50%,-50%);
+  transition:width .2s,height .2s,background .2s;
+  display:none;
+}
+body.cursor-active #cursor{display:block}
+#cursor.hover{width:48px;height:48px;background:rgba(124,92,252,.15)}
+
+/* Navbar */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:16px 24px;
+  background:rgba(7,7,15,.65);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(124,92,252,.12);
+  transition:transform .35s ease;
+}
+nav.hidden{transform:translateY(-100%)}
+.logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:18px}
+.logo span{color:var(--primary)}
+.nav-links{display:none;gap:32px;align-items:center;list-style:none}
+.nav-links a{color:var(--muted);font-size:14px;font-weight:500;transition:color .2s}
+.nav-links a:hover{color:var(--text)}
+.nav-cta{
+  display:none;font-size:14px;font-weight:600;padding:10px 20px;border-radius:99px;
+  background:linear-gradient(90deg,var(--primary),var(--accent));color:#07070F;
+  transition:box-shadow .3s,transform .2s;
+}
+.nav-cta:hover{box-shadow:0 0 24px rgba(124,92,252,.6);transform:translateY(-1px)}
+
+/* Hamburger */
+#burger{
+  display:flex;flex-direction:column;justify-content:center;gap:6px;
+  width:40px;height:40px;background:none;border:none;cursor:pointer;z-index:101;
+}
+#burger span{display:block;width:24px;height:2px;background:var(--text);transition:transform .3s,opacity .3s;margin:0 auto}
+#burger.open span:nth-child(1){transform:translateY(8px) rotate(45deg)}
+#burger.open span:nth-child(2){opacity:0}
+#burger.open span:nth-child(3){transform:translateY(-8px) rotate(-45deg)}
+#mobile-menu{
+  position:fixed;inset:0;z-index:99;
+  background:rgba(7,7,15,.96);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:32px;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+#mobile-menu.open{opacity:1;pointer-events:auto}
+#mobile-menu a{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:600;color:var(--text)}
+#mobile-menu a:active{color:var(--primary)}
+
+/* Hero */
+#hero{
+  min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  text-align:center;padding-top:120px;
+}
+.badge{
+  display:inline-flex;align-items:center;gap:10px;
+  padding:8px 18px;border-radius:99px;font-size:13px;font-weight:500;
+  background:var(--glass);border:1px solid var(--glass-border);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  margin-bottom:32px;color:var(--text);
+}
+.badge .dot{
+  width:8px;height:8px;border-radius:50%;background:var(--accent);
+  animation:pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{box-shadow:0 0 0 0 rgba(0,224,255,.5);opacity:1}
+  50%{box-shadow:0 0 0 8px rgba(0,224,255,0);opacity:.6}
+}
+#hero h1{
+  font-size:40px;font-weight:700;line-height:1.15;max-width:840px;
+  min-height:2.4em;
+}
+#typewriter::after{
+  content:"";display:inline-block;width:3px;height:.9em;
+  background:var(--accent);margin-left:6px;vertical-align:-.08em;
+  animation:blink 1s step-end infinite;
+}
+@keyframes blink{50%{opacity:0}}
+.hero-sub{
+  color:var(--muted);font-size:18px;max-width:560px;margin:24px auto 40px;
+}
+.btn-primary{
+  display:inline-block;position:relative;
+  padding:16px 36px;border-radius:99px;font-weight:600;font-size:16px;
+  font-family:'Space Grotesk',sans-serif;
+  background:linear-gradient(90deg,var(--primary),var(--accent));color:#07070F;
+  transition:transform .2s,box-shadow .3s;
+}
+.btn-primary:hover{
+  transform:translateY(-2px);
+  box-shadow:0 0 20px rgba(124,92,252,.7),0 0 50px rgba(0,224,255,.35);
+  animation:glowpulse 1.6s ease-in-out infinite;
+}
+@keyframes glowpulse{
+  0%,100%{box-shadow:0 0 20px rgba(124,92,252,.7),0 0 50px rgba(0,224,255,.35)}
+  50%{box-shadow:0 0 35px rgba(124,92,252,.9),0 0 70px rgba(0,224,255,.5)}
+}
+
+/* Reveal */
+.reveal{opacity:0;transform:translateY(36px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal.d1{transition-delay:.1s}
+.reveal.d2{transition-delay:.2s}
+
+/* Cards */
+.cards{display:grid;grid-template-columns:1fr;gap:24px}
+.card{
+  background:var(--glass);
+  border:1px solid var(--glass-border);
+  border-radius:20px;padding:32px;
+  backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  transition:transform .3s,box-shadow .3s,border-color .3s;
+}
+.card:hover{
+  transform:translateY(-6px);
+  border-color:rgba(124,92,252,.6);
+  box-shadow:0 0 30px rgba(124,92,252,.35);
+}
+.card .icon{
+  width:52px;height:52px;border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,rgba(124,92,252,.25),rgba(0,224,255,.15));
+  margin-bottom:20px;
+}
+.card h3{font-size:20px;font-weight:600;margin-bottom:10px}
+.card p{color:var(--muted);font-size:15px}
+
+/* Process */
+.timeline{display:flex;flex-direction:column;gap:0;position:relative;max-width:900px;margin:0 auto}
+.step{display:flex;gap:24px;position:relative;padding-bottom:48px}
+.step:last-child{padding-bottom:0}
+.step-num{
+  flex-shrink:0;width:56px;height:56px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:20px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));color:#07070F;
+  box-shadow:0 0 20px rgba(124,92,252,.4);position:relative;z-index:1;
+}
+.step-line{
+  position:absolute;left:27px;top:56px;bottom:0;width:2px;
+  background:rgba(124,92,252,.15);overflow:hidden;
+}
+.step-line::after{
+  content:"";position:absolute;left:0;top:-100%;width:100%;height:100%;
+  background:linear-gradient(180deg,transparent,var(--accent),transparent);
+  animation:flowY 2.5s linear infinite;
+}
+@keyframes flowY{0%{top:-100%}100%{top:100%}}
+.step-body h3{font-size:20px;margin-bottom:6px}
+.step-body .duration{color:var(--accent);font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase}
+.step-body p{color:var(--muted);font-size:15px;margin-top:8px}
+
+/* Stack pills */
+.pills{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;max-width:740px;margin:0 auto}
+.pill{
+  padding:12px 26px;border-radius:99px;font-family:'Space Grotesk',sans-serif;
+  font-weight:600;font-size:15px;
+  background:var(--glass);border:1px solid var(--glass-border);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  transition:box-shadow .3s,border-color .3s,transform .2s;
+}
+.pill:hover{
+  border-color:var(--accent);
+  box-shadow:0 0 22px rgba(0,224,255,.45);
+  transform:translateY(-2px);
+}
+.stack-note{text-align:center;color:var(--muted);margin-top:36px;font-style:italic}
+
+/* Testimonials & stats */
+.quote{font-size:15px;color:var(--text);margin-bottom:20px}
+.author{display:flex;align-items:center;gap:12px}
+.avatar{
+  width:42px;height:42px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:16px;
+  background:linear-gradient(135deg,var(--primary),var(--accent));color:#07070F;
+}
+.author .name{font-weight:600;font-size:14px}
+.author .role{color:var(--muted);font-size:13px}
+.stats{display:grid;grid-template-columns:1fr;gap:32px;margin-top:72px;text-align:center}
+.stat-value{
+  font-family:'Space Grotesk',sans-serif;font-size:52px;font-weight:700;
+  background:linear-gradient(90deg,var(--primary),var(--accent));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.stat-label{color:var(--muted);font-size:15px;margin-top:6px}
+
+/* CTA final */
+#contact{text-align:center}
+#contact h2{font-size:38px;font-weight:600;max-width:680px;margin:0 auto 20px}
+#contact .section-sub{margin-bottom:40px}
+footer{
+  position:relative;z-index:1;
+  border-top:1px solid rgba(124,92,252,.12);
+  padding:32px 24px;text-align:center;color:var(--muted);font-size:14px;
+}
+footer a{color:var(--primary)}
+
+@media(min-width:768px){
+  #hero h1{font-size:56px}
+  .cards{grid-template-columns:repeat(3,1fr)}
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .nav-links{display:flex}
+  .nav-cta{display:inline-block}
+  #burger{display:none}
+  .timeline{flex-direction:row;gap:32px}
+  .step{flex-direction:column;flex:1;padding-bottom:0;gap:20px;align-items:center;text-align:center}
+  .step-line{
+    left:calc(50% + 28px);right:calc(-50% + 28px);top:27px;bottom:auto;
+    width:auto;height:2px;
+  }
+  .step:last-child .step-line{display:none}
+  .step-line::after{
+    top:0;left:-100%;width:100%;height:100%;
+    background:linear-gradient(90deg,transparent,var(--accent),transparent);
+    animation:flowX 2.5s linear infinite;
+  }
+  @keyframes flowX{0%{left:-100%}100%{left:100%}}
+}
+@media(min-width:1024px){
+  #hero h1{font-size:64px}
+  section{padding:120px 32px}
+}
+@media(prefers-reduced-motion:reduce){
+  *,*::after,*::before{animation-duration:.01ms!important;transition-duration:.01ms!important}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<canvas id="particles"></canvas>
+<div id="cursor"></div>
+
+<nav id="navbar">
+  <a href="#hero" class="logo">Alexandre<span>.Nizard</span></a>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#process">Process</a></li>
+    <li><a href="#stack">Stack IA</a></li>
+    <li><a href="#temoignages">Témoignages</a></li>
+  </ul>
+  <a href="mailto:alexandrenizard93@gmail.com" class="nav-cta">Réserver un appel</a>
+  <button id="burger" aria-label="Menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div id="mobile-menu">
+  <a href="#services">Services</a>
+  <a href="#process">Process</a>
+  <a href="#stack">Stack IA</a>
+  <a href="#temoignages">Témoignages</a>
+  <a href="mailto:alexandrenizard93@gmail.com" class="btn-primary">Réserver un appel →</a>
+</div>
+
+<div class="content">
+
+<section id="hero">
+  <div class="badge"><span class="dot"></span>Disponible · Livraison &lt; 7 jours</div>
+  <h1><span id="typewriter"></span></h1>
+  <p class="hero-sub">Pour les TPE, indépendants, consultants et entrepreneurs qui veulent un site professionnel et intelligent — sans attendre des mois ni exploser leur budget.</p>
+  <a href="mailto:alexandrenizard93@gmail.com" class="btn-primary">Réserver un appel gratuit →</a>
+</section>
+
+<section id="services">
+  <h2 class="section-title reveal">Des services pensés pour <span class="grad-text">votre croissance</span></h2>
+  <p class="section-sub reveal">Tout ce qu'il faut pour un site qui attire, convainc et convertit.</p>
+  <div class="cards">
+    <div class="card reveal">
+      <div class="icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00E0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19l7-7 3 3-7 7-3-3z"/><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"/><path d="M2 2l7.586 7.586"/><circle cx="11" cy="11" r="2"/></svg>
+      </div>
+      <h3>Design &amp; Développement sur-mesure</h3>
+      <p>Un site unique, conçu autour de votre marque et de vos objectifs. Aucun template générique, que du sur-mesure.</p>
+    </div>
+    <div class="card reveal d1">
+      <div class="icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#7C5CFC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4v1a4 4 0 0 1 4 4v2a4 4 0 0 1-4 4v1a4 4 0 0 1-8 0v-1a4 4 0 0 1-4-4v-2a4 4 0 0 1 4-4V6a4 4 0 0 1 4-4z"/><circle cx="9" cy="11" r="1"/><circle cx="15" cy="11" r="1"/><path d="M9 15.5c1 .8 5 .8 6 0"/></svg>
+      </div>
+      <h3>Intégration IA</h3>
+      <p>Chatbot intelligent, automatisations et génération de contenu : votre site travaille pendant que vous dormez.</p>
+    </div>
+    <div class="card reveal d2">
+      <div class="icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#00E0FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <h3>Performance &amp; SEO technique</h3>
+      <p>Chargement ultra-rapide, structure optimisée pour Google. Un site beau qui se trouve aussi facilement.</p>
+    </div>
+  </div>
+</section>
+
+<section id="process">
+  <h2 class="section-title reveal">Un process <span class="grad-text">simple et rapide</span></h2>
+  <p class="section-sub reveal">De l'idée au site en ligne, en trois étapes claires.</p>
+  <div class="timeline">
+    <div class="step reveal">
+      <div class="step-num">1</div>
+      <div class="step-line"></div>
+      <div class="step-body">
+        <div class="duration">30 minutes</div>
+        <h3>Brief</h3>
+        <p>Un appel pour comprendre votre activité, vos clients et vos objectifs. Simple et sans engagement.</p>
+      </div>
+    </div>
+    <div class="step reveal d1">
+      <div class="step-num">2</div>
+      <div class="step-line"></div>
+      <div class="step-body">
+        <div class="duration">2–5 jours</div>
+        <h3>Conception</h3>
+        <p>Design, développement et intégration IA. Vous suivez l'avancement et validez à chaque étape clé.</p>
+      </div>
+    </div>
+    <div class="step reveal d2">
+      <div class="step-num">3</div>
+      <div class="step-line"></div>
+      <div class="step-body">
+        <div class="duration">Clé en main</div>
+        <h3>Livraison</h3>
+        <p>Mise en ligne, formation rapide et support. Votre site est prêt à attirer vos premiers clients.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="stack">
+  <h2 class="section-title reveal">Une stack IA <span class="grad-text">de pointe</span></h2>
+  <p class="section-sub reveal">Les meilleurs outils du marché, au service de votre projet.</p>
+  <div class="pills reveal">
+    <span class="pill">Claude</span>
+    <span class="pill">ChatGPT</span>
+    <span class="pill">Cursor</span>
+    <span class="pill">Framer</span>
+    <span class="pill">Vercel</span>
+    <span class="pill">Webflow</span>
+    <span class="pill">Make</span>
+    <span class="pill">Zapier</span>
+    <span class="pill">Midjourney</span>
+  </div>
+  <p class="stack-note reveal d1">Les outils s'adaptent à chaque projet.</p>
+</section>
+
+<section id="temoignages">
+  <h2 class="section-title reveal">Ils m'ont fait <span class="grad-text">confiance</span></h2>
+  <p class="section-sub reveal">Des entrepreneurs qui voulaient avancer vite, sans compromis sur la qualité.</p>
+  <div class="cards">
+    <div class="card reveal">
+      <p class="quote">« Site livré en 5 jours, exactement comme promis. Le chatbot IA répond à mes prospects même le week-end. Je n'aurais jamais cru ça possible à ce prix. »</p>
+      <div class="author">
+        <div class="avatar">S</div>
+        <div><div class="name">Sophie</div><div class="role">Coach en reconversion professionnelle</div></div>
+      </div>
+    </div>
+    <div class="card reveal d1">
+      <p class="quote">« J'ai perdu six mois avec une agence avant de trouver Alexandre. En une semaine, j'avais un site plus pro et deux fois plus rapide. Réactivité impeccable. »</p>
+      <div class="author">
+        <div class="avatar">M</div>
+        <div><div class="name">Mehdi</div><div class="role">Artisan plombier-chauffagiste</div></div>
+      </div>
+    </div>
+    <div class="card reveal d2">
+      <p class="quote">« Le SEO technique a tout changé : je reçois enfin des demandes via Google. Et l'automatisation des devis me fait gagner des heures chaque semaine. »</p>
+      <div class="author">
+        <div class="avatar">C</div>
+        <div><div class="name">Claire</div><div class="role">Consultante en stratégie digitale</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="reveal">
+      <div class="stat-value">&lt; <span class="counter" data-target="7">0</span> jours</div>
+      <div class="stat-label">de la commande à la mise en ligne</div>
+    </div>
+    <div class="reveal d1">
+      <div class="stat-value"><span class="counter" data-target="100">0</span>% sur-mesure</div>
+      <div class="stat-label">aucun template, que du design unique</div>
+    </div>
+    <div class="reveal d2">
+      <div class="stat-value"><span class="counter" data-target="0" data-instant="true">0</span> intermédiaire</div>
+      <div class="stat-label">un seul interlocuteur, du brief à la livraison</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <h2 class="reveal">Votre site mérite mieux qu'une <span class="grad-text">to-do list infinie</span>.</h2>
+  <p class="section-sub reveal">30 minutes pour en parler. Dans 7 jours, votre site est en ligne.</p>
+  <a href="mailto:alexandrenizard93@gmail.com" class="btn-primary reveal d1">Réserver mon appel →</a>
+</section>
+
+</div>
+
+<footer>
+  Alexandre Nizard · 2026 · <a href="mailto:alexandrenizard93@gmail.com">alexandrenizard93@gmail.com</a> · Sites web boostés par l'IA
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var isTouch = window.matchMedia("(pointer:coarse)").matches || "ontouchstart" in window;
+  var reduced = window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+
+  /* ---------- Curseur personnalisé (désactivé sur tactile) ---------- */
+  if(!isTouch){
+    document.body.classList.add("cursor-active");
+    var cursor = document.getElementById("cursor");
+    var cx = innerWidth/2, cy = innerHeight/2, tx = cx, ty = cy;
+    document.addEventListener("mousemove", function(e){ tx = e.clientX; ty = e.clientY; });
+    (function followCursor(){
+      cx += (tx - cx) * 0.16;
+      cy += (ty - cy) * 0.16;
+      cursor.style.transform = "translate(" + (cx - 14) + "px," + (cy - 14) + "px)";
+      requestAnimationFrame(followCursor);
+    })();
+    document.querySelectorAll("a,button,.pill,.card").forEach(function(el){
+      el.addEventListener("mouseenter", function(){ cursor.classList.add("hover"); });
+      el.addEventListener("mouseleave", function(){ cursor.classList.remove("hover"); });
+    });
+  }
+
+  /* ---------- Canvas particules connectées ---------- */
+  var canvas = document.getElementById("particles");
+  var ctx = canvas.getContext("2d");
+  var particles = [];
+  var mouse = {x: null, y: null};
+  var rafId = null;
+  var COLORS = ["124,92,252", "0,224,255"];
+
+  function resizeCanvas(){
+    canvas.width = innerWidth;
+    canvas.height = innerHeight;
+    initParticles();
+  }
+
+  function initParticles(){
+    var count = Math.min(Math.floor(canvas.width * canvas.height / 16000), isTouch ? 45 : 90);
+    particles = [];
+    for(var i = 0; i < count; i++){
+      particles.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        vx: (Math.random() - 0.5) * 0.45,
+        vy: (Math.random() - 0.5) * 0.45,
+        r: Math.random() * 1.8 + 0.8,
+        c: COLORS[Math.random() < 0.7 ? 0 : 1]
+      });
+    }
+  }
+
+  function drawParticles(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    var linkDist = isTouch ? 100 : 130;
+    for(var i = 0; i < particles.length; i++){
+      var p = particles[i];
+      p.x += p.vx; p.y += p.vy;
+      if(p.x < 0 || p.x > canvas.width) p.vx *= -1;
+      if(p.y < 0 || p.y > canvas.height) p.vy *= -1;
+
+      if(mouse.x !== null){
+        var dxm = p.x - mouse.x, dym = p.y - mouse.y;
+        var dm = Math.sqrt(dxm*dxm + dym*dym);
+        if(dm < 140 && dm > 0.01){
+          p.x += (dxm/dm) * 0.9;
+          p.y += (dym/dm) * 0.9;
+        }
+      }
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = "rgba(" + p.c + ",0.8)";
+      ctx.fill();
+
+      for(var j = i + 1; j < particles.length; j++){
+        var q = particles[j];
+        var dx = p.x - q.x, dy = p.y - q.y;
+        var d2 = dx*dx + dy*dy;
+        if(d2 < linkDist * linkDist){
+          var alpha = (1 - Math.sqrt(d2)/linkDist) * 0.35;
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.strokeStyle = "rgba(" + p.c + "," + alpha.toFixed(3) + ")";
+          ctx.lineWidth = 0.6;
+          ctx.stroke();
+        }
+      }
+    }
+    rafId = requestAnimationFrame(drawParticles);
+  }
+
+  if(!reduced){
+    resizeCanvas();
+    drawParticles();
+    var resizeTimer;
+    addEventListener("resize", function(){
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resizeCanvas, 200);
+    });
+    if(!isTouch){
+      addEventListener("mousemove", function(e){ mouse.x = e.clientX; mouse.y = e.clientY; });
+      addEventListener("mouseleave", function(){ mouse.x = null; mouse.y = null; });
+    }
+    document.addEventListener("visibilitychange", function(){
+      if(document.hidden){
+        cancelAnimationFrame(rafId);
+        rafId = null;
+      } else if(rafId === null){
+        drawParticles();
+      }
+    });
+  }
+
+  /* ---------- Typewriter ---------- */
+  var twEl = document.getElementById("typewriter");
+  var twText = "Des sites qui travaillent pour vous — boostés par l'IA.";
+  if(reduced){
+    twEl.textContent = twText;
+  } else {
+    var twIdx = 0;
+    (function typeNext(){
+      if(twIdx <= twText.length){
+        twEl.textContent = twText.slice(0, twIdx);
+        twIdx++;
+        setTimeout(typeNext, twIdx < 4 ? 220 : 45);
+      }
+    })();
+  }
+
+  /* ---------- Scroll reveal ---------- */
+  var revealObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        revealObs.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.12, rootMargin: "0px 0px -40px 0px"});
+  document.querySelectorAll(".reveal").forEach(function(el){ revealObs.observe(el); });
+
+  /* ---------- Compteurs animés ---------- */
+  function animateCounter(el){
+    var target = parseInt(el.dataset.target, 10);
+    if(el.dataset.instant === "true" || target === 0 || reduced){
+      el.textContent = target;
+      return;
+    }
+    var duration = 1400;
+    var start = null;
+    function tick(ts){
+      if(!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(eased * target);
+      if(progress < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+  var counterObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        animateCounter(entry.target);
+        counterObs.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.6});
+  document.querySelectorAll(".counter").forEach(function(el){ counterObs.observe(el); });
+
+  /* ---------- Navbar hide/show au scroll ---------- */
+  var navbar = document.getElementById("navbar");
+  var lastY = scrollY;
+  var navTicking = false;
+  addEventListener("scroll", function(){
+    if(navTicking) return;
+    navTicking = true;
+    requestAnimationFrame(function(){
+      var y = scrollY;
+      if(y > lastY && y > 120){
+        navbar.classList.add("hidden");
+      } else {
+        navbar.classList.remove("hidden");
+      }
+      lastY = y;
+      navTicking = false;
+    });
+  }, {passive: true});
+
+  /* ---------- Menu hamburger ---------- */
+  var burger = document.getElementById("burger");
+  var mobileMenu = document.getElementById("mobile-menu");
+  function toggleMenu(force){
+    var open = force !== undefined ? force : !mobileMenu.classList.contains("open");
+    mobileMenu.classList.toggle("open", open);
+    burger.classList.toggle("open", open);
+    burger.setAttribute("aria-expanded", String(open));
+    document.body.style.overflow = open ? "hidden" : "";
+  }
+  burger.addEventListener("click", function(){ toggleMenu(); });
+  mobileMenu.querySelectorAll("a").forEach(function(link){
+    link.addEventListener("click", function(){ toggleMenu(false); });
+  });
+
+})();
+</script>
+</body>
+</html>
