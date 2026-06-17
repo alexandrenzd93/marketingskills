@@ -1,0 +1,1639 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bleu Blanc Couture — L'Élégance Made in France</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&family=Raleway:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* =============================================
+       RESET & VARIABLES
+    ============================================= */
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --creme:        #FAF8F5;
+      --creme-dark:   #F0EDE8;
+      --creme-medium: #E8E4DC;
+      --gold:         #C9A96E;
+      --gold-light:   #D8BC8F;
+      --noir:         #1A1A1A;
+      --gris-fonce:   #3D3D3D;
+      --gris:         #6B6B6B;
+      --gris-clair:   #9A9A9A;
+      --blanc:        #FFFFFF;
+      --hero-dark:    #1c1611;
+      --ease-luxury:  cubic-bezier(0.16, 1, 0.3, 1);
+      --font-display: 'Bodoni Moda', Georgia, serif;
+      --font-body:    'Raleway', sans-serif;
+    }
+
+    /* Prevent horizontal overflow globally */
+    html, body {
+      overflow-x: hidden;
+      max-width: 100%;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--creme);
+      color: var(--noir);
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { display: block; width: 100%; }
+    a, button { cursor: pointer; }
+
+    /* =============================================
+       SCROLL REVEAL
+    ============================================= */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 1s var(--ease-luxury),
+                  transform 1s var(--ease-luxury);
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+    .reveal-delay-5 { transition-delay: 0.5s; }
+
+    /* =============================================
+       SECTION UTILITIES
+    ============================================= */
+    .section-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(28px, 3.5vw, 46px);
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      line-height: 1.15;
+      margin-bottom: 14px;
+      color: var(--noir);
+    }
+
+    .section-sub {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 15px;
+      letter-spacing: 0.04em;
+      color: var(--gris);
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 72px;
+    }
+
+    /* =============================================
+       NAVIGATION
+    ============================================= */
+    .nav {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 200;
+      padding: 22px 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.6s ease, padding 0.5s ease,
+                  box-shadow 0.6s ease, backdrop-filter 0.6s ease;
+    }
+    .nav.scrolled {
+      background: rgba(250,248,245,0.92);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      padding: 15px 52px;
+      box-shadow: 0 1px 0 rgba(201,169,110,0.18);
+    }
+
+    .nav-logo {
+      font-family: var(--font-display);
+      font-size: 21px;
+      font-weight: 500;
+      letter-spacing: 0.09em;
+      color: var(--blanc);
+      transition: color 0.6s;
+      position: absolute;
+      left: 50%; transform: translateX(-50%);
+      white-space: nowrap;
+    }
+    .nav.scrolled .nav-logo { color: var(--noir); }
+    .nav-logo span { color: var(--gold); }
+
+    .nav-menu { display: flex; gap: 40px; list-style: none; }
+    .nav-menu a {
+      font-family: var(--font-body);
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.8);
+      transition: color 0.3s;
+      position: relative;
+      padding-bottom: 3px;
+    }
+    .nav-menu a::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0;
+      width: 0; height: 1px;
+      background: var(--gold);
+      transition: width 0.4s var(--ease-luxury);
+    }
+    .nav-menu a:hover::after,
+    .nav-menu a.active::after { width: 100%; }
+    .nav.scrolled .nav-menu a { color: var(--gris-fonce); }
+    .nav-menu a:hover,
+    .nav-menu a.active { color: var(--gold); }
+
+    .nav-icons { display: flex; gap: 22px; align-items: center; }
+    .nav-icon-btn {
+      background: none; border: none;
+      color: rgba(255,255,255,0.8);
+      transition: color 0.3s;
+      padding: 4px;
+    }
+    .nav.scrolled .nav-icon-btn { color: var(--noir); }
+    .nav-icon-btn:hover { color: var(--gold); }
+    .nav-icon-btn svg { width: 19px; height: 19px; stroke-width: 1.4; }
+
+    /* Hamburger — hidden by default, shown ≤767px only */
+    .nav-burger {
+      display: none;
+      background: none; border: none;
+      flex-direction: column;
+      gap: 5px; padding: 6px;
+      z-index: 201;
+    }
+    .nav-burger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: rgba(255,255,255,0.85);
+      transition: background 0.4s, transform 0.4s, opacity 0.4s;
+    }
+    .nav.scrolled .nav-burger span { background: var(--noir); }
+    .nav-burger.open span { background: var(--noir); }
+    .nav-burger.open span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .nav-burger.open span:nth-child(2) { opacity: 0; }
+    .nav-burger.open span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+
+    /* =============================================
+       HERO — fond brun chaud sombre (exception)
+    ============================================= */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 680px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(155deg, #1c1611 0%, #261d13 30%, #2e2317 55%, #14100a 100%);
+    }
+    .hero-bg::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.5;
+      pointer-events: none;
+    }
+    .hero-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 100%, rgba(0,0,0,0.4) 0%, transparent 60%);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      max-width: 860px;
+      padding: 0 24px;
+    }
+    .hero-eyebrow {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 32px;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-luxury) forwards 0.4s;
+    }
+    .hero-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(44px, 7vw, 100px);
+      font-weight: 400;
+      line-height: 1.04;
+      color: var(--blanc);
+      margin-bottom: 32px;
+      letter-spacing: -0.01em;
+    }
+    .hero-title .word {
+      display: inline-block;
+      opacity: 0;
+      transform: translateY(36px);
+    }
+    .hero-title .word:nth-child(1) { animation: wordIn 0.9s var(--ease-luxury) forwards 0.7s; }
+    .hero-title .word:nth-child(2) { animation: wordIn 0.9s var(--ease-luxury) forwards 0.95s; }
+    .hero-title .word:nth-child(3) { animation: wordIn 0.9s var(--ease-luxury) forwards 1.2s; }
+    .hero-title .word:nth-child(4) { animation: wordIn 0.9s var(--ease-luxury) forwards 1.45s; }
+
+    .hero-subtitle {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 15px;
+      letter-spacing: 0.05em;
+      line-height: 1.9;
+      color: rgba(255,255,255,0.6);
+      max-width: 520px;
+      margin: 0 auto 48px;
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-luxury) forwards 1.8s;
+    }
+    .hero-cta {
+      opacity: 0;
+      animation: fadeUp 1s var(--ease-luxury) forwards 2.1s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .btn-primary {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--noir);
+      background: var(--gold);
+      padding: 17px 44px;
+      border: 1px solid var(--gold);
+      transition: background 0.4s, color 0.4s, transform 0.4s var(--ease-luxury);
+    }
+    .btn-primary:hover { background: transparent; color: var(--gold); transform: translateY(-3px); }
+
+    .btn-ghost-white {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 400;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.65);
+      padding: 17px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      transition: color 0.4s, border-color 0.4s;
+    }
+    .btn-ghost-white:hover { color: var(--gold); border-color: var(--gold); }
+
+    .btn-outline {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--noir);
+      background: transparent;
+      padding: 16px 44px;
+      border: 1px solid var(--noir);
+      transition: background 0.4s, color 0.4s, transform 0.4s var(--ease-luxury);
+    }
+    .btn-outline:hover { background: var(--noir); color: var(--blanc); transform: translateY(-3px); }
+
+    .hero-coords {
+      position: absolute;
+      bottom: 44px; left: 52px;
+      z-index: 3;
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 2.8s;
+    }
+
+    .hero-scroll {
+      position: absolute;
+      bottom: 40px; left: 50%;
+      transform: translateX(-50%);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      opacity: 0;
+      animation: fadeIn 1s ease forwards 2.8s;
+    }
+    .hero-scroll-label {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+    }
+    .hero-scroll-track {
+      width: 1px; height: 56px;
+      background: rgba(255,255,255,0.12);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-scroll-track::after {
+      content: '';
+      position: absolute;
+      top: -100%; left: 0;
+      width: 100%; height: 100%;
+      background: linear-gradient(to bottom, transparent 0%, var(--gold) 50%, transparent 100%);
+      animation: scrollDrop 2.2s ease-in-out infinite;
+    }
+
+    /* =============================================
+       MANIFESTE — fond crème clair
+    ============================================= */
+    .manifeste {
+      background: var(--creme);
+      padding: 120px 52px;
+      text-align: center;
+    }
+    .manifeste-quote {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(32px, 5vw, 64px);
+      font-weight: 400;
+      line-height: 1.18;
+      color: var(--noir);
+      max-width: 900px;
+      margin: 0 auto 56px;
+      letter-spacing: -0.01em;
+      min-height: 1.4em;
+    }
+    .manifeste-quote .char {
+      opacity: 0;
+      transition: opacity 0.04s ease;
+    }
+    .manifeste-quote .char.visible { opacity: 1; }
+    .gold-dot { color: var(--gold); }
+
+    .manifeste-phrases { max-width: 680px; margin: 0 auto; }
+    .manifeste-phrase {
+      padding: 30px 0;
+      border-top: 1px solid rgba(201,169,110,0.25);
+    }
+    .manifeste-phrase:last-child { border-bottom: 1px solid rgba(201,169,110,0.25); }
+    .manifeste-phrase p {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.9;
+      color: var(--gris);
+      letter-spacing: 0.03em;
+    }
+
+    /* =============================================
+       CRÉATRICES — fond creme-dark
+    ============================================= */
+    .creatrices {
+      background: var(--creme-dark);
+      padding: 120px 52px;
+    }
+    .creatrices-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+      max-width: 1240px;
+      margin: 0 auto;
+      align-items: start;
+    }
+
+    .creatrice-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--blanc);
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.5s var(--ease-luxury), box-shadow 0.5s var(--ease-luxury);
+    }
+    .creatrice-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 60px rgba(26,26,26,0.08);
+    }
+
+    .creatrice-img { position: relative; overflow: hidden; height: 360px; }
+    .creatrice-img-bg {
+      width: 100%; height: 100%;
+      transition: transform 0.8s var(--ease-luxury);
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .creatrice-card:hover .creatrice-img-bg { transform: scale(1.04); }
+    .creatrice-img::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, transparent 45%, rgba(60,40,15,0.22) 100%);
+      opacity: 0;
+      transition: opacity 0.6s ease;
+      pointer-events: none;
+    }
+    .creatrice-card:hover .creatrice-img::after { opacity: 1; }
+
+    .creatrice-img-bg.mtj {
+      background:
+        radial-gradient(ellipse at 35% 65%, rgba(201,169,110,0.35) 0%, transparent 60%),
+        linear-gradient(145deg, #b89a68 0%, #a08350 35%, #8a6f42 65%, #6e572f 100%);
+    }
+    .creatrice-img-bg.la8 {
+      background:
+        radial-gradient(ellipse at 65% 35%, rgba(216,188,143,0.4) 0%, transparent 60%),
+        linear-gradient(145deg, #cdba97 0%, #b8a079 35%, #9c8763 65%, #7d6a4a 100%);
+    }
+
+    .creatrice-vert-label {
+      position: absolute;
+      left: 14px; top: 50%;
+      transform: translateY(-50%) rotate(-90deg);
+      transform-origin: center center;
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      white-space: nowrap;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .placeholder-monogram {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 96px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.18);
+      letter-spacing: -0.02em;
+      user-select: none;
+      position: relative;
+      z-index: 1;
+    }
+
+    .creatrice-info { padding: 40px 44px; }
+    .creatrice-tag {
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 14px;
+    }
+    .creatrice-name {
+      font-family: var(--font-display);
+      font-size: 28px;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 6px;
+      color: var(--noir);
+    }
+    .creatrice-creator {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.05em;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .creatrice-desc {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.95;
+      color: var(--gris);
+      margin-bottom: 28px;
+    }
+    .creatrice-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 32px; }
+    .badge {
+      display: inline-block;
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gris-fonce);
+      border: 1px solid rgba(201,169,110,0.4);
+      padding: 6px 13px;
+    }
+    .creatrice-link {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--noir);
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      border-bottom: 1px solid var(--gold);
+      padding-bottom: 3px;
+      transition: color 0.3s, gap 0.4s var(--ease-luxury);
+    }
+    .creatrice-link:hover { color: var(--gold); gap: 20px; }
+
+    /* =============================================
+       PRODUITS — fond crème
+    ============================================= */
+    .produits {
+      background: var(--creme);
+      padding: 120px 52px;
+    }
+    .produits-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+      max-width: 1240px;
+      margin: 0 auto 64px;
+    }
+    .product-img {
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 18px;
+      height: 380px;
+      min-height: 380px;
+    }
+    .product-img-inner {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: flex-end;
+      justify-content: flex-start;
+      padding: 22px;
+      transition: transform 0.7s var(--ease-luxury);
+      position: relative;
+    }
+    .product-card:hover .product-img-inner { transform: scale(1.04); }
+
+    .product-quick-add {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(201,169,110,0.92);
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transform: translateY(100%);
+      transition: transform 0.4s var(--ease-luxury);
+      z-index: 3;
+    }
+    .product-card:hover .product-quick-add { transform: translateY(0); }
+    .product-quick-add span {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--noir);
+    }
+
+    .product-img-label {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 16px;
+      color: rgba(255,255,255,0.55);
+      letter-spacing: 0.02em;
+      position: relative;
+      z-index: 1;
+    }
+
+    .product-mif {
+      position: absolute;
+      top: 16px; left: 16px;
+      font-family: var(--font-body);
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--noir);
+      background: rgba(250,248,245,0.85);
+      backdrop-filter: blur(3px);
+      padding: 5px 11px;
+      z-index: 2;
+    }
+
+    /* Fonds produits chauds variés — jamais noir pur */
+    .p-bg-1 { background: linear-gradient(160deg, #3d2d0f, #5a4118); }  /* brun doré */
+    .p-bg-2 { background: linear-gradient(160deg, #1e2a14, #2d3d1c); }  /* vert olive */
+    .p-bg-3 { background: linear-gradient(160deg, #1a2030, #252e42); }  /* bleu ardoise */
+    .p-bg-4 { background: linear-gradient(160deg, #3a2e1e, #4f3f28); }  /* beige chaud */
+    .p-bg-5 { background: linear-gradient(160deg, #2e1a1e, #42262a); }  /* bordeaux doux */
+    .p-bg-6 { background: linear-gradient(160deg, #2a2826, #3d3a36); }  /* gris perle chaud */
+
+    .product-meta { padding: 0 2px; }
+    .product-brand {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      margin-bottom: 5px;
+    }
+    .product-name {
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      color: var(--noir);
+      margin-bottom: 8px;
+    }
+    .product-price {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--noir);
+    }
+    .produits-cta { text-align: center; }
+
+    /* =============================================
+       VALEURS — fond creme-medium clair
+    ============================================= */
+    .valeurs {
+      background: var(--creme-medium);
+      padding: 110px 52px;
+      position: relative;
+      overflow: hidden;
+    }
+    .valeurs::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.025'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+      opacity: 0.6;
+      pointer-events: none;
+    }
+    .valeurs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1px 1fr 1px 1fr;
+      max-width: 1000px;
+      margin: 0 auto;
+      text-align: center;
+      align-items: stretch;
+      position: relative;
+      z-index: 1;
+    }
+    .valeur-sep {
+      background: linear-gradient(to bottom, transparent, rgba(201,169,110,0.4) 30%, rgba(201,169,110,0.4) 70%, transparent);
+    }
+    .valeur-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+      padding: 0 40px;
+    }
+    .valeur-icon { width: 56px; height: 56px; color: var(--gold); flex-shrink: 0; }
+    .valeur-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--noir);
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+    }
+    .valeur-desc {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 14px;
+      line-height: 1.95;
+      color: var(--gris);
+      letter-spacing: 0.03em;
+    }
+
+    /* =============================================
+       JOURNAL MARQUEE — fond creme-dark
+    ============================================= */
+    .journal-strip {
+      background: var(--creme-dark);
+      padding: 100px 0;
+      overflow: hidden;
+      position: relative;
+    }
+    .journal-strip-header { text-align: center; padding: 0 52px; margin-bottom: 56px; }
+
+    .journal-track {
+      -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+      mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    }
+    .journal-marquee {
+      display: flex;
+      white-space: nowrap;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    .journal-marquee:hover { animation-play-state: paused; }
+    .journal-marquee-inner { display: flex; }
+    .journal-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 28px;
+      padding: 0 56px;
+      border-right: 1px solid rgba(201,169,110,0.25);
+    }
+    .journal-item-num {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 11px;
+      color: var(--gold);
+    }
+    .journal-item-text {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 18px;
+      font-weight: 400;
+      color: var(--noir);
+    }
+
+    /* =============================================
+       NEWSLETTER — fond crème clair
+    ============================================= */
+    .newsletter {
+      background: var(--creme);
+      padding: 120px 52px;
+      text-align: center;
+    }
+    .newsletter-title {
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: clamp(28px, 3.5vw, 44px);
+      font-weight: 400;
+      color: var(--noir);
+      margin-bottom: 20px;
+    }
+    .newsletter-sub {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: 15px;
+      color: var(--gris);
+      margin-bottom: 48px;
+      letter-spacing: 0.04em;
+      line-height: 1.9;
+    }
+    .newsletter-form {
+      display: flex;
+      justify-content: center;
+      max-width: 500px;
+      margin: 0 auto 24px;
+      border: 1px solid var(--gold);
+    }
+    .newsletter-input {
+      flex: 1;
+      font-family: var(--font-body);
+      font-size: 14px;
+      font-weight: 300;
+      letter-spacing: 0.06em;
+      background: transparent;
+      border: none;
+      outline: none;
+      padding: 18px 22px;
+      color: var(--noir);
+    }
+    .newsletter-input::placeholder { color: var(--gris-clair); }
+    .newsletter-btn {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      background: var(--noir);
+      color: var(--blanc);
+      border: none;
+      padding: 18px 32px;
+      transition: background 0.4s, color 0.4s;
+    }
+    .newsletter-btn:hover { background: var(--gold); color: var(--noir); }
+    .newsletter-quote {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--gris-clair);
+      letter-spacing: 0.04em;
+      margin-bottom: 8px;
+    }
+    .newsletter-note {
+      font-family: var(--font-body);
+      font-size: 11px;
+      color: var(--gris-clair);
+      letter-spacing: 0.05em;
+    }
+
+    /* =============================================
+       FOOTER — fond noir (exception autorisée)
+    ============================================= */
+    .footer {
+      background: var(--noir);
+      padding: 72px 52px 44px;
+      position: relative;
+      overflow: hidden;
+    }
+    .footer-watermark {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-display);
+      font-style: italic;
+      font-size: 220px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.03);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      white-space: nowrap;
+    }
+    .footer-top {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(255,255,255,0.07);
+      position: relative;
+      z-index: 1;
+    }
+    .footer-logo {
+      font-family: var(--font-display);
+      font-size: 21px;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      color: var(--blanc);
+      margin-bottom: 18px;
+    }
+    .footer-logo span { color: var(--gold); }
+    .footer-tagline {
+      font-family: var(--font-body);
+      font-style: italic;
+      font-size: 13px;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.35);
+      line-height: 1.9;
+    }
+    .footer-col-title {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+    .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .footer-links a {
+      font-family: var(--font-body);
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.04em;
+      transition: color 0.3s;
+    }
+    .footer-links a:hover { color: var(--gold); }
+    .footer-socials { display: flex; gap: 14px; margin-top: 6px; }
+    .footer-social {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px; height: 40px;
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.5);
+      transition: border-color 0.3s, color 0.3s;
+    }
+    .footer-social:hover { border-color: var(--gold); color: var(--gold); }
+    .footer-social svg { width: 16px; height: 16px; }
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      position: relative;
+      z-index: 1;
+    }
+    .footer-copy {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+    }
+    .footer-legal { display: flex; flex-wrap: wrap; gap: 28px; list-style: none; }
+    .footer-legal a {
+      font-family: var(--font-body);
+      font-size: 11px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.25);
+      letter-spacing: 0.06em;
+      transition: color 0.3s;
+    }
+    .footer-legal a:hover { color: var(--gold); }
+
+    /* =============================================
+       KEYFRAMES
+    ============================================= */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes wordIn {
+      from { opacity: 0; transform: translateY(36px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollDrop {
+      0%   { top: -100%; opacity: 0; }
+      20%  { opacity: 1; }
+      80%  { opacity: 1; }
+      100% { top: 100%; opacity: 0; }
+    }
+    @keyframes marquee {
+      from { transform: translateX(0); }
+      to   { transform: translateX(-50%); }
+    }
+
+    /* =============================================
+       DESKTOP ≥1200px — grille asymétrique créatrices
+    ============================================= */
+    @media (min-width: 1200px) {
+      .creatrices-grid { grid-template-columns: 58fr 42fr; }
+      .creatrice-card--secondary { margin-top: 64px; }
+      .creatrice-card:first-child .creatrice-img { height: 420px; }
+      .creatrice-card--secondary .creatrice-img { height: 340px; }
+    }
+
+    /* =============================================
+       TABLET 768px–1199px
+    ============================================= */
+    @media (min-width: 768px) and (max-width: 1199px) {
+      .nav { padding: 18px 32px; }
+      .nav.scrolled { padding: 13px 32px; }
+      .nav-menu { gap: 28px; }
+
+      .manifeste,
+      .creatrices,
+      .produits,
+      .newsletter { padding-left: 32px; padding-right: 32px; }
+      .valeurs { padding-left: 32px; padding-right: 32px; }
+
+      /* Créatrices : grille égale, pas de décalage */
+      .creatrices-grid { grid-template-columns: 1fr 1fr; }
+      .creatrice-card--secondary { margin-top: 0; }
+      .creatrice-img { height: 340px; }
+
+      /* Produits : 2 colonnes */
+      .produits-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .product-img { height: 300px; min-height: 300px; }
+
+      .footer-top { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* =============================================
+       MOBILE ≤767px
+    ============================================= */
+    @media (max-width: 767px) {
+      body { font-size: 14px; }
+
+      .nav { padding: 16px 20px; }
+      .nav.scrolled { padding: 12px 20px; }
+      .nav-menu {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: var(--creme);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 36px;
+        z-index: 199;
+      }
+      .nav-menu.open { display: flex; }
+      .nav-menu a { color: var(--noir); font-size: 15px; }
+      .nav-burger { display: flex; }
+      .nav-logo { font-size: 17px; }
+
+      /* Hero */
+      .hero-coords { display: none; }
+      .hero-cta { flex-direction: column; gap: 16px; }
+      .btn-primary, .btn-outline { padding: 16px 44px; }
+
+      /* Manifeste */
+      .manifeste { padding: 80px 24px; }
+
+      /* Créatrices */
+      .creatrices { padding: 80px 20px; }
+      .creatrices-grid { grid-template-columns: 1fr; }
+      .creatrice-card--secondary { margin-top: 0; }
+      .creatrice-img { height: 300px; }
+      .creatrice-info { padding: 28px 26px; }
+      .creatrice-vert-label { display: none; }
+
+      /* Produits : 2 colonnes */
+      .produits { padding: 80px 20px; }
+      .produits-grid { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+      .product-img { height: 260px; min-height: 260px; }
+
+      /* Valeurs */
+      .valeurs { padding: 80px 24px; }
+      .valeurs-grid { grid-template-columns: 1fr; gap: 52px; }
+      .valeur-sep { display: none; }
+      .valeur-item { padding: 0; }
+
+      /* Journal */
+      .journal-strip { padding: 80px 0; }
+      .journal-strip-header { padding: 0 20px; }
+
+      /* Newsletter */
+      .newsletter { padding: 80px 20px; }
+      .newsletter-form { flex-direction: column; border: none; gap: 10px; }
+      .newsletter-input { border: 1px solid var(--gold); padding: 16px 18px; }
+      .newsletter-btn { padding: 16px; border: 1px solid var(--gold); }
+
+      /* Footer */
+      .footer { padding: 56px 20px 36px; }
+      .footer-top { grid-template-columns: 1fr; gap: 44px; margin-bottom: 44px; padding-bottom: 44px; }
+      .footer-bottom { flex-direction: column; align-items: flex-start; }
+      .footer-legal { flex-wrap: wrap; gap: 14px; }
+      .footer-watermark { font-size: 140px; }
+    }
+
+    /* =============================================
+       EXTRA SMALL ≤480px — produits 1 colonne
+    ============================================= */
+    @media (max-width: 480px) {
+      .produits-grid { grid-template-columns: 1fr; gap: 28px; }
+      .product-img { height: 340px; min-height: 340px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =============================================
+       NAVIGATION
+  ============================================= -->
+  <nav class="nav" id="mainNav">
+    <ul class="nav-menu" id="navMenu">
+      <li><a href="#produits" data-section="produits">Catalogue</a></li>
+      <li><a href="#creatrices" data-section="creatrices">Nos Créatrices</a></li>
+      <li><a href="#journal" data-section="journal">Journal BBC</a></li>
+      <li><a href="#manifeste" data-section="manifeste">Notre Histoire</a></li>
+    </ul>
+
+    <a href="#" class="nav-logo">Bleu Blanc <span>Couture</span></a>
+
+    <div class="nav-icons">
+      <button class="nav-icon-btn" aria-label="Mon compte">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+      <button class="nav-icon-btn" aria-label="Panier">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+          <line x1="3" y1="6" x2="21" y2="6"/>
+          <path d="M16 10a4 4 0 0 1-8 0"/>
+        </svg>
+      </button>
+      <button class="nav-burger" id="navBurger" aria-label="Menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+
+  <!-- =============================================
+       HERO
+  ============================================= -->
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+
+    <div class="hero-content">
+      <p class="hero-eyebrow">Collection Printemps — Été 2025</p>
+      <h1 class="hero-title">
+        <span class="word">L'Élégance</span>&nbsp;
+        <span class="word">Made</span>&nbsp;
+        <span class="word">in</span>&nbsp;
+        <span class="word">France</span>
+      </h1>
+      <p class="hero-subtitle">
+        Des créatrices françaises indépendantes.<br>
+        Des pièces fabriquées en France. Réunies en un seul endroit.
+      </p>
+      <div class="hero-cta">
+        <a href="#produits" class="btn-primary">Découvrir la sélection</a>
+        <a href="#creatrices" class="btn-ghost-white">Nos créatrices</a>
+      </div>
+    </div>
+
+    <div class="hero-coords">Paris · Made in France · Depuis 2024</div>
+
+    <div class="hero-scroll">
+      <div class="hero-scroll-label">Défiler</div>
+      <div class="hero-scroll-track"></div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       MANIFESTE
+  ============================================= -->
+  <section class="manifeste" id="manifeste">
+    <span class="section-label reveal">Le Manifeste</span>
+
+    <blockquote class="manifeste-quote" id="manifesteQuote" aria-label="Acheter moins. Acheter mieux. Acheter français."></blockquote>
+
+    <div class="manifeste-phrases">
+      <div class="manifeste-phrase reveal reveal-delay-2">
+        <p>La France est le pays de la mode. Du savoir-faire. Des ateliers. Des créateurs.</p>
+      </div>
+      <div class="manifeste-phrase reveal reveal-delay-3">
+        <p>BBC est née d'un refus. Refus de la mode jetable. Refus de l'uniformisation. Refus de l'anonymat.</p>
+      </div>
+      <div class="manifeste-phrase reveal reveal-delay-4">
+        <p>Nous réunissons des créatrices françaises indépendantes qui cousent, taillent et imaginent des pièces conçues pour durer — et pour vous ressembler.</p>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       NOS CRÉATRICES
+  ============================================= -->
+  <section class="creatrices" id="creatrices">
+    <div class="section-header reveal">
+      <span class="section-label">Nos Partenaires</span>
+      <h2 class="section-title">Les Créatrices BBC</h2>
+      <p class="section-sub">Visitées, sélectionnées, certifiées Made in France</p>
+    </div>
+
+    <div class="creatrices-grid">
+
+      <!-- Card 1 : My Tailor is Joh -->
+      <article class="creatrice-card reveal">
+        <div class="creatrice-img">
+          <div class="creatrice-img-bg mtj">
+            <span class="creatrice-vert-label">Paris · Made in France</span>
+            <div class="placeholder-monogram">MTJ</div>
+          </div>
+        </div>
+        <div class="creatrice-info">
+          <p class="creatrice-tag">Paris · Le Marais</p>
+          <h3 class="creatrice-name">My Tailor is Joh</h3>
+          <p class="creatrice-creator">Johanna Richard — ex-Opéra de Paris</p>
+          <p class="creatrice-desc">
+            Johanna a quitté les coulisses de l'Opéra pour ouvrir son atelier dans le Marais. Elle taille des pièces femme haut de gamme dans des tissus deadstock issus de maisons de Haute Couture — une façon de faire vivre les matières les plus nobles à travers des silhouettes intemporelles.
+          </p>
+          <div class="creatrice-badges">
+            <span class="badge">Deadstock Haute Couture</span>
+            <span class="badge">Atelier Paris</span>
+            <span class="badge">Sur-mesure</span>
+          </div>
+          <a href="#" class="creatrice-link">
+            Découvrir la collection
+            <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
+              <path d="M1 5h16M11 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+      <!-- Card 2 : La 8e Fois -->
+      <article class="creatrice-card creatrice-card--secondary reveal reveal-delay-2">
+        <div class="creatrice-img">
+          <div class="creatrice-img-bg la8">
+            <span class="creatrice-vert-label">Île-de-France · Made in France</span>
+            <div class="placeholder-monogram">8×</div>
+          </div>
+        </div>
+        <div class="creatrice-info">
+          <p class="creatrice-tag">Île-de-France</p>
+          <h3 class="creatrice-name">La 8e Fois</h3>
+          <p class="creatrice-creator">Florence Marceau</p>
+          <p class="creatrice-desc">
+            Florence crée des vêtements ajustables et upcyclés qui épousent votre corps à chaque étape de votre vie. Sa marque certifiée "Fabriqué à Paris 2024" incarne une mode responsable — des pièces qui racontent une histoire.
+          </p>
+          <div class="creatrice-badges">
+            <span class="badge">Fabriqué à Paris 2024</span>
+            <span class="badge">Upcycling</span>
+            <span class="badge">Ajustable</span>
+          </div>
+          <a href="#" class="creatrice-link">
+            Découvrir la collection
+            <svg width="18" height="10" viewBox="0 0 18 10" fill="none">
+              <path d="M1 5h16M11 1l4 4-4 4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+            </svg>
+          </a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       SÉLECTION PRODUITS
+  ============================================= -->
+  <section class="produits" id="produits">
+    <div class="section-header reveal">
+      <span class="section-label">La Sélection</span>
+      <h2 class="section-title">Pièces du Moment</h2>
+      <p class="section-sub">Disponibles maintenant — fabriquées en France</p>
+    </div>
+
+    <div class="produits-grid">
+
+      <div class="product-card reveal">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-1"><span class="product-img-label">Chemise Coton</span></div>
+          <span class="product-mif">Made in France</span>
+          <div class="product-quick-add">
+            <span>Voir le produit</span>
+            <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M8 1l3 3.5L8 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="product-meta">
+          <p class="product-brand">My Tailor is Joh</p>
+          <p class="product-name">Chemise Coton Blanc</p>
+          <p class="product-price">190 €</p>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-2"><span class="product-img-label">Pantalon Laine</span></div>
+          <span class="product-mif">Made in France</span>
+          <div class="product-quick-add">
+            <span>Voir le produit</span>
+            <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M8 1l3 3.5L8 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="product-meta">
+          <p class="product-brand">My Tailor is Joh</p>
+          <p class="product-name">Pantalon Laine Vert Sauge</p>
+          <p class="product-price">230 €</p>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-3"><span class="product-img-label">Robe Tailleur</span></div>
+          <span class="product-mif">Made in France</span>
+          <div class="product-quick-add">
+            <span>Voir le produit</span>
+            <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M8 1l3 3.5L8 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="product-meta">
+          <p class="product-brand">My Tailor is Joh</p>
+          <p class="product-name">Robe Tailleur Laine Grège</p>
+          <p class="product-price">320 €</p>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-1">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-4"><span class="product-img-label">Jupe Emilie</span></div>
+          <span class="product-mif">Made in France</span>
+          <div class="product-quick-add">
+            <span>Voir le produit</span>
+            <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M8 1l3 3.5L8 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="product-meta">
+          <p class="product-brand">La 8e Fois</p>
+          <p class="product-name">Jupe Emilie</p>
+          <p class="product-price">Prix sur demande</p>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-2">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-5"><span class="product-img-label">Robe Emma</span></div>
+          <span class="product-mif">Made in France</span>
+          <div class="product-quick-add">
+            <span>Voir le produit</span>
+            <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M8 1l3 3.5L8 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="product-meta">
+          <p class="product-brand">La 8e Fois</p>
+          <p class="product-name">Robe Emma</p>
+          <p class="product-price">Prix sur demande</p>
+        </div>
+      </div>
+
+      <div class="product-card reveal reveal-delay-3">
+        <div class="product-img">
+          <div class="product-img-inner p-bg-6"><span class="product-img-label">Bomber Fritz</span></div>
+          <span class="product-mif">Made in France</span>
+          <div class="product-quick-add">
+            <span>Voir le produit</span>
+            <svg width="14" height="9" viewBox="0 0 14 9" fill="none"><path d="M1 4.5h12M8 1l3 3.5L8 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/></svg>
+          </div>
+        </div>
+        <div class="product-meta">
+          <p class="product-brand">La 8e Fois</p>
+          <p class="product-name">Bomber Fritz</p>
+          <p class="product-price">Prix sur demande</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="produits-cta reveal">
+      <a href="#" class="btn-outline">Voir tous les produits</a>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       VALEURS
+  ============================================= -->
+  <section class="valeurs">
+    <div class="valeurs-grid">
+
+      <div class="valeur-item reveal">
+        <svg class="valeur-icon" viewBox="0 0 56 56" fill="none">
+          <circle cx="28" cy="28" r="23" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M14 28l9 9 19-19" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M28 9v4M28 43v4M9 28h4M43 28h4" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" opacity="0.35"/>
+        </svg>
+        <h3 class="valeur-title">100% Made in France</h3>
+        <p class="valeur-desc">Chaque pièce est fabriquée sur le sol français. Nous visitons chaque atelier et vérifions l'origine de chaque matière.</p>
+      </div>
+
+      <div class="valeur-sep" aria-hidden="true"></div>
+
+      <div class="valeur-item reveal reveal-delay-2">
+        <svg class="valeur-icon" viewBox="0 0 56 56" fill="none">
+          <path d="M28 8C17 8 8 17 8 28s9 20 20 20 20-9 20-20" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M28 16v12l7 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="42" cy="14" r="6" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M40 14l1.5 1.8L44 12" stroke="currentColor" stroke-width="1.1" stroke-linecap="round"/>
+        </svg>
+        <h3 class="valeur-title">Créatrices visitées</h3>
+        <p class="valeur-desc">Nous rencontrons chaque créatrice, visitons son atelier. Aucune marque n'intègre BBC sans ce rendez-vous essentiel.</p>
+      </div>
+
+      <div class="valeur-sep" aria-hidden="true"></div>
+
+      <div class="valeur-item reveal reveal-delay-4">
+        <svg class="valeur-icon" viewBox="0 0 56 56" fill="none">
+          <path d="M9 19l5-7h28l5 7v25a2 2 0 0 1-2 2H11a2 2 0 0 1-2-2V19z" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M9 19h38" stroke="currentColor" stroke-width="1.2"/>
+          <path d="M23 19v-7M33 19v-7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          <path d="M21 33c0-3.9 3.1-7 7-7s7 3.1 7 7" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+        </svg>
+        <h3 class="valeur-title">Livraison soignée &amp; retours offerts</h3>
+        <p class="valeur-desc">Vos commandes sont emballées avec soin. Les retours sont offerts sous 30 jours — sans condition, sans question.</p>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       JOURNAL MARQUEE
+  ============================================= -->
+  <section class="journal-strip" id="journal">
+    <div class="journal-strip-header reveal">
+      <span class="section-label">Journal BBC</span>
+      <h2 class="section-title">Dernières Parutions</h2>
+    </div>
+
+    <div class="journal-track">
+      <div class="journal-marquee" id="journalMarquee">
+        <div class="journal-marquee-inner">
+          <div class="journal-item"><span class="journal-item-num">01</span><span class="journal-item-text">Dans l'atelier de Johanna Richard — Paris, Marais</span></div>
+          <div class="journal-item"><span class="journal-item-num">02</span><span class="journal-item-text">Le deadstock Haute Couture : une seconde vie pour les tissus nobles</span></div>
+          <div class="journal-item"><span class="journal-item-num">03</span><span class="journal-item-text">Florence Marceau et l'art du vêtement ajustable</span></div>
+          <div class="journal-item"><span class="journal-item-num">04</span><span class="journal-item-text">Pourquoi Fabriqué en France change tout</span></div>
+          <div class="journal-item"><span class="journal-item-num">05</span><span class="journal-item-text">Guide d'entretien : faire durer ses pièces</span></div>
+        </div>
+        <div class="journal-marquee-inner" aria-hidden="true">
+          <div class="journal-item"><span class="journal-item-num">01</span><span class="journal-item-text">Dans l'atelier de Johanna Richard — Paris, Marais</span></div>
+          <div class="journal-item"><span class="journal-item-num">02</span><span class="journal-item-text">Le deadstock Haute Couture : une seconde vie pour les tissus nobles</span></div>
+          <div class="journal-item"><span class="journal-item-num">03</span><span class="journal-item-text">Florence Marceau et l'art du vêtement ajustable</span></div>
+          <div class="journal-item"><span class="journal-item-num">04</span><span class="journal-item-text">Pourquoi Fabriqué en France change tout</span></div>
+          <div class="journal-item"><span class="journal-item-num">05</span><span class="journal-item-text">Guide d'entretien : faire durer ses pièces</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- =============================================
+       NEWSLETTER
+  ============================================= -->
+  <section class="newsletter">
+    <span class="section-label reveal">La Lettre BBC</span>
+    <h2 class="newsletter-title reveal reveal-delay-1">Rejoindre l'Atelier</h2>
+    <p class="newsletter-sub reveal reveal-delay-2">
+      Nouvelles collections, portraits de créatrices, essais mode.<br>
+      Une fois par mois. Rien de plus.
+    </p>
+    <form class="newsletter-form reveal reveal-delay-3" onsubmit="return false;">
+      <input type="email" class="newsletter-input" placeholder="Votre adresse e-mail" autocomplete="email" />
+      <button type="submit" class="newsletter-btn">S'inscrire</button>
+    </form>
+    <p class="newsletter-quote reveal reveal-delay-4">"Une lettre par mois. Jamais de spam. Juste l'essentiel."</p>
+    <p class="newsletter-note reveal reveal-delay-5">Données confidentielles. Désinscription en un clic.</p>
+  </section>
+
+
+  <!-- =============================================
+       FOOTER
+  ============================================= -->
+  <footer class="footer">
+    <div class="footer-watermark" aria-hidden="true">BBC</div>
+
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Bleu Blanc <span>Couture</span></div>
+        <p class="footer-tagline">
+          "Acheter moins.<br>
+          Acheter mieux.<br>
+          Acheter français."
+        </p>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Navigation</p>
+        <ul class="footer-links">
+          <li><a href="#">Catalogue</a></li>
+          <li><a href="#">Nos Créatrices</a></li>
+          <li><a href="#">Journal BBC</a></li>
+          <li><a href="#">Notre Histoire</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="footer-col-title">Suivre BBC</p>
+        <div class="footer-socials">
+          <a href="#" class="footer-social" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+            </svg>
+          </a>
+          <a href="#" class="footer-social" aria-label="TikTok">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.28 8.28 0 004.84 1.55V6.79a4.85 4.85 0 01-1.07-.1z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">© 2025 Bleu Blanc Couture — SASU. Tous droits réservés.</p>
+      <ul class="footer-legal">
+        <li><a href="#">CGU</a></li>
+        <li><a href="#">Politique de confidentialité</a></li>
+        <li><a href="#">Mentions légales</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+  </footer>
+
+
+  <!-- =============================================
+       JAVASCRIPT
+  ============================================= -->
+  <script>
+    /* ---- Nav: scroll background + active section ---- */
+    const nav = document.getElementById('mainNav');
+    const navLinks = document.querySelectorAll('.nav-menu a[data-section]');
+    const sections = document.querySelectorAll('section[id]');
+
+    const onScroll = () => {
+      nav.classList.toggle('scrolled', window.scrollY > 60);
+      let current = '';
+      sections.forEach(sec => {
+        if (window.scrollY >= sec.offsetTop - 160) current = sec.id;
+      });
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.dataset.section === current);
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    /* ---- Mobile hamburger ---- */
+    const burger  = document.getElementById('navBurger');
+    const navMenu = document.getElementById('navMenu');
+    burger.addEventListener('click', () => {
+      const open = navMenu.classList.toggle('open');
+      burger.classList.toggle('open', open);
+      burger.setAttribute('aria-expanded', open);
+      document.body.style.overflow = open ? 'hidden' : '';
+    });
+    navMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        burger.classList.remove('open');
+        burger.setAttribute('aria-expanded', false);
+        document.body.style.overflow = '';
+      });
+    });
+
+    /* ---- Manifeste : écriture caractère par caractère ---- */
+    const manifesteEl    = document.getElementById('manifesteQuote');
+    const MANIFESTE_TEXT = 'Acheter moins. Acheter mieux. Acheter français.';
+    let typewriterDone = false;
+
+    function buildTypewriterHTML(text) {
+      let html = '';
+      for (const ch of text) {
+        if (ch === ' ') {
+          html += '<span class="char">&nbsp;</span>';
+        } else if (ch === '.') {
+          html += '<span class="char gold-dot">.</span>';
+        } else {
+          html += `<span class="char">${ch}</span>`;
+        }
+      }
+      return html;
+    }
+
+    function runTypewriter() {
+      if (typewriterDone) return;
+      typewriterDone = true;
+      manifesteEl.innerHTML = buildTypewriterHTML(MANIFESTE_TEXT);
+      const chars = manifesteEl.querySelectorAll('.char');
+      chars.forEach((ch, i) => {
+        setTimeout(() => ch.classList.add('visible'), i * 30 + 150);
+      });
+    }
+
+    const manifesteObserver = new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) {
+        runTypewriter();
+        manifesteObserver.disconnect();
+      }
+    }, { threshold: 0.4 });
+    manifesteObserver.observe(manifesteEl);
+
+    /* ---- Scroll reveal ---- */
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObs.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.reveal').forEach(el => revealObs.observe(el));
+
+    /* ---- Smooth anchor scroll ---- */
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', function(e) {
+        const sel = this.getAttribute('href');
+        if (sel === '#') return;
+        const target = document.querySelector(sel);
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>
